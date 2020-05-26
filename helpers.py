@@ -1,4 +1,5 @@
-import numpy as np
+from numpy import *
+from numpy.random import *
 from scipy.stats import pearsonr
 from numpy.linalg import svd, lstsq
 from scipy.linalg import diagsvd
@@ -13,17 +14,17 @@ def correl(a, b):
   return pearsonr(a, b)[0]
 
 def customR(true, pred):
-  num = np.sum((true - pred)**2)
-  den = np.sum((true - np.mean(true))**2)
+  num = sum((true - pred)**2)
+  den = sum((true - mean(true))**2)
   if den == 0: return 0
   r2 = 1 - num / den
-  return sign(r2) * np.sqrt(np.abs(r2))
+  return sign(r2) * sqrt(abs(r2))
 
 def distance(a, b):
-  return np.sqrt(np.sum((a - b)**2))
+  return sqrt(sum((a - b)**2))
 
 def magnitude(a):
-  return distance(a, np.zeros(a.shape))
+  return distance(a, zeros(a.shape))
 
 def leastSquares(a, b):
   return lstsq(a, b, rcond=None)[0]
@@ -39,7 +40,7 @@ def getCorrelationMatrix(a, b):
 
     out.append(row)
 
-  return np.array(out)
+  return array(out)
 
 def drawCorrelationMatrix(a, b):
   temp = getCorrelationMatrix(a, b)
@@ -54,7 +55,7 @@ def getAverageCorrelation(a, b):
   for i in range(a.shape[1]):
       temp.append(correl(a[:, i], b[:, i]))
 
-  return np.mean(temp)
+  return mean(temp)
 
 def truncatedSvd(x, rank=1):
   u, s, v = svd(x)
