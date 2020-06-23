@@ -25,6 +25,13 @@ def correl(a, b):
 def rScore(true, pred):
   assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
   assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
+
+	if isAPandasDataFrame(true):
+		true = true.values
+
+	if isAPandasDataFrame(pred):
+		pred = pred.values
+
   num = sum((true - pred)**2)
   den = sum((true - mean(true))**2)
   if den == 0: return 0
