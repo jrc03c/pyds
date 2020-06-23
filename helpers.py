@@ -6,6 +6,9 @@ from scipy.linalg import diagsvd
 import matplotlib.pyplot as plot
 import pandas as pd
 
+DF = pd.DataFrame
+Series = pd.Series
+
 def sign(x):
   assert isANumber(x), "`x` must be a number!"
 
