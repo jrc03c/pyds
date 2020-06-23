@@ -10,21 +10,21 @@ DF = pd.DataFrame
 Series = pd.Series
 
 def sign(x):
-  assert isANumber(x), "`x` must be a number!"
+	assert isANumber(x), "`x` must be a number!"
 
-  if x > 0: return 1
-  if x < 0: return -1
-  return 0
+	if x > 0: return 1
+	if x < 0: return -1
+	return 0
 
 def correl(a, b):
-  assert isAVector(a), "`a` must be a vector!"
-  assert isAVector(b), "`b` must be a vector!"
+	assert isAVector(a), "`a` must be a vector!"
+	assert isAVector(b), "`b` must be a vector!"
 
-  return pearsonr(a, b)[0]
+	return pearsonr(a, b)[0]
 
 def rScore(true, pred):
-  assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
-  assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
+	assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
+	assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
 
 	if isAPandasDataFrame(true):
 		true = true.values
@@ -32,79 +32,79 @@ def rScore(true, pred):
 	if isAPandasDataFrame(pred):
 		pred = pred.values
 
-  num = sum((true - pred)**2)
-  den = sum((true - mean(true))**2)
-  if den == 0: return 0
-  r2 = 1 - num / den
-  return sign(r2) * sqrt(abs(r2))
+	num = sum((true - pred)**2)
+	den = sum((true - mean(true))**2)
+	if den == 0: return 0
+	r2 = 1 - num / den
+	return sign(r2) * sqrt(abs(r2))
 
 def distance(a, b):
-  assert isANumber(a) or isATensor(a), "`a` must be a number, vector, matrix, or tensor!"
-  assert isANumber(b) or isATensor(b), "`b` must be a number, vector, matrix, or tensor!"
-  return sqrt(sum((a - b)**2))
+	assert isANumber(a) or isATensor(a), "`a` must be a number, vector, matrix, or tensor!"
+	assert isANumber(b) or isATensor(b), "`b` must be a number, vector, matrix, or tensor!"
+	return sqrt(sum((a - b)**2))
 
 def magnitude(a):
-  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-  return norm(a)
+	assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
+	return norm(a)
 
 def leastSquares(a, b):
-  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-  assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
-  return lstsq(a, b, rcond=None)[0]
+	assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
+	assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
+	return lstsq(a, b, rcond=None)[0]
 
 def getCorrelationMatrix(a, b):
-  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-  assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
+	assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
+	assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
 
-  if isAPandasDataFrame(a):
-    a = a.values
+	if isAPandasDataFrame(a):
+		a = a.values
 
-  if isAPandasDataFrame(b):
-    b = b.values
+	if isAPandasDataFrame(b):
+		b = b.values
 
-  out = []
+	out = []
 
-  for i in range(0, a.shape[1]):
-    row = []
+	for i in range(0, a.shape[1]):
+		row = []
 
-    for j in range(0, b.shape[1]):
-      row.append(correl(a[:, i], b[:, j]))
+		for j in range(0, b.shape[1]):
+			row.append(correl(a[:, i], b[:, j]))
 
-    out.append(row)
+		out.append(row)
 
-  return array(out)
+	return array(out)
 
 def drawCorrelationMatrix(a, b):
-  temp = getCorrelationMatrix(a, b)
-  plot.pcolormesh(temp, vmin=-1, vmax=1)
-  plot.show()
-  plot.clf()
-  return temp
+	temp = getCorrelationMatrix(a, b)
+	plot.pcolormesh(temp, vmin=-1, vmax=1)
+	plot.show()
+	plot.clf()
+	return temp
 
 def getAverageCorrelation(a, b):
-  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-  assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
+	assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
+	assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
 
-  if isAPandasDataFrame(a):
-    a = a.values
+	if isAPandasDataFrame(a):
+		a = a.values
 
-  if isAPandasDataFrame(b):
-    b = b.values
+	if isAPandasDataFrame(b):
+		b = b.values
 
-  temp = []
+	temp = []
 
-  for i in range(a.shape[1]):
-      temp.append(correl(a[:, i], b[:, i]))
+	for i in range(a.shape[1]):
+			temp.append(correl(a[:, i], b[:, i]))
 
-  return mean(temp)
+	return mean(temp)
 
 def truncatedSVD(x, rank=1):
-  assert isATensor(x) and not isAVector(x), "`x` must be a matrix or tensor!"
-  u, s, v = svd(x)
-  u = u[:, :rank]
-  s = diagsvd(s[:rank], rank, rank)
-  v = v[:rank, :]
-  return u, s, v
+	assert isATensor(x) and not isAVector(x), "`x` must be a matrix or tensor!"
+	u, s, v = svd(x)
+	u = u[:, :rank]
+	s = diagsvd(s[:rank], rank, rank)
+	v = v[:rank, :]
+	return u, s, v
 
 def leftPad(n, max):
 	assert type(n) is int, "`n` must be an integer!"
