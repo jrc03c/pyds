@@ -116,11 +116,11 @@ def loadJSON(path):
 
 def chop(x, threshold=1e-10):
 	if isANumber(x):
-		return 0 if np.abs(x) < threshold else x
+		return 0 if abs(x) < threshold else x
 
 	else:
 		assert isATensor(x), "`x` must be a number or a tensor of numbers!"
-		return np.array(list(chop(val, threshold=threshold) for val in x))
+		return array(list(chop(val, threshold=threshold) for val in x))
 
 def isAString(x):
 	return type(x) == str
@@ -149,13 +149,13 @@ def isAPandasDataFrame(x):
 	return type(x) is pd.DataFrame
 
 def isANumpyArray(x):
-	return type(x) is np.ndarray
+	return type(x) is ndarray
 
 def isAVector(x):
 	succeeded = isIterable(x)
 
 	if not isANumpyArray(x):
-		x = np.array(x)
+		x = array(x)
 
 	succeeded = succeeded and len(x.shape) == 1
 	return succeeded
@@ -166,7 +166,7 @@ def isATensor(x):
 			return True
 
 		else:
-			temp = np.array(x)
+			temp = array(x)
 
 			if len(temp.shape) > 1:
 				return True
