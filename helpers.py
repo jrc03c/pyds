@@ -186,6 +186,54 @@ def isATensor(x):
 	else:
 		return False
 
+def isBinary(x):
+	assert isAVector(x), "`x` must be a vector!"
+	if isAPandasSeries(x): x = x.values
+	s = list(sorted(set(x)))
+	return len(s) == 2 and s[0] == 0 and s[1] == 1
+
+def mitigateOutliers(x, shouldClip=True, shouldLog=True):
+	assert isAVector(x), "`x` must be a vector!"
+	if isAPandasSeries(x): x = x.values
+	
+	wasClipped = False
+	wasLogged = False
+
+	if isBinary(x):
+		return x, wasClipped, wasLogged
+
+	temp = array(list(sorted(x)))
+	m = median(temp)
+	mad = median(abs(temp - m))
+	
+	if mad == 0:
+		middle = int(len(temp) / 2)
+		before = temp[:middle]
+		before = max(before[where(before < m)[0]])
+		after = temp[middle:]
+		after = min(after[where(after > m)[0]])
+		mad = (after - before) / 2
+
+	if mad == 0:
+		score = 0
+
+	else:
+		score = max(abs(temp - m) / mad)
+
+	if score > 5:
+		if shouldClip:
+			x = clip(x, m - 5 * mad, m + 5 * mad)
+			wasClipped = True
+		
+		if shouldLog:
+			x = log(x - min(x) + 1)
+			wasLogged = True
+
+		return x, wasClipped, wasLogged
+		
+	else:
+		return x, wasClipped, wasLogged
+
 class Indexer():
 	def __init__(self, isVerbose=True):
 		assert type(isVerbose) == bool, "`isVerbose` must be a boolean!"
