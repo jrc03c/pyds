@@ -22,7 +22,7 @@ def correl(a, b):
 
   return pearsonr(a, b)[0]
 
-def customR(true, pred):
+def rScore(true, pred):
   assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
   assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
   num = sum((true - pred)**2)
