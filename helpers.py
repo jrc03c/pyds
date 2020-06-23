@@ -208,10 +208,15 @@ def mitigateOutliers(x, shouldClip=True, shouldLog=True):
 	
 	if mad == 0:
 		middle = int(len(temp) / 2)
+
 		before = temp[:middle]
-		before = max(before[where(before < m)[0]])
+		before = before[where(before < m)[0]]
+		before = max(before) if len(before) > 0 else m
+
 		after = temp[middle:]
-		after = min(after[where(after > m)[0]])
+		after = after[where(after > m)[0]]
+		after = min(after) if len(after) > 0 else m
+
 		mad = (after - before) / 2
 
 	if mad == 0:
