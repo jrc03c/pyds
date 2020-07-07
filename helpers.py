@@ -198,9 +198,10 @@ def mitigateOutliers(x, shouldClip=True, shouldLog=True):
 	
 	wasClipped = False
 	wasLogged = False
+	mad = None
 
 	if isBinary(x):
-		return x, wasClipped, wasLogged
+		return x, wasClipped, wasLogged, mad
 
 	temp = array(list(sorted(x)))
 	m = median(temp)
@@ -234,10 +235,10 @@ def mitigateOutliers(x, shouldClip=True, shouldLog=True):
 			x = log(x - min(x) + 1)
 			wasLogged = True
 
-		return x, wasClipped, wasLogged
+		return x, wasClipped, wasLogged, mad
 		
 	else:
-		return x, wasClipped, wasLogged
+		return x, wasClipped, wasLogged, mad
 
 class Indexer():
 	def __init__(self, isVerbose=True):
