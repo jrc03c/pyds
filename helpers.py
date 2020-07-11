@@ -247,6 +247,9 @@ class OutlierMitigator():
 		self.mad = mad
 
 	def transform(self, x):
+		assert isAVector(x), "`x` must be a vector!"
+		if isAPandasSeries(x): x = x.values
+
 		if self.shouldClip and self.wasClipped:
 			x = clip(x, self.median - 5 * self.mad, self.median + 5 * self.mad)
 		
