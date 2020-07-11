@@ -192,53 +192,68 @@ def isBinary(x):
 	s = list(sorted(set(x)))
 	return len(s) == 2 and s[0] == 0 and s[1] == 1
 
-def mitigateOutliers(x, shouldClip=True, shouldLog=True):
-	assert isAVector(x), "`x` must be a vector!"
-	if isAPandasSeries(x): x = x.values
-	
-	wasClipped = False
-	wasLogged = False
-	mad = None
+class OutlierMitigator():
+	def __init__(self, shouldClip=True, shouldLog=True):
+		self.shouldClip = shouldClip
+		self.shouldLog = shouldLog
+		self.wasClipped = False
+		self.wasLogged = False
+		self.median = None
+		self.mad = None
 
-	if isBinary(x):
-		return x, wasClipped, wasLogged, mad
-
-	temp = array(list(sorted(x)))
-	m = median(temp)
-	mad = median(abs(temp - m))
-	
-	if mad == 0:
-		middle = int(len(temp) / 2)
-
-		before = temp[:middle]
-		before = before[where(before < m)[0]]
-		before = max(before) if len(before) > 0 else m
-
-		after = temp[middle:]
-		after = after[where(after > m)[0]]
-		after = min(after) if len(after) > 0 else m
-
-		mad = (after - before) / 2
-
-	if mad == 0:
-		score = 0
-
-	else:
-		score = max(abs(temp - m) / mad)
-
-	if score > 5:
-		if shouldClip:
-			x = clip(x, m - 5 * mad, m + 5 * mad)
-			wasClipped = True
+	def fit(self, x):
+		assert isAVector(x), "`x` must be a vector!"
+		if isAPandasSeries(x): x = x.values
 		
-		if shouldLog:
+		wasClipped = False
+		wasLogged = False
+		mad = None
+
+		if isBinary(x): return
+
+		temp = array(list(sorted(x)))
+		m = median(temp)
+		mad = median(abs(temp - m))
+		
+		if mad == 0:
+			middle = int(len(temp) / 2)
+
+			before = temp[:middle]
+			before = before[where(before < m)[0]]
+			before = max(before) if len(before) > 0 else m
+
+			after = temp[middle:]
+			after = after[where(after > m)[0]]
+			after = min(after) if len(after) > 0 else m
+
+			mad = (after - before) / 2
+
+		if mad == 0:
+			score = 0
+
+		else:
+			score = max(abs(temp - m) / mad)
+
+		if score > 5:
+			if self.shouldClip:
+				wasClipped = True
+			
+			if self.shouldLog:
+				wasLogged = True
+
+		self.wasClipped = wasClipped
+		self.wasLogged = wasLogged
+		self.median = m
+		self.mad = mad
+
+	def transform(self, x):
+		if self.shouldClip and self.wasClipped:
+			x = clip(x, self.median - 5 * self.mad, self.median + 5 * self.mad)
+		
+		if self.shouldLog and self.wasLogged:
 			x = log(x - min(x) + 1)
-			wasLogged = True
 
-		return x, wasClipped, wasLogged, mad
-		
-	else:
-		return x, wasClipped, wasLogged, mad
+		return x
 
 class Indexer():
 	def __init__(self, isVerbose=True):
