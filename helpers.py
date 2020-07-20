@@ -193,13 +193,14 @@ def isBinary(x):
 	return len(s) == 2 and s[0] == 0 and s[1] == 1
 
 class OutlierMitigator():
-	def __init__(self, shouldClip=True, shouldLog=True):
+	def __init__(self, shouldClip=True, shouldLog=True, maxScore=5):
 		self.shouldClip = shouldClip
 		self.shouldLog = shouldLog
 		self.wasClipped = False
 		self.wasLogged = False
 		self.median = None
 		self.mad = None
+		self.maxScore = maxScore
 
 	def fit(self, x):
 		assert isAVector(x), "`x` must be a vector!"
@@ -234,7 +235,7 @@ class OutlierMitigator():
 		else:
 			score = max(abs(temp - m) / mad)
 
-		if score > 5:
+		if score > self.maxScore:
 			if self.shouldClip:
 				wasClipped = True
 			
@@ -251,7 +252,7 @@ class OutlierMitigator():
 		if isAPandasSeries(x): x = x.values
 
 		if self.shouldClip and self.wasClipped:
-			x = clip(x, self.median - 5 * self.mad, self.median + 5 * self.mad)
+			x = clip(x, self.median - self.maxScore * self.mad, self.median + self.maxScore * self.mad)
 		
 		if self.shouldLog and self.wasLogged:
 			x = log(x - min(x) + 1)
