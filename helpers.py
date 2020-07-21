@@ -1,6 +1,6 @@
 from numpy import *
 from numpy.random import *
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, ttest_ind
 from numpy.linalg import svd, lstsq, norm
 from scipy.linalg import diagsvd
 import matplotlib.pyplot as plot
