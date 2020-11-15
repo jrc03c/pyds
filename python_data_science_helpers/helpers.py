@@ -26,6 +26,18 @@ def filter(fn, arr):
 def range(a, b, step=1):
 	return list(oldRange(a, b, step))
 
+def shuffle(arr):
+	out = list(arr)
+
+	for i in range(0, len(out)):
+		a = randint(0, len(out))
+		b = randint(0, len(out))
+		buffer = out[a]
+		out[a] = out[b]
+		out[b] = buffer
+
+	return out
+
 def sign(x):
 	assert isANumber(x), "`x` must be a number!"
 
