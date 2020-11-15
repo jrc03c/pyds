@@ -23,7 +23,7 @@ def map(fn, arr):
 def filter(fn, arr):
 	return list(oldFilter(fn, arr))
 
-def range(a, b, step):
+def range(a, b, step=1):
 	return list(oldRange(a, b, step))
 
 def sign(x):
