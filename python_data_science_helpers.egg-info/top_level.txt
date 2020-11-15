@@ -1,1 +1,1 @@
-python-data-science-helpers
+python_data_science_helpers
