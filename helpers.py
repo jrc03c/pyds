@@ -9,6 +9,23 @@ import pandas as pd
 DF = pd.DataFrame
 Series = pd.Series
 
+oldSet = set
+oldFilter = filter
+oldMap = map
+oldRange = range
+
+def set(arr):
+	return list(oldSet(arr))
+
+def map(fn, arr):
+	return list(oldMap(fn, arr))
+
+def filter(fn, arr):
+	return list(oldFilter(fn, arr))
+
+def range(a, b, step):
+	return list(oldRange(a, b, step))
+
 def sign(x):
 	assert isANumber(x), "`x` must be a number!"
 
