@@ -1,3 +1,5 @@
+**Intro:**
+
 This package is just a little collection of helper tools and classes for working with `numpy`, `scipy`, `pandas`, and `matplotlib`.
 
 **Installation:**
