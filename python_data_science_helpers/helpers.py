@@ -222,9 +222,9 @@ def isBinary(x):
 	return len(s) == 2 and s[0] == 0 and s[1] == 1
 
 class OutlierMitigator():
-	def __init__(self, shouldClip=True, shouldLog=True, mustClip=False, mustLog=False, maxScore=5):
-		self.shouldClip = shouldClip
-		self.shouldLog = shouldLog
+	def __init__(self, canClip=True, canLog=True, mustClip=False, mustLog=False, maxScore=5):
+		self.canClip = canClip
+		self.canLog = canLog
 		self.mustClip = mustClip
 		self.mustLog = mustLog
 		self.maxScore = maxScore
@@ -263,10 +263,10 @@ class OutlierMitigator():
 		score = max(abs(x - self.median) / self.mad)
 
 		if score > self.maxScore:
-			if self.shouldClip:
+			if self.canClip:
 				self.wasClipped = True
 
-			if self.shouldLog:
+			if self.canLog:
 				self.wasLogged = True
 
 		return self
@@ -275,11 +275,11 @@ class OutlierMitigator():
 		assert isAVector(x), "`x` must be a vector!"
 		if isAPandasSeries(x): x = x.values
 		if isBinary(x): return x
-		
-		if self.mustClip or (self.shouldClip and self.wasClipped):
+
+		if self.mustClip or (self.canClip and self.wasClipped):
 			x = clip(x, self.median - self.maxScore * self.mad, self.median + self.maxScore * self.mad)
 
-		if self.mustLog or (self.shouldLog and self.wasLogged):
+		if self.mustLog or (self.canLog and self.wasLogged):
 			x = log(x - min(x) + 1)
 
 		return x
@@ -328,33 +328,33 @@ class JSObject(object):
 	def __init__(self, *args, **kwargs):
 		for arg in args:
 			self.__dict__.update(arg)
-		
+
 		self.__dict__.update(kwargs)
-	
+
 	def __getitem__(self, name):
 		return self.__dict__.get(name, None)
-	
+
 	def __setitem__(self, name, val):
 		return self.__dict__.__setitem__(name, val)
-	
+
 	def __delitem__(self, name):
 		if self.__dict__.has_key(name):
 			del self.__dict__[name]
-	
+
 	def __getattr__(self, name):
 		return self.__getitem__(name)
-	
+
 	def __setattr__(self, name, val):
 		return self.__setitem__(name, val)
-	
+
 	def __delattr__(self, name):
 		return self.__delitem__(name)
-	
+
 	def __iter__(self):
 		return self.__dict__.__iter__()
-	
+
 	def __repr__(self):
 		return self.__dict__.__repr__()
-	
+
 	def __str__(self):
 		return self.__dict__.__str__()
