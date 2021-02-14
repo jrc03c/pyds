@@ -228,8 +228,8 @@ class OutlierMitigator():
 		self.mustClip = mustClip
 		self.mustLog = mustLog
 		self.maxScore = maxScore
-		self.wasClipped = False
-		self.wasLogged = False
+		self.shouldClip = False
+		self.shouldLog = False
 		self.median = 0
 		self.mad = 0
 
@@ -264,10 +264,10 @@ class OutlierMitigator():
 
 		if score > self.maxScore:
 			if self.canClip:
-				self.wasClipped = True
+				self.shouldClip = True
 
 			if self.canLog:
-				self.wasLogged = True
+				self.shouldLog = True
 
 		return self
 
@@ -276,10 +276,10 @@ class OutlierMitigator():
 		if isAPandasSeries(x): x = x.values
 		if isBinary(x): return x
 
-		if self.mustClip or (self.canClip and self.wasClipped):
+		if self.mustClip or (self.canClip and self.shouldClip):
 			x = clip(x, self.median - self.maxScore * self.mad, self.median + self.maxScore * self.mad)
 
-		if self.mustLog or (self.canLog and self.wasLogged):
+		if self.mustLog or (self.canLog and self.shouldLog):
 			x = log(x - min(x) + 1)
 
 		return x
