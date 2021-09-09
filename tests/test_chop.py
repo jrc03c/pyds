@@ -13,3 +13,9 @@ class ChopTestCase(unittest.TestCase):
     self.assertEqual(chop(0), 0, msg="Cannot chop zero!")
     self.assertEqual(chop(1e-20), 0, msg="Cannot chop a very small positive number!")
     self.assertEqual(chop(-(1e-20)), 0, msg="Cannot chop a very small negative number!")
+
+  def testErrors(self):
+    self.assertRaises(AssertionError, chop, "suey")
+    self.assertRaises(AssertionError, chop, True)
+    self.assertRaises(AssertionError, chop, lambda x: x)
+    self.assertRaises(AssertionError, chop, {"foo": "bar"})
