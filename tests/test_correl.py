@@ -25,8 +25,6 @@ class CorrelTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        message = "Should throw an error when attempting to get the correlation of non-vectors!"
-
         a = normal(size=[50, 50])
         b = normal(size=[50, 50])
         self.assertRaises(AssertionError, correl, a, b)
