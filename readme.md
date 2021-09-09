@@ -11,7 +11,7 @@ pip install git+https://github.com/jrc03c/python_data_science_helpers
 **Usage:**
 
 ```python
-from python_data_science_helpers.helpers import *
+from pyds import *
 # go on your merry way!
 ```
 

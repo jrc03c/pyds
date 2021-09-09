@@ -1,5 +1,5 @@
 import unittest
-from python_data_science_helpers import correl
+from pyds import correl
 from numpy import *
 from numpy.random import *
 

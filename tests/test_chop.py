@@ -1,5 +1,5 @@
 import unittest
-from python_data_science_helpers import chop
+from pyds import chop
 from numpy.random import *
 
 
