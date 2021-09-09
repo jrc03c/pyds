@@ -23,3 +23,30 @@ class CorrelTestCase(unittest.TestCase):
             0.99,
             msg="The correlation of two almost-identical vectors is NOT close to 1!",
         )
+
+    def testErrors(self):
+        message = "Should throw an error when attempting to get the correlation of non-vectors!"
+
+        a = normal(size=[50, 50])
+        b = normal(size=[50, 50])
+        self.assertRaises(AssertionError, correl, a, b)
+
+        a = "foo"
+        b = "bar"
+        self.assertRaises(AssertionError, correl, a, b)
+
+        a = True
+        b = False
+        self.assertRaises(AssertionError, correl, a, b)
+
+        a = lambda x: x * 2
+        b = lambda x: x * 3
+        self.assertRaises(AssertionError, correl, a, b)
+
+        a = {"foo": "bar"}
+        b = {"hello": "world"}
+        self.assertRaises(AssertionError, correl, a, b)
+
+        a = 234
+        b = -234
+        self.assertRaises(AssertionError, correl, a, b)
