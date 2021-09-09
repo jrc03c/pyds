@@ -58,3 +58,7 @@ class CorrelTestCase(unittest.TestCase):
         a = 234
         b = -234
         self.assertRaises(AssertionError, correl, a, b)
+
+        a = ["two", "three", "four"]
+        b = ["five", "six", "seven"]
+        self.assertRaises(AssertionError, correl, a, b)
