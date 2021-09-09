@@ -1,14 +1,13 @@
-import unittest
 from python_data_science_helpers import chop
 from numpy.random import *
 
-class ChopTest(unittest.TestCase):
-  def test(self):
-    a = random() + 1
-    self.assertEqual(chop(a), a)
+def test():
+  a = random() + 1
+  assert chop(a) == a, "Cannot chop a positive number!"
 
-    b = -1 - random()
-    self.assertEqual(chop(b), b)
+  b = -1 - random()
+  assert chop(b) == b, "Cannot chop a negative number!"
 
-    self.assertEqual(chop(0), 0)
-    self.assertEqual(chop(1e-20), 0)
+  assert chop(0) == 0, "Cannot chop zero!"
+  assert chop(1e-20) == 0, "Cannot chop a very small positive number!"
+  assert chop(-(1e-20)) == 0, "Cannot chop a very small negative number!"
