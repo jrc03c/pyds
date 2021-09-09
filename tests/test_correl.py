@@ -9,10 +9,20 @@ class CorrelTestCase(unittest.TestCase):
         a = random(size=999999)
         b = random(size=999999)
 
+        self.assertAlmostEqual(
+            correl(a, a), 1, msg="The correlation of two identical vectors should be 1!"
+        )
+
+        self.assertAlmostEqual(
+            correl(a, -a),
+            -1,
+            msg="The correlation of two equal but opposite vectors should be -1!",
+        )
+
         self.assertLess(
             abs(correl(a, b)),
             0.01,
-            msg="The correlation of two random vectors is NOT close to 0!",
+            msg="The correlation of two random vectors should be close to 0!",
         )
 
         a = random(size=999999)
@@ -21,7 +31,7 @@ class CorrelTestCase(unittest.TestCase):
         self.assertGreater(
             abs(correl(a, b)),
             0.99,
-            msg="The correlation of two almost-identical vectors is NOT close to 1!",
+            msg="The correlation of two almost-identical vectors should be close to 1!",
         )
 
     def testErrors(self):
