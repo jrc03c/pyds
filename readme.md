@@ -5,7 +5,7 @@ This package is just a little collection of helper tools and classes for working
 **Installation:**
 
 ```bash
-pip install git+https://github.com/jrc03c/python_data_science_helpers
+pip install git+https://github.com/jrc03c/pyds
 ```
 
 **Usage:**
