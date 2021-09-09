@@ -3,6 +3,7 @@ from .correl import *
 from .distance import *
 from .draw_correlation_matrix import *
 from .filter import *
+from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
 from .indexer import *
