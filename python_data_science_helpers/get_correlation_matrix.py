@@ -4,23 +4,23 @@ from .range import *
 from numpy import array
 
 def getCorrelationMatrix(a, b):
-	assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-	assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
+  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
+  assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
 
-	if isAPandasDataFrame(a):
-		a = a.values
+  if isAPandasDataFrame(a):
+    a = a.values
 
-	if isAPandasDataFrame(b):
-		b = b.values
+  if isAPandasDataFrame(b):
+    b = b.values
 
-	out = []
+  out = []
 
-	for i in range(0, a.shape[1]):
-		row = []
+  for i in range(0, a.shape[1]):
+    row = []
 
-		for j in range(0, b.shape[1]):
-			row.append(correl(a[:, i], b[:, j]))
+    for j in range(0, b.shape[1]):
+      row.append(correl(a[:, i], b[:, j]))
 
-		out.append(row)
+    out.append(row)
 
-	return array(out)
+  return array(out)

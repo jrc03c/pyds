@@ -1,2 +1,2 @@
 def isAString(x):
-	return type(x) == str
+  return type(x) == str
