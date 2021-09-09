@@ -21,7 +21,7 @@ class ChopTestCase(unittest.TestCase):
             chop(-(1e-20)), 0, msg="Cannot chop a very small negative number!"
         )
 
-        a = random(size=[10, 10, 10, 10]) + 100
+        a = random(size=[3, 3, 3, 3]) + 100
         self.assertEqual(distance(chop(a), a), 0, "Cannot chop a tensor of values!")
 
     def testErrors(self):

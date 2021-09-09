@@ -6,8 +6,8 @@ from numpy.random import *
 
 class CorrelTestCase(unittest.TestCase):
     def test(self):
-        a = random(size=999999)
-        b = random(size=999999)
+        a = random(size=99999)
+        b = random(size=99999)
 
         self.assertAlmostEqual(
             correl(a, a), 1, msg="The correlation of two identical vectors should be 1!"
@@ -25,8 +25,8 @@ class CorrelTestCase(unittest.TestCase):
             msg="The correlation of two random vectors should be close to 0!",
         )
 
-        a = random(size=999999)
-        b = a + 1e-5 * normal(size=999999)
+        a = random(size=99999)
+        b = a + 1e-5 * normal(size=99999)
 
         self.assertGreater(
             abs(correl(a, b)),
