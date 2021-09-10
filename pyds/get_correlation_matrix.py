@@ -1,26 +1,37 @@
-from .is_a_tensor import *
+from .correl import *
+from .is_a_matrix import *
 from .is_a_pandas_dataframe import *
 from .range import *
+from .contains_only_numbers import *
 from numpy import array
 
-def getCorrelationMatrix(a, b):
-  assert isATensor(a), "`a` must be a vector, matrix, or tensor!"
-  assert isATensor(b), "`b` must be a vector, matrix, or tensor!"
 
-  if isAPandasDataFrame(a):
-    a = a.values
+def getCorrelationMatrix(a, b=None):
+    try:
+        if b == None:
+            b = a
+    except:
+        pass
 
-  if isAPandasDataFrame(b):
-    b = b.values
+    assert isAMatrix(a), "`a` must be a matrix!"
+    assert isAMatrix(b), "`b` must be a matrix!"
+    assert containsOnlyNumbers(a), "`a` must contain only numbers!"
+    assert containsOnlyNumbers(b), "`b` must contain only numbers!"
 
-  out = []
+    if isAPandasDataFrame(a):
+        a = a.values
 
-  for i in range(0, a.shape[1]):
-    row = []
+    if isAPandasDataFrame(b):
+        b = b.values
 
-    for j in range(0, b.shape[1]):
-      row.append(correl(a[:, i], b[:, j]))
+    out = []
 
-    out.append(row)
+    for i in range(0, a.shape[1]):
+        row = []
 
-  return array(out)
+        for j in range(0, b.shape[1]):
+            row.append(correl(a[:, i], b[:, j]))
+
+        out.append(row)
+
+    return array(out)
