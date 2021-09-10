@@ -8,6 +8,7 @@ from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
 from .indexer import *
+from .is_a_matrix import *
 from .is_a_number import *
 from .is_a_numpy_array import *
 from .is_a_pandas_dataframe import *
