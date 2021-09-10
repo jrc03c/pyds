@@ -11,7 +11,7 @@ class GetAverageCorrelationTestCase(unittest.TestCase):
 
         self.assertGreater(
             getAverageCorrelation(a, b),
-            0.99,
+            0.95,
             msg="The average correlation between two almost-identical matrices should be approximately 1!",
         )
 
@@ -19,7 +19,7 @@ class GetAverageCorrelationTestCase(unittest.TestCase):
         b = random(size=[1000, 50])
         self.assertLess(
             abs(getAverageCorrelation(a, b)),
-            0.01,
+            0.05,
             msg="The average correlation between two unrelated matrices should be approximately 0!",
         )
 
