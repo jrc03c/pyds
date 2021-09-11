@@ -46,4 +46,25 @@ class IndexerTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        pass
+        wrongs = [
+            234,
+            True,
+            "foo",
+            {"hello": "world"},
+            lambda x: x * 2,
+            [2, 3, 4],
+            [[[2, 3, 4]]],
+        ]
+
+        indexer = Indexer()
+
+        for item in wrongs:
+            self.assertRaises(AssertionError, indexer.fit, item)
+
+            self.assertRaises(
+                AssertionError, indexer.transform, item,
+            )
+
+            self.assertRaises(
+                AssertionError, indexer.mutualFit, item,
+            )

@@ -1,5 +1,6 @@
 from .is_a_pandas_dataframe import *
 from .is_a_pandas_series import *
+from .is_a_vector import *
 
 # DO NOT import pyds.set!
 
@@ -18,6 +19,8 @@ class Indexer:
         return self
 
     def mutualFit(self, items):
+        assert type(items) == list, "`items` must be a list of DataFrames or Series!"
+
         for item in items:
             assert isAPandasDataFrame(item) or isAPandasSeries(
                 item
