@@ -29,6 +29,7 @@ class LeastSquaresTestCase(unittest.TestCase):
         wrongs = [
             [234, 567],
             ["foo", "bar"],
+            [[["foo"]], [["bar"]]],
             [normal(size=100), normal(size=100)],
             [normal(size=[100, 100, 100]), normal(size=[100, 100, 100])],
             [{"hello": "world"}, {"goodbye": "world"}],
