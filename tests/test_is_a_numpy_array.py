@@ -15,7 +15,7 @@ class IsANumpyArrayTestCase(unittest.TestCase):
         ]
 
         for arr in arrays:
-            self.assertTrue(isANumpyArray(arr))
+            self.assertTrue(isANumpyArray(arr), msg="Failed to identify numpy arrays!")
 
         others = [
             234,
@@ -29,4 +29,6 @@ class IsANumpyArrayTestCase(unittest.TestCase):
         ]
 
         for item in others:
-            self.assertFalse(isANumpyArray(item))
+            self.assertFalse(
+                isANumpyArray(item), msg="Failed to identify non-numpy-arrays!"
+            )
