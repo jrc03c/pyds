@@ -23,6 +23,7 @@ from .least_squares import *
 from .left_pad import *
 from .load_json import *
 from .magnitude import *
+from .make_key import *
 from .map import *
 from .outlier_mitigator import *
 from .p_value import *
