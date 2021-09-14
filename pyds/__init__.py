@@ -17,6 +17,7 @@ from .is_a_string import *
 from .is_a_tensor import *
 from .is_a_vector import *
 from .is_binary import *
+from .is_equal import *
 from .is_iterable import *
 from .js_object import *
 from .least_squares import *

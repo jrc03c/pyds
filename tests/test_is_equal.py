@@ -1,0 +1,59 @@
+import unittest
+from pyds import isEqual
+from numpy import *
+from numpy.random import *
+from pandas import Series, DataFrame
+
+
+class IsEqualTestCase(unittest.TestCase):
+    def test(self):
+        a = normal(size=100)
+        b = normal(size=[100, 100])
+        c = normal(size=[100, 100, 100])
+        d = Series(normal(size=100))
+        e = DataFrame(normal(size=[100, 100]))
+
+        seed(12345)
+        f = normal(size=100)
+        seed(12345)
+        g = normal(size=100)
+
+        rights = [
+            [234, 234],
+            ["foo", "foo"],
+            [True, True],
+            [False, False],
+            [None, None],
+            [{"hello": "world"}, {"hello": "world"}],
+            [a, a],
+            [b, b],
+            [c, c],
+            [d, d],
+            [e, e],
+            [f, g],
+        ]
+
+        for pair in rights:
+            self.assertTrue(
+                isEqual(pair[0], pair[1]),
+                msg="Failed to determine equality! (%s, %s)" % (pair[0], pair[1]),
+            )
+
+        wrongs = [
+            [234, "234"],
+            ["234", True],
+            [True, False],
+            [False, None],
+            [None, {"hello": "world"}],
+            [{"hello": "world"}, a],
+            [a, b],
+            [b, c],
+            [c, d],
+            [d, e],
+            [e, 234],
+        ]
+
+        for pair in wrongs:
+            self.assertFalse(
+                isEqual(pair[0], pair[1]), msg="Failed to determine inequality!"
+            )

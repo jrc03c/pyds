@@ -1,31 +1,49 @@
 import unittest
-from pyds import chop, distance
+from pyds import chop, distance, isEqual
 from numpy.random import *
+from pandas import Series, DataFrame
 
 
 class ChopTestCase(unittest.TestCase):
     def test(self):
-        a = random() + 1
-        self.assertEqual(chop(a), a, msg="Cannot chop a positive number!")
+        seed(12345)
+        a = Series(random(size=100) + 100)
+        seed(12345)
+        b = random(size=100) + 100
 
-        b = -1 - random()
-        self.assertEqual(chop(b), b, msg="Cannot chop a negative number!")
+        seed(23456)
+        c = DataFrame(random(size=[100, 100]) + 100)
+        seed(23456)
+        d = random(size=[100, 100]) + 100
 
-        self.assertEqual(chop(0), 0, msg="Cannot chop zero!")
+        rights = [
+            [0, 0],
+            [1, 1],
+            [-1, -1],
+            [1e-20, 0],
+            [-(1e-20), 0],
+            [a, b],
+            [c, d],
+        ]
 
-        self.assertEqual(
-            chop(1e-20), 0, msg="Cannot chop a very small positive number!"
-        )
-
-        self.assertEqual(
-            chop(-(1e-20)), 0, msg="Cannot chop a very small negative number!"
-        )
-
-        a = random(size=[3, 3, 3, 3]) + 100
-        self.assertEqual(distance(chop(a), a), 0, "Cannot chop a tensor of values!")
+        for pair in rights:
+            self.assertTrue(
+                isEqual(chop(pair[0]), pair[1]),
+                msg="Failed to chop values! (%s, %s)" % (pair[0], pair[1]),
+            )
 
     def testErrors(self):
-        self.assertRaises(AssertionError, chop, "suey")
-        self.assertRaises(AssertionError, chop, True)
-        self.assertRaises(AssertionError, chop, lambda x: x)
-        self.assertRaises(AssertionError, chop, {"foo": "bar"})
+        wrongs = [
+            "foo",
+            True,
+            False,
+            None,
+            {"hello": "world"},
+            ["hello", "world"],
+            lambda x: x * 2,
+        ]
+
+        for item in wrongs:
+            self.assertRaises(
+                AssertionError, chop, item,
+            )
