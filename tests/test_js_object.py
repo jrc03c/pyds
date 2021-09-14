@@ -35,5 +35,6 @@ class JSObjectTestCase(unittest.TestCase):
             obj.child.name, "Bob", msg="Failed to assign a property to a JSObject!"
         )
 
-    def testErrors(self):
-        pass
+        self.assertEqual(
+            obj.doesNotExist, None, msg="Failed to assign a property to a JSObject!"
+        )
