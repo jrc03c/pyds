@@ -18,6 +18,16 @@ class IsEqualTestCase(unittest.TestCase):
         seed(12345)
         g = normal(size=100)
 
+        class Person:
+            def __init__(self, name):
+                self.name = name
+
+        person3 = Person("Wilbur")
+        person1 = Person("Josh")
+        person2 = Person("Josh")
+        person1.child = person3
+        person2.child = person3
+
         rights = [
             [234, 234],
             ["foo", "foo"],
@@ -31,6 +41,7 @@ class IsEqualTestCase(unittest.TestCase):
             [d, d],
             [e, e],
             [f, g],
+            [person1, person2],
         ]
 
         for pair in rights:
@@ -51,6 +62,7 @@ class IsEqualTestCase(unittest.TestCase):
             [c, d],
             [d, e],
             [e, 234],
+            [person1, person3],
         ]
 
         for pair in wrongs:

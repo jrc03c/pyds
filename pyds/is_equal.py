@@ -47,4 +47,9 @@ def isEqual(a, b):
     if type(a) == fntype and type(b) == fntype:
         return a is b
 
+    try:
+        return isEqual(a.__dict__, b.__dict__)
+    except:
+        pass
+
     return a == b
