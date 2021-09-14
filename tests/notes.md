@@ -14,3 +14,4 @@ params to test:
 - functions
 - objects
   - pandas `DataFrame`
+- None / NaN
