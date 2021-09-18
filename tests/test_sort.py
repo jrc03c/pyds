@@ -15,5 +15,5 @@ class SortTestCase(unittest.TestCase):
         yPred = sort(x)
         self.assertTrue(isEqual(yTrue, yPred), msg="Failed to sort an array!")
 
-    def testError(self):
-        pass
+    def testErrors(self):
+        self.assertTrue(False)
