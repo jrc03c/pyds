@@ -91,6 +91,16 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             rScore(yTrue, yPred), 1, msg="Failed to mitigate outliers correctly!"
         )
 
+        try:
+            gator = OutlierMitigator()
+            x = Series(normal(size=1000))
+            gator.fit(x).transform(x)
+            failed = False
+        except:
+            failed = True
+
+        self.assertFalse(failed, msg="Failed to mitigate outliers correctly!")
+
     def testErrors(self):
         wrongs = [
             [234, 234],
@@ -101,6 +111,7 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             [lambda x: x * 2, lambda x: x * 3],
             [normal(size=100), normal(size=[10, 10])],
             [normal(size=[10, 10]), normal(size=100)],
+            [DataFrame(normal(size=[10, 10])), DataFrame(normal(size=[10, 10]))],
         ]
 
         def helper(a, b):
