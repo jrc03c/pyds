@@ -34,4 +34,5 @@ from .reverse import *
 from .set import *
 from .shuffle import *
 from .sign import *
+from .sort import *
 from .truncated_svd import *

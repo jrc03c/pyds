@@ -17,3 +17,6 @@ class MaxTestCase(unittest.TestCase):
         yTrue = reverse(sorted(flatten(x)))[0]
         yPred = max(x)
         self.assertEqual(yTrue, yPred, msg="Failed to get the max value in an array!")
+
+    def testErrors(self):
+        self.assertTrue(False)
