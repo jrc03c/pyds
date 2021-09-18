@@ -30,6 +30,7 @@ from .outlier_mitigator import *
 from .p_value import *
 from .r_score import *
 from .range import *
+from .reverse import *
 from .set import *
 from .shuffle import *
 from .sign import *

@@ -10,6 +10,7 @@ class IsANumberTestCase(unittest.TestCase):
             self.assertTrue(isANumber(number), msg="Fails to identify numbers!")
 
         others = [
+            "234.567",
             "foo",
             True,
             False,

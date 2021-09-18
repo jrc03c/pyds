@@ -3,7 +3,7 @@ from pyds import map, isEqual
 from numpy.random import normal
 
 
-class MapTestClass(unittest.TestCase):
+class MapTestCase(unittest.TestCase):
     def test(self):
         yPred = map(lambda x: x * 2, [2, 3, 4])
         yTrue = [4, 6, 8]
