@@ -92,4 +92,20 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        pass
+        wrongs = [
+            [234, 234],
+            ["foo", "bar"],
+            [True, False],
+            [None, None],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+            [normal(size=100), normal(size=[10, 10])],
+            [normal(size=[10, 10]), normal(size=100)],
+        ]
+
+        def helper(a, b):
+            gator = OutlierMitigator()
+            gator.fit(a).transform(b)
+
+        for pair in wrongs:
+            self.assertRaises(AssertionError, helper, pair[0], pair[1])
