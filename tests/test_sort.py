@@ -16,4 +16,15 @@ class SortTestCase(unittest.TestCase):
         self.assertTrue(isEqual(yTrue, yPred), msg="Failed to sort an array!")
 
     def testErrors(self):
-        self.assertTrue(False)
+        wrongs = [
+            234,
+            "foo",
+            True,
+            False,
+            None,
+            {"hello": "world"},
+            lambda x: x * 2,
+        ]
+
+        for item in wrongs:
+            self.assertRaises(AssertionError, sort, item)

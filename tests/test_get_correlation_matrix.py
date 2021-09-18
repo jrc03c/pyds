@@ -1,5 +1,5 @@
 import unittest
-from pyds import getCorrelationMatrix, min, max
+from pyds import getCorrelationMatrix, flatten
 from numpy import *
 from numpy.random import *
 
@@ -17,13 +17,13 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
         )
 
         self.assertGreaterEqual(
-            min(c),
+            min(flatten(c)),
             -1,
             msg="The computed correlation matrix should not have any values less than -1!",
         )
 
         self.assertLessEqual(
-            max(c),
+            max(flatten(c)),
             1,
             msg="The computed correlation matrix should not have any values greater than 1!",
         )
@@ -38,13 +38,13 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
         c = getCorrelationMatrix(x)
 
         self.assertGreater(
-            min(c),
+            min(flatten(c)),
             0.95,
             msg="The correlation matrix computed from a matrix with highly-correlated columns should not contain values less than 0.95!",
         )
 
         self.assertEqual(
-            max(c),
+            max(flatten(c)),
             1,
             msg="The correlation matrix computed from a matrix with highly-correlated columns should have a main diagonal of ones!",
         )
