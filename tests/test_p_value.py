@@ -23,4 +23,16 @@ class PValueTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        pass
+        wrongs = [
+            [234, 567],
+            ["foo", "bar"],
+            [True, False],
+            [None, None],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+            [normal(size=[10, 10]), normal(size=[10, 10])],
+            [[1, 2, None], [4, "five", 6]],
+        ]
+
+        for pair in wrongs:
+            self.assertRaises(AssertionError, pValue, pair[0], pair[1])

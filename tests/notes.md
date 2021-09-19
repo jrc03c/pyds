@@ -11,6 +11,7 @@ params to test:
   - tensors
   - numpy `array` and `ndarray`
   - pandas `Series`
+  - messy arrays that contain missing and/or non-numerical values
 - functions
 - objects
   - pandas `DataFrame`
