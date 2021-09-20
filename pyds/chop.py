@@ -21,4 +21,4 @@ def chop(x, threshold=1e-10):
         if isANumpyArray(x):
             x = x.tolist()
 
-        return array([chop(val, threshold=threshold) for val in x])
+        return array(list(chop(val, threshold=threshold) for val in x))

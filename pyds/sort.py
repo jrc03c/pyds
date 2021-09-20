@@ -2,6 +2,7 @@ from .is_a_tensor import *
 from .is_a_numpy_array import *
 from .is_a_pandas_series import *
 from .is_a_pandas_dataframe import *
+from numpy import array
 
 
 def merge(a, b, fn):
@@ -23,6 +24,16 @@ def merge(a, b, fn):
     return out
 
 
+def alphasort(a, b):
+    if a < b:
+        return -1
+
+    if a > b:
+        return 1
+
+    return 0
+
+
 def sort(x, fn=None):
     assert isATensor(x), "`x` must be a tensor!"
 
@@ -30,17 +41,20 @@ def sort(x, fn=None):
         x = x.tolist()
 
     if isAPandasSeries(x) or isAPandasDataFrame(x):
-        x = x.values
+        x = x.values.tolist()
 
     if fn is None:
-        fn = lambda a, b: a - b
+        fn = alphasort
 
     assert type(fn) == type(sort), "`fn` must be a function!"
 
-    if len(x) <= 1:
-        return x
+    def helper(x, fn):
+        if len(x) <= 1:
+            return x
 
-    m = int(len(x) / 2)
-    a = sort(x[:m], fn)
-    b = sort(x[m:], fn)
-    return merge(a, b, fn)
+        m = int(len(x) / 2)
+        a = helper(x[:m], fn)
+        b = helper(x[m:], fn)
+        return merge(a, b, fn)
+
+    return array(helper(x, fn))
