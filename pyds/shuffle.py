@@ -12,4 +12,4 @@ def shuffle(x):
 
     out = numpy.copy(x)
     numpy.random.shuffle(out)
-    return out.tolist()
+    return out
