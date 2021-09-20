@@ -19,7 +19,9 @@ def rScore(true, pred):
 
     num = sum((true - pred) ** 2)
     den = sum((true - mean(true)) ** 2)
+
     if den == 0:
         return 0
+
     r2 = 1 - num / den
     return sign(r2) * sqrt(abs(r2))
