@@ -1,14 +1,41 @@
 from .is_a_number import *
+from .is_a_tensor import *
+from .is_a_pandas_series import *
+from .is_a_pandas_dataframe import *
+from .is_a_numpy_array import *
+from .flatten import *
+from numpy import array, max
 
 
-def leftPad(n, max):
-    assert type(n) is int, "`n` must be a whole number!"
-    assert n >= 0, "`n` must be a whole number!"
+def leftPad(x, biggest=None):
+    def helper(x, biggest=None):
+        if isATensor(x):
+            if biggest is None:
+                biggest = max(flatten(x))
 
-    assert type(max) is int, "`max` must be a whole number!"
-    assert max >= 0, "`max` must be a whole number!"
+            if isAPandasSeries(x) or isAPandasDataFrame(x):
+                x = x.values.tolist()
 
-    assert n <= max, "`n` must be less than or equal to `max`!"
+            if isANumpyArray(x):
+                x = x.tolist()
 
-    numberOfZeros = len(str(max)) - len(str(n))
-    return "0" * numberOfZeros + str(n)
+            return [helper(v, biggest) for v in x]
+
+        else:
+            if biggest is None:
+                biggest = x
+
+            assert isANumber(x), "`x` must be a whole number!"
+            assert int(x) == x, "`x` must be a whole number!"
+            assert x >= 0, "`x` must be a whole number!"
+
+            assert isANumber(x), "`biggest` must be a whole number! (%s)" % biggest
+            assert int(biggest) == biggest, "`biggest` must be a whole number!"
+            assert biggest >= 0, "`biggest` must be a whole number! (%s)" % biggest
+
+            assert x <= biggest, "`x` must be less than or equal to `biggest`!"
+
+            numberOfZeros = len(str(biggest)) - len(str(x))
+            return "0" * numberOfZeros + str(x)
+
+    return array(helper(x, biggest))

@@ -1,5 +1,6 @@
 from .correl import *
 from .is_a_matrix import *
+from .is_a_pandas_dataframe import *
 from .range import *
 from .contains_only_numbers import *
 from numpy import array
@@ -13,6 +14,12 @@ def getCorrelationMatrix(a, b=None):
     assert isAMatrix(b), "`b` must be a matrix!"
     assert containsOnlyNumbers(a), "`a` must contain only numbers!"
     assert containsOnlyNumbers(b), "`b` must contain only numbers!"
+
+    if isAPandasDataFrame(a):
+        a = a.values
+
+    if isAPandasDataFrame(b):
+        b = b.values
 
     out = []
 
