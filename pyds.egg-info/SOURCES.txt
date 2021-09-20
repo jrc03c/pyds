@@ -28,8 +28,6 @@ pyds/load_json.py
 pyds/magnitude.py
 pyds/make_key.py
 pyds/map.py
-pyds/max.py
-pyds/min.py
 pyds/outlier_mitigator.py
 pyds/p_value.py
 pyds/r_score.py
