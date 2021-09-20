@@ -3,7 +3,7 @@ from .is_a_number import *
 
 
 def makeKey(n):
-    assert isANumber(n) and n >= 0, "`n` must be a whole number!"
+    assert isANumber(n) and n >= 0 and int(n) == n, "`n` must be a whole number!"
 
     alpha = "abcdefghijklmnopqrstuvwxyz1234567890"
     out = ""

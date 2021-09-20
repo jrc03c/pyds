@@ -15,4 +15,16 @@ class MakeKeyTestCase(unittest.TestCase):
             )
 
     def testErrors(self):
-        self.assertRaises(AssertionError, makeKey, -234)
+        wrongs = [
+            -234,
+            123.456,
+            "foo",
+            True,
+            False,
+            None,
+            {"hello": "world"},
+            lambda x: x * 2,
+        ]
+
+        for item in wrongs:
+            self.assertRaises(AssertionError, makeKey, item)
