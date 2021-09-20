@@ -1,12 +1,13 @@
 import unittest
 from pyds import map, isEqual
+from numpy import array
 from numpy.random import normal
 
 
 class MapTestCase(unittest.TestCase):
     def test(self):
         yPred = map(lambda x: x * 2, [2, 3, 4])
-        yTrue = [4, 6, 8]
+        yTrue = array([4, 6, 8])
 
         self.assertTrue(
             isEqual(yTrue, yPred),
@@ -14,7 +15,7 @@ class MapTestCase(unittest.TestCase):
         )
 
         yPred = map([2, 3, 4], lambda x: x * 2)
-        yTrue = [4, 6, 8]
+        yTrue = array([4, 6, 8])
 
         self.assertTrue(
             isEqual(yTrue, yPred),
