@@ -2,6 +2,7 @@ import unittest
 from pyds import getCorrelationMatrix, flatten
 from numpy import *
 from numpy.random import *
+from pandas import DataFrame
 
 
 class GetCorrelationMatrixTestCase(unittest.TestCase):
@@ -49,28 +50,29 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
             msg="The correlation matrix computed from a matrix with highly-correlated columns should have a main diagonal of ones!",
         )
 
+        e = DataFrame(normal(size=[100, 100]))
+        f = DataFrame(normal(size=[100, 100]))
+
+        try:
+            getCorrelationMatrix(e, f)
+            failed = False
+        except:
+            failed = True
+
+        self.assertFalse(failed, msg="Failed to get a correlation matrix!")
+
     def testErrors(self):
-        self.assertRaises(AssertionError, getCorrelationMatrix, [1, 2, 3], [4, 5, 6])
+        wrongs = [
+            [[2, 3, 4], [5, 6, 7]],
+            [[["a", "b", "c"]], [["1", "2", "3"]]],
+            [234, 567],
+            ["foo", "bar"],
+            [normal(size=[10, 10, 10]), normal(size=[10, 10, 10])],
+            [True, False],
+            [None, None],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+        ]
 
-        self.assertRaises(
-            AssertionError,
-            getCorrelationMatrix,
-            normal(size=[3, 3, 3]),
-            normal(size=[3, 3, 3]),
-        )
-
-        self.assertRaises(AssertionError, getCorrelationMatrix, "foo", "bar")
-
-        self.assertRaises(AssertionError, getCorrelationMatrix, True, False)
-
-        self.assertRaises(
-            AssertionError, getCorrelationMatrix, 123, 456,
-        )
-
-        self.assertRaises(
-            AssertionError, getCorrelationMatrix, {"foo": "bar"}, {"hello": "world"}
-        )
-
-        self.assertRaises(
-            AssertionError, getCorrelationMatrix, lambda x: x * 2, lambda x: x * 3,
-        )
+        for pair in wrongs:
+            self.assertRaises(AssertionError, getCorrelationMatrix, pair[0], pair[1])
