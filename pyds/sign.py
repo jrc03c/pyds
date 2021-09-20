@@ -6,20 +6,23 @@ from .is_a_pandas_dataframe import *
 
 
 def sign(x):
-    if isATensor(x):
-        if isAPandasSeries(x) or isAPandasDataFrame(x):
-            x = x.values.tolist()
+    def helper(x):
+        if isATensor(x):
+            if isAPandasSeries(x) or isAPandasDataFrame(x):
+                x = x.values.tolist()
 
-        if isANumpyArray(x):
-            x = x.tolist()
+            if isANumpyArray(x):
+                x = x.tolist()
 
-        return [sign(v) for v in x]
+            return [helper(v) for v in x]
 
-    else:
-        assert isANumber(x), "`x` must be a number!"
+        else:
+            assert isANumber(x), "`x` must be a number!"
 
-        if x > 0:
-            return 1
-        if x < 0:
-            return -1
-        return 0
+            if x > 0:
+                return 1
+            if x < 0:
+                return -1
+            return 0
+
+    return array(helper(x))
