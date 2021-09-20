@@ -29,4 +29,4 @@ def filter(a, b):
     if isANumpyArray(arr):
         arr = arr.tolist()
 
-    return list(oldFilter(fn, arr))
+    return array(list(oldFilter(fn, arr)))
