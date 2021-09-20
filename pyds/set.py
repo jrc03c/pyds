@@ -11,4 +11,4 @@ def set(x):
         if item not in out:
             out.append(item)
 
-    return out
+    return array(out)

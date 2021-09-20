@@ -13,4 +13,4 @@ def range(a, b, step=1):
         b - a
     ), "The sign of `step` must be consistent with the direction from `a` to `b`!"
 
-    return arange(a, b, step).tolist()
+    return arange(a, b, step)

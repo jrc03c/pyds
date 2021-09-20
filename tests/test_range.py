@@ -1,17 +1,18 @@
 import unittest
 from pyds import range, isEqual
+from numpy import array
 
 
 class RangeTestCase(unittest.TestCase):
     def test(self):
-        yTrue = [1, 2, 3, 4, 5]
+        yTrue = array([1, 2, 3, 4, 5])
         yPred = range(1, 6)
 
         self.assertTrue(
             isEqual(yTrue, yPred), msg="Failed to generate the correct range!"
         )
 
-        yTrue = [-3.25, -3.5, -3.75, -4.0, -4.25]
+        yTrue = array([-3.25, -3.5, -3.75, -4.0, -4.25])
         yPred = range(-3.25, -4.5, -0.25)
 
         self.assertTrue(
