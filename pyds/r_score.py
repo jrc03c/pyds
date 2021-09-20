@@ -1,8 +1,9 @@
 from .is_a_tensor import *
 from .is_a_pandas_dataframe import *
+from .is_a_numpy_array import *
 from .sign import *
 from .contains_only_numbers import *
-from numpy import sum, mean, sqrt, abs
+from numpy import sum, mean, sqrt, abs, array
 
 
 def rScore(true, pred):
@@ -16,6 +17,12 @@ def rScore(true, pred):
 
     if isAPandasDataFrame(pred):
         pred = pred.values
+
+    if not isANumpyArray(true):
+        true = array(true)
+
+    if not isANumpyArray(pred):
+        pred = array(pred)
 
     num = sum((true - pred) ** 2)
     den = sum((true - mean(true)) ** 2)
