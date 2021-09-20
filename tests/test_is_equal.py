@@ -63,6 +63,7 @@ class IsEqualTestCase(unittest.TestCase):
             [d, e],
             [e, 234],
             [person1, person3],
+            [[2, 3, 4], [2, 3, 4, 5]],
         ]
 
         for pair in wrongs:
