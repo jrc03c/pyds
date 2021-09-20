@@ -14,6 +14,5 @@ class MakeKeyTestCase(unittest.TestCase):
                 msg="Failed to generate a key of the correct length!",
             )
 
-        self.assertEqual(
-            len(makeKey(-234)), 0, msg="Failed to generate a key of the correct length!"
-        )
+    def testErrors(self):
+        self.assertRaises(AssertionError, makeKey, -234)

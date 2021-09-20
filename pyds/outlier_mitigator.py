@@ -2,6 +2,7 @@ from .is_a_vector import *
 from .is_a_pandas_series import *
 from .is_binary import *
 from .sort import *
+from .contains_only_numbers import *
 from numpy import median, abs, array, where, max, min, log, clip
 
 
@@ -20,8 +21,11 @@ class OutlierMitigator:
 
     def fit(self, x):
         assert isAVector(x), "`x` must be a vector!"
+        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
+
         if isAPandasSeries(x):
             x = x.values
+
         if isBinary(x):
             return self
 
@@ -58,8 +62,11 @@ class OutlierMitigator:
 
     def transform(self, x):
         assert isAVector(x), "`x` must be a vector!"
+        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
+
         if isAPandasSeries(x):
             x = x.values
+
         if isBinary(x):
             return x
 
