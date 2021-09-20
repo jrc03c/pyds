@@ -21,18 +21,14 @@ class DistanceTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        a = True
-        b = False
-        self.assertRaises(AssertionError, distance, a, b)
+        wrongs = [
+            [[2, 3, 4], [2, 3, 4, 5]],
+            ["foo", "bar"],
+            [True, False],
+            [None, None],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+        ]
 
-        a = "foo"
-        b = "bar"
-        self.assertRaises(AssertionError, distance, a, b)
-
-        a = lambda x: x * 2
-        b = lambda x: x * 3
-        self.assertRaises(AssertionError, distance, a, b)
-
-        a = {"foo": "bar"}
-        b = {"hello": "world"}
-        self.assertRaises(AssertionError, distance, a, b)
+        for pair in wrongs:
+            self.assertRaises(AssertionError, distance, pair[0], pair[1])

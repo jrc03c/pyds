@@ -24,26 +24,15 @@ class ContainsOnlyNumbersTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        x = True
+        wrongs = [
+            234,
+            "foo",
+            True,
+            False,
+            None,
+            {"hello": "world"},
+            lambda x: x * 2,
+        ]
 
-        self.assertRaises(
-            AssertionError, containsOnlyNumbers, x,
-        )
-
-        x = "foo"
-
-        self.assertRaises(
-            AssertionError, containsOnlyNumbers, x,
-        )
-
-        x = {"hello": "world"}
-
-        self.assertRaises(
-            AssertionError, containsOnlyNumbers, x,
-        )
-
-        x = lambda v: v * 2
-
-        self.assertRaises(
-            AssertionError, containsOnlyNumbers, x,
-        )
+        for item in wrongs:
+            self.assertRaises(AssertionError, containsOnlyNumbers, item)

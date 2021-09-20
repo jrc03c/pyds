@@ -35,30 +35,16 @@ class CorrelTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        a = normal(size=[50, 50])
-        b = normal(size=[50, 50])
-        self.assertRaises(AssertionError, correl, a, b)
+        wrongs = [
+            [234, 234],
+            [["two", "three", "four"], ["five", "six", "seven"]],
+            [normal(size=[50, 50]), normal(size=[50, 50])],
+            ["foo", "bar"],
+            [True, False],
+            [None, None],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+        ]
 
-        a = "foo"
-        b = "bar"
-        self.assertRaises(AssertionError, correl, a, b)
-
-        a = True
-        b = False
-        self.assertRaises(AssertionError, correl, a, b)
-
-        a = lambda x: x * 2
-        b = lambda x: x * 3
-        self.assertRaises(AssertionError, correl, a, b)
-
-        a = {"foo": "bar"}
-        b = {"hello": "world"}
-        self.assertRaises(AssertionError, correl, a, b)
-
-        a = 234
-        b = -234
-        self.assertRaises(AssertionError, correl, a, b)
-
-        a = ["two", "three", "four"]
-        b = ["five", "six", "seven"]
-        self.assertRaises(AssertionError, correl, a, b)
+        for pair in wrongs:
+            self.assertRaises(AssertionError, correl, pair[0], pair[1])
