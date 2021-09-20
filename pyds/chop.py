@@ -2,6 +2,7 @@ from .is_a_number import *
 from .is_a_tensor import *
 from .is_a_pandas_series import *
 from .is_a_pandas_dataframe import *
+from .is_a_numpy_array import *
 from .contains_only_numbers import *
 from numpy import abs, array
 
@@ -12,9 +13,12 @@ def chop(x, threshold=1e-10):
 
     else:
         assert isATensor(x), "`x` must be a number or a tensor of numbers!"
+        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
 
         if isAPandasSeries(x) or isAPandasDataFrame(x):
-            x = x.values
+            x = x.values.tolist()
 
-        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
-        return array(list(chop(val, threshold=threshold) for val in x))
+        if isANumpyArray(x):
+            x = x.tolist()
+
+        return array([chop(val, threshold=threshold) for val in x])
