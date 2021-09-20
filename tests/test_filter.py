@@ -21,14 +21,14 @@ class FilterTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
-        self.assertRaises(AssertionError, filter, "foo", "bar")
+        wrongs = [
+            [234, 567],
+            ["foo", "bar"],
+            [True, False],
+            [[2, 3, 4], [2, 3, 4]],
+            [{"hello": "world"}, {"goodbye": "world"}],
+            [lambda x: x * 2, lambda x: x * 3],
+        ]
 
-        self.assertRaises(AssertionError, filter, True, False)
-
-        self.assertRaises(AssertionError, filter, 123, 456)
-
-        self.assertRaises(AssertionError, filter, {"foo": "bar"}, {"hello": "world"})
-
-        self.assertRaises(AssertionError, filter, lambda x: x * 2, lambda x: x * 3)
-
-        self.assertRaises(AssertionError, filter, [1, 2, 3], [4, 5, 6])
+        for pair in wrongs:
+            self.assertRaises(AssertionError, filter, pair[0], pair[1])
