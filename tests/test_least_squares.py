@@ -26,6 +26,9 @@ class LeastSquaresTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             [234, 567],
             ["foo", "bar"],
@@ -36,6 +39,7 @@ class LeastSquaresTestCase(unittest.TestCase):
             [True, False],
             [None, None],
             [lambda x: x * 2, lambda x: x * 3],
+            [missing, missing],
         ]
 
         for pair in wrongs:

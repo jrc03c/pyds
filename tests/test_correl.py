@@ -35,6 +35,9 @@ class CorrelTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
+        missing = normal(size=1000)
+        missing[0] = None
+
         wrongs = [
             [234, 234],
             [["two", "three", "four"], ["five", "six", "seven"]],
@@ -44,6 +47,7 @@ class CorrelTestCase(unittest.TestCase):
             [None, None],
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
+            [missing, missing],
         ]
 
         for pair in wrongs:

@@ -32,6 +32,7 @@ class IsBinaryTestCase(unittest.TestCase):
             random(size=[100, 100]),
             {"hello": "world"},
             lambda x: x * 2,
+            [0, 1, nan],
         ]
 
         for item in others:

@@ -62,6 +62,9 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
         self.assertFalse(failed, msg="Failed to get a correlation matrix!")
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             [[2, 3, 4], [5, 6, 7]],
             [[["a", "b", "c"]], [["1", "2", "3"]]],
@@ -72,6 +75,7 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
             [None, None],
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
+            [missing, missing],
         ]
 
         for pair in wrongs:

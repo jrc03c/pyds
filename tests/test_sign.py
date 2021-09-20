@@ -27,6 +27,9 @@ class SignTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
+        missing = random(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             "foo",
             True,
@@ -36,6 +39,7 @@ class SignTestCase(unittest.TestCase):
             lambda x: x * 2,
             [2, 3, "four"],
             [[[2, 3, None]]],
+            missing,
         ]
 
         for item in wrongs:

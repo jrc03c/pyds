@@ -44,6 +44,9 @@ class TruncatedSVDTestCase(unittest.TestCase):
             lastRScore = r
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             [234, 567],
             ["foo", "bar"],
@@ -53,6 +56,7 @@ class TruncatedSVDTestCase(unittest.TestCase):
             [lambda x: x * 2, lambda x: x * 3],
             [normal(size=1000), 1000],
             [normal(size=[10, 10, 10]), 10],
+            missing,
         ]
 
         for pair in wrongs:

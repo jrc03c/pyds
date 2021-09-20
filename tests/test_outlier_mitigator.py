@@ -102,6 +102,9 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         self.assertFalse(failed, msg="Failed to mitigate outliers correctly!")
 
     def testErrors(self):
+        missing = normal(size=1000)
+        missing[0] = None
+
         wrongs = [
             [234, 234],
             ["foo", "bar"],
@@ -112,6 +115,7 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             [normal(size=100), normal(size=[10, 10])],
             [normal(size=[10, 10]), normal(size=100)],
             [DataFrame(normal(size=[10, 10])), DataFrame(normal(size=[10, 10]))],
+            missing,
         ]
 
         def helper(a, b):

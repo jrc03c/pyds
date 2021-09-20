@@ -1,5 +1,6 @@
 import unittest
 from pyds import containsOnlyNumbers
+from numpy import nan
 from numpy.random import *
 
 
@@ -21,6 +22,12 @@ class ContainsOnlyNumbersTestCase(unittest.TestCase):
             containsOnlyNumbers(["foo", "bar", "baz"]),
             False,
             msg="Fails to detect that an array of strings does not contain only numbers!",
+        )
+
+        self.assertEqual(
+            containsOnlyNumbers([nan, nan, nan]),
+            False,
+            msg="Fails to detect that an array of NaNs does not contain only numbers!",
         )
 
     def testErrors(self):

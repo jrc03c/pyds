@@ -35,6 +35,9 @@ class GetAverageCorrelationTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             [[2, 3, 4], [5, 6, 7]],
             [normal(size=[3, 3, 3]), normal(size=[3, 3, 3])],
@@ -45,6 +48,7 @@ class GetAverageCorrelationTestCase(unittest.TestCase):
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
             [[["a", "b", "c"]], [["1", "2", "3"]]],
+            [missing, missing],
         ]
 
         for pair in wrongs:

@@ -1,5 +1,6 @@
 import unittest
 from pyds import leftPad
+from numpy import nan
 
 
 class LeftPadTestCase(unittest.TestCase):
@@ -20,6 +21,7 @@ class LeftPadTestCase(unittest.TestCase):
             [None, None],
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
+            [[1, 10, 100, 1000, nan], 1000],
         ]
 
         for pair in wrongs:

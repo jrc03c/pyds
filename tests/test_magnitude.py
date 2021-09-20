@@ -27,6 +27,9 @@ class MagnitudeTestCase(unittest.TestCase):
             )
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             234,
             "foo",
@@ -36,6 +39,7 @@ class MagnitudeTestCase(unittest.TestCase):
             ["hello", "world"],
             {"hello": "world"},
             lambda x: x * 2,
+            missing,
         ]
 
         for item in wrongs:

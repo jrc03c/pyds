@@ -1,5 +1,6 @@
 import unittest
 from pyds import distance
+from numpy.random import normal
 
 
 class DistanceTestCase(unittest.TestCase):
@@ -21,6 +22,9 @@ class DistanceTestCase(unittest.TestCase):
         )
 
     def testErrors(self):
+        missing = normal(size=[100, 100])
+        missing[0][0] = None
+
         wrongs = [
             [[2, 3, 4], [2, 3, 4, 5]],
             ["foo", "bar"],
@@ -28,6 +32,7 @@ class DistanceTestCase(unittest.TestCase):
             [None, None],
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
+            [missing, missing],
         ]
 
         for pair in wrongs:

@@ -1,5 +1,6 @@
 import unittest
 from pyds import isANumber
+from numpy import nan
 
 
 class IsANumberTestCase(unittest.TestCase):
@@ -18,6 +19,7 @@ class IsANumberTestCase(unittest.TestCase):
             {"hello": "world"},
             lambda x: 2 * x,
             [[[234]]],
+            [nan],
         ]
 
         for item in others:
