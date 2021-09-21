@@ -292,7 +292,7 @@ This process works even if the row orders are shuffled! The way it works, though
 
 ## `OutlierMitigator(canClip=True, canLog=True, mustClip=False, mustLog=False, maxScore=5)`
 
-This is a class that optionally clips and logs outliers in a vector. The constructor arguments indicate whether or not the mitigator _can_ clip or take the log if the MAD score of any value exceeds `maxScore * MAD`, or whether or not the mitigator _must_ clip or take the log regardless of the MAD score of the values.
+This is a class that optionally clips and takes the log of outliers in a vector. The constructor arguments indicate whether or not the mitigator _can_ clip or take the log if the MAD score of any value exceeds `maxScore * MAD`, or whether or not the mitigator _must_ clip or take the log regardless of the MAD score of the values.
 
 The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of a vector, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
 
