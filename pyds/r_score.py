@@ -1,9 +1,15 @@
 from .is_a_tensor import *
 from .is_a_pandas_dataframe import *
 from .is_a_numpy_array import *
+from .is_binary import *
 from .sign import *
 from .contains_only_numbers import *
 from numpy import sum, mean, sqrt, abs, array
+import scipy
+
+
+def mode(x):
+    return scipy.stats.mode(x)[0]
 
 
 def rScore(true, pred):
@@ -24,8 +30,14 @@ def rScore(true, pred):
     if not isANumpyArray(pred):
         pred = array(pred)
 
+    if isBinary(true) and isBinary(pred):
+        helper = mode
+
+    else:
+        helper = mean
+
     num = sum((true - pred) ** 2)
-    den = sum((true - mean(true)) ** 2)
+    den = sum((true - helper(true)) ** 2)
 
     if den == 0:
         return 0
