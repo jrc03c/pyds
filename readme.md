@@ -37,7 +37,7 @@ gets the correlation between two vectors
 
 ## `distance(a, b)`
 
-gets the sum of squared distances between two tensors of the same shape
+gets the Euclidean distance between two tensors of the same shape
 
 ---
 
