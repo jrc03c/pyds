@@ -1,3 +1,4 @@
+from .apply import *
 from .chop import *
 from .contains_only_numbers import *
 from .correl import *

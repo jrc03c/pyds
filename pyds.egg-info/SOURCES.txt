@@ -1,5 +1,6 @@
 setup.py
 pyds/__init__.py
+pyds/apply.py
 pyds/chop.py
 pyds/contains_only_numbers.py
 pyds/correl.py
@@ -10,6 +11,7 @@ pyds/flatten.py
 pyds/get_average_correlation.py
 pyds/get_correlation_matrix.py
 pyds/indexer.py
+pyds/is_a_function.py
 pyds/is_a_matrix.py
 pyds/is_a_number.py
 pyds/is_a_numpy_array.py

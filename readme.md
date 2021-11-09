@@ -17,6 +17,12 @@ from pyds import *
 
 # API
 
+## `apply(fn, x)`
+
+applies a function to each element in a tensor; note that this differs from `map` in that `map` operates on each top-level item in an array (where each top-level item could potentially be an array) whereas `apply` operates on each individual non-array value in an arbitrarily deeply nested and potentially ragged array
+
+---
+
 ## `chop(x, threshold=1e-10)`
 
 rounds almost-zero values (where `abs(x) < threshold`) to zero
