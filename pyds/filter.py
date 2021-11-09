@@ -2,21 +2,21 @@ from .is_a_tensor import *
 from .is_a_pandas_series import *
 from .is_a_pandas_dataframe import *
 from .is_a_numpy_array import *
+from .is_a_function import *
 
 oldFilter = filter
-fnType = type(lambda x: x)
 
 
 def filter(a, b):
-    if type(a) == fnType:
+    if isAFunction(a):
         fn = a
         arr = b
     else:
         fn = b
         arr = a
 
-    assert (
-        type(fn) == fnType
+    assert isAFunction(
+        fn
     ), "You must pass a function and an array into the `filter` function!"
 
     assert isATensor(

@@ -1,6 +1,7 @@
 from .is_a_tensor import *
 from .is_a_pandas_series import *
 from .is_a_pandas_dataframe import *
+from .is_a_function import *
 from numpy import shape
 
 
@@ -42,9 +43,7 @@ def isEqual(a, b):
 
         return True
 
-    fntype = type(lambda x: x)
-
-    if type(a) == fntype and type(b) == fntype:
+    if isAFunction(a) and isAFunction(b):
         return a is b
 
     try:
