@@ -147,6 +147,12 @@ determines whether or not a value can be iterated over
 
 ---
 
+## `isJagged(x)`
+
+determines whether or not a tensor has ragged / jagged edges at any depth
+
+---
+
 ## `leastSquares(a, b)`
 
 solves for `x` in the equation `ax = b` where `a`, `x`, and `b` are all matrices

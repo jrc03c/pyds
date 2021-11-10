@@ -1,8 +1,7 @@
-from numpy import shape, reshape, array
-from .flatten import *
+from numpy import shape, array
 from .is_a_tensor import *
-from .map import *
 from .is_a_function import *
+from .is_jagged import *
 
 
 def apply(a, b):
@@ -23,4 +22,9 @@ def apply(a, b):
         else:
             return fn(x)
 
-    return array(helper(fn, x), dtype=object)
+    out = helper(fn, x)
+
+    if isJagged(out):
+        return array(out, dtype=object)
+    else:
+        return array(out)

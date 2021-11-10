@@ -23,6 +23,7 @@ pyds/is_a_vector.py
 pyds/is_binary.py
 pyds/is_equal.py
 pyds/is_iterable.py
+pyds/is_jagged.py
 pyds/js_object.py
 pyds/least_squares.py
 pyds/left_pad.py

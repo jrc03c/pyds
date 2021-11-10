@@ -3,6 +3,7 @@ from .is_a_pandas_series import *
 from .is_a_pandas_dataframe import *
 from .is_a_numpy_array import *
 from .is_a_function import *
+from .is_jagged import *
 
 oldFilter = filter
 
@@ -29,4 +30,9 @@ def filter(a, b):
     if isANumpyArray(arr):
         arr = arr.tolist()
 
-    return array(list(oldFilter(fn, arr)))
+    out = list(oldFilter(fn, arr))
+
+    if isJagged(out):
+        return array(out, dtype=object)
+    else:
+        return array(out)
