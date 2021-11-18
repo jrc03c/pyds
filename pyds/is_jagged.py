@@ -6,6 +6,9 @@ def isJagged(x):
     if not isATensor(x):
         return False
 
+    if len(x) == 0:
+        return False
+
     childrenAreArrays = [isATensor(item) for item in x]
 
     if len(set(childrenAreArrays)) > 1:
