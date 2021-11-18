@@ -34,7 +34,14 @@ def alphasort(a, b):
     return 0
 
 
-def sort(x, fn=None):
+def sort(a, b=None):
+    if isATensor(a):
+        x = a
+        fn = b
+    else:
+        x = b
+        fn = a
+
     assert isATensor(x), "`x` must be a tensor!"
 
     if isANumpyArray(x):

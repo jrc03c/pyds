@@ -16,6 +16,19 @@ class SortTestCase(unittest.TestCase):
         yPred = sort(x)
         self.assertTrue(isEqual(yTrue, yPred), msg="Failed to sort an array!")
 
+        x = [{"name": "Alice"}, {"name": "Charlie"}, {"name": "Bob"}]
+        yTrue = array([{"name": "Charlie"}, {"name": "Bob"}, {"name": "Alice"}])
+        yPred1 = sort(x, lambda a, b: 1 if a["name"] < b["name"] else -1)
+        yPred2 = sort(lambda a, b: 1 if a["name"] < b["name"] else -1, x)
+
+        self.assertTrue(
+            isEqual(yTrue, yPred1), msg="Failed to sort an array of objects!"
+        )
+
+        self.assertTrue(
+            isEqual(yTrue, yPred2), msg="Failed to sort an array of objects!"
+        )
+
     def testErrors(self):
         wrongs = [
             234,
