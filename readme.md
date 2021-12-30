@@ -58,7 +58,7 @@ Gets the Euclidean distance between two tensors of the same shape.
 
 ## `drawCorrelationMatrix(a, b)`
 
-Plots a [correlation matrix](#get-correlation-matrix).
+Plots a [correlation matrix](#getcorrelationmatrixa-bnone).
 
 ---
 
