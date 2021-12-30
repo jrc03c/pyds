@@ -198,7 +198,7 @@ Generates a random alphanumeric string of arbitrary length.
 
 <h2 id="map">
   <code>
-    apply(fn, arr)
+    map(fn, arr)
   </code>
 </h2>
 
