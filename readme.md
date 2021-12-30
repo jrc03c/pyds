@@ -202,7 +202,7 @@ Generates a random alphanumeric string of arbitrary length.
   </code>
 </h2>
 
-Returns an array in which `fn` has been applied to each item in the array. Compare with [`apply`](#apply).
+Returns an array in which `fn` has been applied to each top-level item in the array. Compare with [`apply`](#apply).
 
 ---
 
