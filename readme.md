@@ -28,7 +28,7 @@ from pyds import *
 
 ## `apply(fn, x)`
 
-Applies a function to each element in a tensor. Note that this differs from [`map`](#------mapfn-arr--) in that `map` operates on each top-level item in an array (where each top-level item could itself potentially be an array) whereas `apply` operates on each individual non-array value in an arbitrarily deeply nested and potentially ragged array.
+Applies a function to each element in a tensor. Note that this differs from [`map`](#mapfn-arr) in that `map` operates on each top-level item in an array (where each top-level item could itself potentially be an array) whereas `apply` operates on each individual non-array value in an arbitrarily deeply nested and potentially ragged array.
 
 ---
 
@@ -76,7 +76,7 @@ Flattens a tensor to a vector.
 
 ## `getAverageCorrelation(a, b)`
 
-Computes the average correlation between two matrices by first computing the [correlation matrix](#------getcorrelationmatrixa-bnone--) between the two and then averaging all of the values.
+Computes the average correlation between two matrices by first computing the [correlation matrix](#getcorrelationmatrixa-bnone) between the two and then averaging all of the values.
 
 ---
 
@@ -190,7 +190,7 @@ Generates a random alphanumeric string of arbitrary length.
 
 ## `map(fn, arr)`
 
-Returns an array in which `fn` has been applied to each top-level item in the array. Compare with [`apply`](#------applyfn-x--).
+Returns an array in which `fn` has been applied to each top-level item in the array. Compare with [`apply`](#applyfn-x).
 
 ---
 
