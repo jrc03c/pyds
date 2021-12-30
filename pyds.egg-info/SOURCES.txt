@@ -36,6 +36,7 @@ pyds/load_json.py
 pyds/magnitude.py
 pyds/make_key.py
 pyds/map.py
+pyds/normalize.py
 pyds/orthonormalize.py
 pyds/outlier_mitigator.py
 pyds/p_value.py

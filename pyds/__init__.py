@@ -29,6 +29,7 @@ from .load_json import *
 from .magnitude import *
 from .make_key import *
 from .map import *
+from .normalize import *
 from .orthonormalize import *
 from .outlier_mitigator import *
 from .p_value import *

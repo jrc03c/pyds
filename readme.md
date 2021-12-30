@@ -194,6 +194,12 @@ Returns an array in which `fn` has been applied to each top-level item in the ar
 
 ---
 
+## `normalize(x)`
+
+Returns `(x - mean(x)) / std(x)`.
+
+---
+
 ## `orthonormalize(x)`
 
 Returns an orthonormalized copy of a matrix in which each column is orthogonal to every other column. The orthonormalization is achieved using the [Gram-Schmidt process](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process).
