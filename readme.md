@@ -198,6 +198,12 @@ returns an array in which `fn` has been applied to each item in the array
 
 ---
 
+## `orthonormalize(x)`
+
+returns an orthonormalized copy of a matrix in which each column is roughly orthogonal to every other column; the orthonormalization is achieved using the [Gram-Schmidt process](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process)
+
+---
+
 ## `pValue(a, b)`
 
 returns the _p_-value of two tensors; obviously, this is an oversimplification, since p-values can be computed in a variety of ways; this function is just short-hand for using scipy's [`ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) function this way:

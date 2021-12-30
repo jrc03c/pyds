@@ -3,7 +3,6 @@ build.sh
 readme.md
 setup.py
 test.sh
-dist/pyds-0.0.3.tar.gz
 pyds/__init__.py
 pyds/apply.py
 pyds/chop.py
@@ -37,6 +36,7 @@ pyds/load_json.py
 pyds/magnitude.py
 pyds/make_key.py
 pyds/map.py
+pyds/orthonormalize.py
 pyds/outlier_mitigator.py
 pyds/p_value.py
 pyds/r_score.py
