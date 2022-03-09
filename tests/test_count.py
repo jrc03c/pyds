@@ -1,5 +1,5 @@
 import unittest
-from pyds import count, isEqual, filter
+from pyds import count, isEqual, filter, flatten
 from numpy import vectorize
 from numpy.random import random
 

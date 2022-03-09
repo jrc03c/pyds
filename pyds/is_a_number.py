@@ -1,7 +1,11 @@
 from numpy import isnan
+from .is_a_tensor import *
 
 
 def isANumber(x):
+    if isATensor(x):
+        return False
+
     try:
         if isnan(x):
             return False

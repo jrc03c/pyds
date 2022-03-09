@@ -1,34 +1,46 @@
-from .is_a_vector import *
+from .contains_only_numbers import *
+from .filter import *
+from .is_a_number import *
+from .is_a_numpy_array import *
 from .is_a_pandas_series import *
+from .is_a_vector import *
 from .is_binary import *
 from .sort import *
-from .contains_only_numbers import *
-from numpy import median, abs, array, where, max, min, log, clip
+from numpy import abs, array, clip, log, max, median, min, where
 
 
 class OutlierMitigator:
-    def __init__(
-        self, canClip=True, canLog=True, mustClip=False, mustLog=False, maxScore=5
-    ):
-        self.canClip = canClip
-        self.canLog = canLog
-        self.mustClip = mustClip
-        self.mustLog = mustLog
+    def __init__(self, isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5):
+        self.isAllowedToClip = isAllowedToClip
+        self.isAllowedToTakeTheLog = isAllowedToTakeTheLog
         self.maxScore = maxScore
         self.median = 0
         self.mad = 0
+        self.min = 0
         self.exceededMaxScore = False
 
     def fit(self, x):
+        # make sure the data is a vector
         assert isAVector(x), "`x` must be a vector!"
-        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
 
         if isAPandasSeries(x):
             x = x.values
 
+        if isANumpyArray(x):
+            x = x.tolist()
+
+        # drop NaN values
+        x = filter(lambda v: isANumber(v), x)
+
+        if len(x) == 0:
+            return self
+
+        # if the data is binary, then don't do anything else
         if isBinary(x):
             return self
 
+        # determine whether the max score was exceeded
+        self.min = min(x)
         self.median = median(x)
         self.mad = median(abs(x - self.median))
 
@@ -62,22 +74,32 @@ class OutlierMitigator:
 
     def transform(self, x):
         assert isAVector(x), "`x` must be a vector!"
-        assert containsOnlyNumbers(x), "`x` must contain only numbers!"
 
         if isAPandasSeries(x):
             x = x.values
 
-        if isBinary(x):
-            return x
+        if isANumpyArray(x):
+            x = x.tolist()
 
-        if self.mustClip or (self.canClip and self.exceededMaxScore):
-            x = clip(
-                x,
-                self.median - self.maxScore * self.mad,
-                self.median + self.maxScore * self.mad,
-            )
+        xClean = filter(lambda v: isANumber(v), x)
 
-        if self.mustLog or (self.canLog and self.exceededMaxScore):
-            x = log(x - min(x) + 1)
+        if isBinary(xClean):
+            return array(x)
 
-        return x
+        out = []
+
+        for v in x:
+            if self.exceededMaxScore and isANumber(v):
+                if self.isAllowedToClip:
+                    v = clip(
+                        v,
+                        self.median - self.maxScore * self.mad,
+                        self.median + self.maxScore * self.mad,
+                    )
+
+                if self.isAllowedToTakeTheLog:
+                    v = log(v - self.min + 1)
+
+            out.append(v)
+
+        return array(out)

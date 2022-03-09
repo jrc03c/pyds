@@ -1,8 +1,9 @@
 import unittest
-from pyds import OutlierMitigator, isEqual, rScore
+from pyds import OutlierMitigator, isEqual, makeKey, rScore
 from numpy import *
 from numpy.random import *
 from pandas import Series, DataFrame
+from math import floor
 
 round = vectorize(round)
 
@@ -27,35 +28,11 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         y = gator.fit(x).transform(x)
         self.assertFalse(isEqual(x, y), msg="Failed to mitigate outliers correctly!")
 
-        # clip but don't log
-        x = random(size=1000)
-        x[-1] = 1e20
-        med = median(x)
-        mad = median(abs(x - med))
-        yTrue = clip(x, med - 5 * mad, med + 5 * mad)
-        gator = OutlierMitigator(mustClip=True, canLog=False)
-        yPred = gator.fit(x).transform(x)
-
-        self.assertAlmostEqual(
-            rScore(yTrue, yPred), 1, msg="Failed to mitigate outliers correctly!"
-        )
-
-        # log but don't clip
-        x = random(size=1000)
-        x[-1] = 1e20
-        yTrue = log(x - min(x) + 1)
-        gator = OutlierMitigator(canClip=False, mustLog=True)
-        yPred = gator.fit(x).transform(x)
-
-        self.assertAlmostEqual(
-            rScore(yTrue, yPred), 1, msg="Failed to mitigate outliers correctly!"
-        )
-
         # neither clip nor log
         x = random(size=1000)
         x[-1] = 1e20
         yTrue = x
-        gator = OutlierMitigator(canClip=False, canLog=False)
+        gator = OutlierMitigator(isAllowedToClip=False, isAllowedToTakeTheLog=False)
         yPred = gator.fit(x).transform(x)
 
         self.assertAlmostEqual(
@@ -69,7 +46,7 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         mad = median(abs(x - med))
         yTrue = clip(x, med - 5 * mad, med + 5 * mad)
         yTrue = log(yTrue - min(yTrue) + 1)
-        gator = OutlierMitigator(canClip=True, canLog=True)
+        gator = OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True)
         yPred = gator.fit(x).transform(x)
 
         self.assertAlmostEqual(
@@ -84,7 +61,11 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         maxScore = 3
         yTrue = clip(x, med - maxScore * mad, med + maxScore * mad)
         yTrue = log(yTrue - min(yTrue) + 1)
-        gator = OutlierMitigator(canClip=True, canLog=True, maxScore=maxScore)
+
+        gator = OutlierMitigator(
+            isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=maxScore
+        )
+
         yPred = gator.fit(x).transform(x)
 
         self.assertAlmostEqual(
@@ -100,6 +81,34 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             failed = True
 
         self.assertFalse(failed, msg="Failed to mitigate outliers correctly!")
+
+        # make sure that nothing goes wrong when there's NaNs involved
+        x = random(size=1000).tolist()
+
+        for i in range(0, 100):
+            funcs = [
+                lambda: True,
+                lambda: False,
+                lambda: None,
+                lambda: random(),
+                lambda: makeKey(8),
+            ]
+
+            index = floor(random() * len(x))
+            func = funcs[floor(random() * len(funcs))]
+            x[index] = func()
+
+        x = array(x)
+
+        gator = OutlierMitigator()
+        nothingWentWrong = True
+
+        try:
+            gator.fit(x).transform(x)
+        except:
+            nothingWentWrong = False
+
+        self.assertTrue(nothingWentWrong)
 
     def testErrors(self):
         missing = normal(size=1000)

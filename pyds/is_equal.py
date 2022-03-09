@@ -1,11 +1,16 @@
-from .is_a_tensor import *
-from .is_a_pandas_series import *
-from .is_a_pandas_dataframe import *
 from .is_a_function import *
+from .is_a_number import *
+from .is_a_numpy_array import *
+from .is_a_pandas_dataframe import *
+from .is_a_pandas_series import *
+from .is_a_tensor import *
 from numpy import shape
 
 
 def isEqual(a, b):
+    if isANumber(a) and isANumber(b):
+        return float(a) == float(b)
+
     if type(a) != type(b):
         return False
 
@@ -15,6 +20,12 @@ def isEqual(a, b):
 
         if isAPandasSeries(b) or isAPandasDataFrame(b):
             b = b.values
+
+        if isANumpyArray(a):
+            a = a.tolist()
+
+        if isANumpyArray(b):
+            b = b.tolist()
 
         if len(a) != len(b):
             return False
