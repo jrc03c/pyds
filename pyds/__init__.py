@@ -1,4 +1,5 @@
 from .apply import *
+from .camelify import *
 from .chop import *
 from .contains_only_numbers import *
 from .correl import *
@@ -10,6 +11,7 @@ from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
 from .indexer import *
+from .is_a_function import *
 from .is_a_matrix import *
 from .is_a_number import *
 from .is_a_numpy_array import *
@@ -23,6 +25,7 @@ from .is_equal import *
 from .is_iterable import *
 from .is_jagged import *
 from .js_object import *
+from .kebabify import *
 from .least_squares import *
 from .left_pad import *
 from .load_json import *
@@ -39,5 +42,6 @@ from .reverse import *
 from .set import *
 from .shuffle import *
 from .sign import *
+from .snakeify import *
 from .sort import *
 from .truncated_svd import *

@@ -7,7 +7,7 @@ from numpy.random import *
 
 class IsAPandasSeriesTestCase(unittest.TestCase):
     def test(self):
-        series = [Series(), Series(normal(size=100))]
+        series = [Series(dtype="object"), Series(normal(size=100))]
 
         for s in series:
             self.assertTrue(isAPandasSeries(s), msg="Failed to identify pandas Series!")

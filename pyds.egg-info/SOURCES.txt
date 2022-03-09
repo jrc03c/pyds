@@ -3,8 +3,10 @@ build.sh
 readme.md
 setup.py
 test.sh
+pyds/__helpers__.py
 pyds/__init__.py
 pyds/apply.py
+pyds/camelify.py
 pyds/chop.py
 pyds/contains_only_numbers.py
 pyds/correl.py
@@ -30,6 +32,7 @@ pyds/is_equal.py
 pyds/is_iterable.py
 pyds/is_jagged.py
 pyds/js_object.py
+pyds/kebabify.py
 pyds/least_squares.py
 pyds/left_pad.py
 pyds/load_json.py
@@ -46,6 +49,7 @@ pyds/reverse.py
 pyds/set.py
 pyds/shuffle.py
 pyds/sign.py
+pyds/snakeify.py
 pyds/sort.py
 pyds/truncated_svd.py
 pyds.egg-info/PKG-INFO
