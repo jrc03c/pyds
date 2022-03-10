@@ -1,11 +1,11 @@
-from .is_a_tensor import *
-from .is_a_pandas_series import *
-from .is_a_pandas_dataframe import *
+from .contains_only_numbers import *
 from .is_a_numpy_array import *
+from .is_a_pandas_dataframe import *
+from .is_a_pandas_series import *
+from .is_a_tensor import *
 from .is_binary import *
 from .sign import *
-from .contains_only_numbers import *
-from numpy import sum, mean, sqrt, abs, array
+from numpy import abs, array, mean, nan, sqrt, sum
 import scipy
 
 
@@ -52,7 +52,7 @@ def rScore(true, pred, baseline=None):
     den = sum((true - helper(baseline)) ** 2)
 
     if den == 0:
-        return 0
+        return nan
 
     r2 = 1 - num / den
     return sign(r2) * sqrt(abs(r2))

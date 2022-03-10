@@ -1,8 +1,8 @@
-import unittest
-from pyds import rScore
-from numpy import shape
+from numpy import isnan, shape, zeros
 from numpy.random import normal
 from pandas import Series
+from pyds import rScore
+import unittest
 
 
 class RScoreTestCase(unittest.TestCase):
@@ -34,6 +34,14 @@ class RScoreTestCase(unittest.TestCase):
             rScore(c, c),
             1,
             msg="Failed to compute the correct R-score for two tensors!",
+        )
+
+        # confirm that nan is returned when the true set only has one value
+        true = zeros(1000)
+        pred = normal(size=1000)
+        self.assertTrue(
+            isnan(rScore(true, pred)),
+            msg="Failed to return `nan` from `rScore` in cases where the true data set contains only one unique value!",
         )
 
     def testErrors(self):
