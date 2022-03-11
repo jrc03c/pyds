@@ -1,16 +1,24 @@
 from .contains_only_numbers import *
 from .filter import *
+from .flatten import *
 from .is_a_number import *
 from .is_a_numpy_array import *
 from .is_a_pandas_series import *
-from .is_a_vector import *
+from .is_a_tensor import *
 from .is_binary import *
 from .sort import *
-from numpy import abs, array, clip, log, max, median, min, where
+from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, where
+import warnings
 
 
 class OutlierMitigator:
-    def __init__(self, isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5):
+    def __init__(
+        self,
+        isAllowedToClip=True,
+        isAllowedToTakeTheLog=True,
+        maxScore=5,
+        shouldShowWarnings=True,
+    ):
         self.isAllowedToClip = isAllowedToClip
         self.isAllowedToTakeTheLog = isAllowedToTakeTheLog
         self.maxScore = maxScore
@@ -18,16 +26,20 @@ class OutlierMitigator:
         self.mad = 0
         self.min = 0
         self.exceededMaxScore = False
+        self.shouldShowWarnings = shouldShowWarnings
 
     def fit(self, x):
-        # make sure the data is a vector
-        assert isAVector(x), "`x` must be a vector!"
+        # make sure the data is a tensor
+        assert isATensor(x), "`x` must be a vector, matrix, or tensor!"
 
         if isAPandasSeries(x):
             x = x.values
 
         if isANumpyArray(x):
             x = x.tolist()
+
+        # turn into a vector
+        x = flatten(x)
 
         # drop NaN values
         x = filter(lambda v: isANumber(v), x)
@@ -72,34 +84,74 @@ class OutlierMitigator:
 
         return self
 
-    def transform(self, x):
-        assert isAVector(x), "`x` must be a vector!"
+    def transform(self, *args):
+        def betterMin(x):
+            lowest = inf
 
-        if isAPandasSeries(x):
-            x = x.values
+            for value in flatten(x):
+                if isANumber(value) and value < lowest:
+                    lowest = value
 
-        if isANumpyArray(x):
-            x = x.tolist()
+            return lowest
 
-        xClean = filter(lambda v: isANumber(v), x)
+        assert (
+            len(args) > 0
+        ), "You must pass at least one vector, matrix, or tensor into the `transform` method!"
 
-        if isBinary(xClean):
-            return array(x)
+        reallyOut = []
 
-        out = []
+        for x in args:
+            assert isATensor(x), "`x` must be a vector, matrix, or tensor!"
 
-        for v in x:
-            if self.exceededMaxScore and isANumber(v):
-                if self.isAllowedToClip:
-                    v = clip(
-                        v,
-                        self.median - self.maxScore * self.mad,
-                        self.median + self.maxScore * self.mad,
-                    )
+            if isAPandasSeries(x):
+                x = x.values
 
-                if self.isAllowedToTakeTheLog:
-                    v = log(v - self.min + 1)
+            if isANumpyArray(x):
+                x = x.tolist()
 
-            out.append(v)
+            xShape = shape(x)
+            x = flatten(x)
 
-        return array(out)
+            xClean = filter(lambda v: isANumber(v), x)
+
+            if isBinary(xClean):
+                reallyOut.append(reshape(x, xShape))
+                continue
+
+            if (
+                self.shouldShowWarnings
+                and betterMin(x) < self.min
+                and self.isAllowedToTakeTheLog
+            ):
+                if len(args) == 1:
+                    message = "Note that the data you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformed data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data passed into the `train` method has a minimum value less than or equal to the minimum value of the data passed into the `transform` method, or (2) disable log-taking by passing `isAllowedToTakeTheLog=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `shouldShowWarnings=False` to the `OutlierMitigator` constructor."
+
+                else:
+                    message = "Note that one of the data sets you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformation of that data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data set passed into the `train` method has a minimum value less than or equal to all of the minimum values of the data sets passed into the `transform` method, or (2) disable log-taking by passing `isAllowedToTakeTheLog=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `shouldShowWarnings=False` to the `OutlierMitigator` constructor."
+
+                warnings.warn(message)
+
+            out = []
+
+            for v in x:
+                if self.exceededMaxScore and isANumber(v):
+                    if self.isAllowedToClip:
+                        v = clip(
+                            v,
+                            self.median - self.maxScore * self.mad,
+                            self.median + self.maxScore * self.mad,
+                        )
+
+                    if self.isAllowedToTakeTheLog:
+                        with warnings.catch_warnings():
+                            warnings.simplefilter("ignore")
+                            v = log(v - self.min + 1)
+
+                out.append(v)
+
+            reallyOut.append(reshape(out, xShape))
+
+        if len(reallyOut) == 1:
+            return reallyOut[0]
+
+        return tuple(reallyOut)

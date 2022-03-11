@@ -319,11 +319,11 @@ This process works even if the row orders are shuffled! The way it works, though
 
 ---
 
-## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5)`
+## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5, shouldShowWarnings=True)`
 
-This is a class that optionally clips and takes the log of outliers in a vector. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the vector if the MAD score of any value exceeds `maxScore * MAD`.
+This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `maxScore * MAD`.
 
-The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of a vector, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
+The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
 
 ```python
 from pyds import OutlierMitigator

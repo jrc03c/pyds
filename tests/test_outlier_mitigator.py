@@ -82,6 +82,21 @@ class OutlierMitigatorTestCase(unittest.TestCase):
 
         self.assertFalse(failed, msg="Failed to mitigate outliers correctly!")
 
+        # make sure that multiple data sets can be transformed at once
+        train1 = array([1, 2, 3, 4, 1000])
+        test1 = array([4, 3, 2, 1])
+        gator = OutlierMitigator()
+        gator.fit(train1)
+        train2, test2 = gator.transform(train1, test1)
+
+        self.assertFalse(
+            isEqual(train1, train2), msg="Failed to mitigate outliers correctly!"
+        )
+
+        self.assertFalse(
+            isEqual(test1, test2), msg="Failed to mitigate outliers correctly!"
+        )
+
         # make sure that nothing goes wrong when there's NaNs involved
         x = random(size=1000).tolist()
 
@@ -110,10 +125,26 @@ class OutlierMitigatorTestCase(unittest.TestCase):
 
         self.assertTrue(nothingWentWrong)
 
-    def testErrors(self):
-        missing = normal(size=1000)
-        missing[0] = None
+        # make sure that tensors are returned in their original shape
+        train = [1, 2, 3, 4, 1000]
+        gator = OutlierMitigator(shouldShowWarnings=False)
+        gator.fit(train)
 
+        test1 = normal(size=[2, 3, 4, 5])
+        pred1 = gator.transform(test1)
+        self.assertTrue(
+            isEqual(shape(test1), shape(pred1)),
+            msg="Failed to mitigate outliers correctly!",
+        )
+
+        test2 = DataFrame(normal(size=[10, 20]))
+        pred2 = gator.transform(test2)
+        self.assertTrue(
+            isEqual(shape(test2.values), shape(pred2)),
+            msg="Failed to migitate outliers correctly!",
+        )
+
+    def testErrors(self):
         wrongs = [
             [234, 234],
             ["foo", "bar"],
@@ -121,10 +152,6 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             [None, None],
             [{"hello": "world"}, {"goodbye": "world"}],
             [lambda x: x * 2, lambda x: x * 3],
-            [normal(size=100), normal(size=[10, 10])],
-            [normal(size=[10, 10]), normal(size=100)],
-            [DataFrame(normal(size=[10, 10])), DataFrame(normal(size=[10, 10]))],
-            missing,
         ]
 
         def helper(a, b):
@@ -132,4 +159,6 @@ class OutlierMitigatorTestCase(unittest.TestCase):
             gator.fit(a).transform(b)
 
         for pair in wrongs:
+            print(pair[0], pair[1])
             self.assertRaises(AssertionError, helper, pair[0], pair[1])
+
