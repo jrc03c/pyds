@@ -10,25 +10,15 @@ class Indexer:
         assert type(isVerbose) == bool, "`isVerbose` must be a boolean!"
         self.isVerbose = isVerbose
 
-    def fit(self, x):
-        assert isAPandasDataFrame(x) or isAPandasSeries(
-            x
-        ), "`x` must be a pandas DataFrame or Series!"
-
-        self.index = x.dropna().index
-        return self
-
-    def mutualFit(self, items):
-        assert type(items) == list, "`items` must be a list of DataFrames or Series!"
-
-        for item in items:
+    def fit(self, *args):
+        for item in args:
             assert isAPandasDataFrame(item) or isAPandasSeries(
                 item
-            ), "All items must be pandas DataFrames or Series!"
+            ), "All items passed into the `fit` method must be pandas DataFrames or Series!"
 
         index = None
 
-        for item in items:
+        for item in args:
             if index is None:
                 index = set(item.dropna().index)
             else:
@@ -37,14 +27,26 @@ class Indexer:
         self.index = list(index)
         return self
 
-    def transform(self, x):
-        assert isAPandasDataFrame(x) or isAPandasSeries(
-            x
-        ), "`x` must be a pandas DataFrame or Series!"
+    def transform(self, *args):
+        assert (
+            len(args) > 0
+        ), "You must pass at least one pandas DataFrame or Series into the `transform` method!"
 
-        out = x.loc[self.index]
+        reallyOut = []
 
-        if self.isVerbose and out.shape[0] != out.dropna().shape[0]:
-            print("WARNING: Indexer transformation has not removed all NaN values!")
+        for item in args:
+            assert isAPandasDataFrame(item) or isAPandasSeries(
+                item
+            ), "All items passed into the `transform` method must be pandas DataFrames or Series!"
 
-        return out
+            out = item.loc[self.index]
+
+            if self.isVerbose and out.shape[0] != out.dropna().shape[0]:
+                print("WARNING: Indexer transformation has not removed all NaN values!")
+
+            reallyOut.append(out)
+
+        if len(reallyOut) == 1:
+            return reallyOut[0]
+
+        return tuple(reallyOut)

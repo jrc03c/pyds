@@ -1,5 +1,5 @@
 import unittest
-from pyds import Indexer, range, containsOnlyNumbers
+from pyds import Indexer, range, containsOnlyNumbers, isEqual, distance, flatten
 from pandas import DataFrame as DF
 from pandas import Series
 from numpy import *
@@ -21,7 +21,7 @@ class IndexerTestCase(unittest.TestCase):
             )
 
         t = Series([None, 20, None, 40, 50])
-        indexer.mutualFit([s, t])
+        indexer.fit(s, t)
         indexTrue = [1, 4]
 
         for i in range(0, len(indexer.index)):
@@ -45,6 +45,31 @@ class IndexerTestCase(unittest.TestCase):
             msg="The indexer did not correctly drop NaN values from a DataFrame!",
         )
 
+        # check that the Indexer can fit and transform using multiple data sets
+        a = Series([0, 10, 20, None, 40, 50])
+        b = Series([None, 1, 2, 3, 4, 5])
+        indexer = Indexer()
+        indexer.fit(a, b)
+        c, d = indexer.transform(a, b)
+
+        self.assertTrue(
+            isEqual(c.index, d.index),
+            msg="The indexer did not correctly fit from and/or transform multiple data sets! Specifically, the indexes of the transformed sets do not match. (%s vs. %s)"
+            % (c.index.tolist(), d.index.tolist()),
+        )
+
+        self.assertTrue(
+            distance(c, [10, 20, 40, 50]) == 0,
+            msg="The indexer did not correctly fit from and/or transform multiple data sets! Specifically, the values of the first transformed set do not match the expected values. (%s vs. %s)"
+            % (flatten(c), flatten([10, 20, 40, 50])),
+        )
+
+        self.assertTrue(
+            distance(d, [1, 2, 4, 5]) == 0,
+            msg="The indexer did not correctly fit from and/or transform multiple data sets! Specifically, the values of the second transformed set do not match the expected values. (%s vs. %s)"
+            % (flatten(d), flatten([1, 2, 4, 5])),
+        )
+
     def testErrors(self):
         wrongs = [
             234,
@@ -66,5 +91,5 @@ class IndexerTestCase(unittest.TestCase):
             )
 
             self.assertRaises(
-                AssertionError, indexer.mutualFit, item,
+                AssertionError, indexer.fit, item,
             )
