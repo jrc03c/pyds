@@ -1,14 +1,13 @@
 import unittest
 from pyds import sort, set, isEqual, range
 from pandas import Series, DataFrame
-from numpy import array
 from numpy.random import normal
 
 
 class SetTestCase(unittest.TestCase):
     def test(self):
         x = [2, 3, 2, 3, 3, 3, 4, 5, 6, 3]
-        yTrue = array([2, 3, 4, 5, 6])
+        yTrue = [2, 3, 4, 5, 6]
         yPred = sort(set(x))
 
         self.assertTrue(
@@ -23,7 +22,7 @@ class SetTestCase(unittest.TestCase):
         )
 
         x = [[2, 3], [3, 4, 5], [[2], [3, 4, 5]]]
-        yTrue = array([2, 3, 4, 5])
+        yTrue = [2, 3, 4, 5]
         yPred = sort(set(x))
 
         self.assertTrue(

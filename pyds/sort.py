@@ -64,4 +64,4 @@ def sort(a, b=None):
         b = helper(x[m:], fn)
         return merge(a, b, fn)
 
-    return array(helper(x, fn))
+    return helper(x, fn)
