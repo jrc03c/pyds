@@ -292,9 +292,8 @@ survey2 = DataFrame({
 # drop Alicia and Janet from the final analysis.
 
 indexer = Indexer()
-indexer.mutualFit([survey1, survey2])
-survey1 = indexer.transform(survey1)
-survey2 = indexer.transform(survey2)
+indexer.fit(survey1, survey2)
+survey1, survey2 = indexer.transform(survey1, survey2)
 
 print(survey1)
 
