@@ -6,6 +6,7 @@ from .correl import *
 from .count import *
 from .distance import *
 from .draw_correlation_matrix import *
+from .drop_nan import *
 from .filter import *
 from .flatten import *
 from .get_average_correlation import *
