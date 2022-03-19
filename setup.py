@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="pyds",
-    version="0.0.13",
+    version="0.0.14",
     description="A collection of helper tools for doing data science stuff. Please don't judge me too harshly for my ignorance.",
     url="https://github.com/jrc03c/python-data-science-tools",
     author="jrc03c",

@@ -5,9 +5,23 @@ from .is_a_pandas_dataframe import *
 from .is_a_pandas_series import *
 from .is_a_tensor import *
 from numpy import shape
+from numpy import nan as numpyNan
+from math import nan as mathNan
 
 
 def isEqual(a, b):
+    if a is numpyNan and b is numpyNan:
+        return True
+
+    if a is mathNan and b is mathNan:
+        return True
+
+    if a is numpyNan and b is mathNan:
+        return True
+
+    if a is mathNan and b is numpyNan:
+        return True
+
     if isANumber(a) and isANumber(b):
         return float(a) == float(b)
 

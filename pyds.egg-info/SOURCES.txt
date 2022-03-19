@@ -13,6 +13,7 @@ pyds/correl.py
 pyds/count.py
 pyds/distance.py
 pyds/draw_correlation_matrix.py
+pyds/drop_nan.py
 pyds/filter.py
 pyds/flatten.py
 pyds/get_average_correlation.py
@@ -45,6 +46,7 @@ pyds/outlier_mitigator.py
 pyds/p_value.py
 pyds/r_score.py
 pyds/range.py
+pyds/replace_nan.py
 pyds/reverse.py
 pyds/set.py
 pyds/shuffle.py

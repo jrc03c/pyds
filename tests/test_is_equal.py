@@ -4,6 +4,9 @@ from numpy import *
 from numpy.random import *
 from pandas import Series, DataFrame
 
+from numpy import nan as numpyNan
+from math import nan as mathNan
+
 
 class IsEqualTestCase(unittest.TestCase):
     def test(self):
@@ -42,6 +45,10 @@ class IsEqualTestCase(unittest.TestCase):
             [e, e],
             [f, g],
             [person1, person2],
+            [numpyNan, numpyNan],
+            [mathNan, mathNan],
+            [numpyNan, mathNan],
+            [mathNan, numpyNan],
         ]
 
         for pair in rights:

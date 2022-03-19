@@ -62,6 +62,12 @@ Plots a [correlation matrix](#getcorrelationmatrixa-bnone).
 
 ---
 
+## `dropNaN(x)`
+
+Drops NaN values from `x`. Work on pretty much any kind of value, I think. Unlike most of the other functions in this library, this function returns a plain Python `list`.
+
+---
+
 ## `filter(fn, arr)`
 
 Returns an array containing only items where `fn(item)` is `True`.
@@ -213,6 +219,12 @@ Returns the _p_-value of two tensors. Obviously, this is an oversimplification, 
 ```python
 ttest_ind(a, b, equal_var=False, nan_policy="omit")[1]
 ```
+
+---
+
+## `replaceNaN(x, newValue=numpy.nan)`
+
+Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Unlike most of the other functions in this library, this function returns a plain Python `list`.
 
 ---
 
