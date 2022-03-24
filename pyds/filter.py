@@ -31,8 +31,9 @@ def filter(a, b):
         arr = arr.tolist()
 
     out = list(oldFilter(fn, arr))
+    types = set(list(map(lambda v: type(v), out)))
 
-    if isJagged(out):
+    if isJagged(out) or len(types) > 1:
         return array(out, dtype=object)
     else:
         return array(out)

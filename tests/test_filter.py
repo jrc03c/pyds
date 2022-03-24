@@ -20,6 +20,23 @@ class FilterTestCase(unittest.TestCase):
             msg="Could not filter a tensor!",
         )
 
+        # make sure that an array of dtype=object is returned when the values
+        # are of mixed types!
+        def floatify(x):
+            try:
+                return float(x)
+            except:
+                return x
+
+        x = [234, "foo", True, False, None, {}, lambda x: x, []]
+        yTrue = array([234, True, False], dtype=object)
+        yPred = filter(lambda v: type(v) == bool or type(v) == int, x)
+
+        self.assertTrue(
+            isEqual(yTrue, yPred),
+            msg="Failed to return an array of dtype=object when returning an array of mixed types from the `filter` function!",
+        )
+
     def testErrors(self):
         wrongs = [
             [234, 567],

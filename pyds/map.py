@@ -4,6 +4,7 @@ from .is_a_pandas_dataframe import *
 from .is_a_numpy_array import *
 from .is_a_function import *
 from .is_jagged import *
+from .set import *
 
 oldMap = map
 
@@ -32,7 +33,9 @@ def map(a, b):
 
     out = list(oldMap(fn, arr))
 
-    if isJagged(out):
+    types = set(list(oldMap(lambda v: type(v), out)))
+
+    if isJagged(out) or len(types) > 1:
         return array(out, dtype=object)
     else:
         return array(out)
