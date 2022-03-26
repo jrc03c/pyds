@@ -242,6 +242,14 @@ Replaces any NaN values in `x` with the specified new value, which by default is
 
 ---
 
+## `replaceUndefined(x, newValue=numpy.nan, strings=[])`
+
+Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
+
+By default, values that are considered to be undefined are `None`, `numpy.nan`, and `math.nan`. However, the second parameter gives you the option of passing in a list of strings that are also considered to be undefined. This is useful in cases where you're reading in data from (e.g.) a CSV file that contains empty strings, "NULL", "undefined", etc., and would like to replace those values as well.
+
+---
+
 ## `rScore(true, pred)`
 
 Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`.
