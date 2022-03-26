@@ -42,6 +42,7 @@ from .p_value import *
 from .r_score import *
 from .range import *
 from .replace_nan import *
+from .replace_undefined import *
 from .reverse import *
 from .set import *
 from .shuffle import *

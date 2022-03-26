@@ -4,11 +4,11 @@ from .is_a_numpy_array import *
 from .is_a_pandas_dataframe import *
 from .is_a_pandas_series import *
 from .is_a_tensor import *
+from .is_undefined import *
 from numpy import nan
 
 
-# Note that this function's structure should be closely linked to dropNaN's!
-def replaceNaN(x, newValue=nan):
+def replaceUndefined(x, newValue=nan, strings=[]):
     if isATensor(x):
         if isAPandasDataFrame(x) or isAPandasSeries(x):
             x = x.values.tolist()
@@ -19,7 +19,8 @@ def replaceNaN(x, newValue=nan):
         out = []
 
         for value in x:
-            out.append(replaceNaN(value, newValue=newValue))
+            temp = replaceUndefined(value, newValue=newValue, strings=strings)
+            out.append(temp)
 
         return out
 
@@ -28,22 +29,28 @@ def replaceNaN(x, newValue=nan):
 
         for key in x.keys():
             value = x[key]
-            out[key] = replaceNaN(value, newValue=newValue)
+            temp = replaceUndefined(value, newValue=newValue, strings=strings)
+            out[key] = temp
 
         return out
 
     else:
-        if isAFunction(x):
+        if isUndefined(x):
             return newValue
 
+        if type(x) == str:
+            if x in strings:
+                return newValue
+
+            return x
+
+        if isAFunction(x):
+            return x
+
         try:
-            return replaceNaN(x.__dict__, newValue=newValue)
+            return replaceUndefined(x.__dict__, newValue=newValue, strings=strings)
 
         except:
             pass
 
-        if isANumber(x):
-            return x
-
-        return newValue
-
+        return x
