@@ -7,6 +7,7 @@ from .count import *
 from .distance import *
 from .draw_correlation_matrix import *
 from .drop_nan import *
+from .drop_undefined import *
 from .filter import *
 from .flatten import *
 from .get_average_correlation import *
@@ -25,6 +26,7 @@ from .is_binary import *
 from .is_equal import *
 from .is_iterable import *
 from .is_jagged import *
+from .is_undefined import *
 from .js_object import *
 from .kebabify import *
 from .least_squares import *

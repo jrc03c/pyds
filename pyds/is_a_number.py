@@ -1,25 +1,47 @@
-from numpy import isnan
+from math import isnan as mathIsNaN
+from numpy import isnan as numpyIsNaN
 from .is_a_tensor import *
 
 
 def isANumber(x):
+    if x is None:
+        return False
+
     if isATensor(x):
         return False
 
     try:
-        if isnan(x):
+        if mathIsNaN(x):
             return False
+
     except:
         pass
 
-    if type(x) is bool:
+    try:
+        if numpyIsNaN(x):
+            return False
+
+    except:
+        pass
+
+    if type(x) == bool:
         return False
 
-    if type(x) is str:
+    if type(x) == str:
         return False
 
     try:
         float(x)
         return True
+
     except:
-        return False
+        pass
+
+    try:
+        int(x)
+        return True
+
+    except:
+        pass
+
+    return False

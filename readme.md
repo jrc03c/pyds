@@ -64,7 +64,15 @@ Plots a [correlation matrix](#getcorrelationmatrixa-bnone).
 
 ## `dropNaN(x)`
 
-Drops NaN values from `x`. Work on pretty much any kind of value, I think. Unlike most of the other functions in this library, this function returns a plain Python `list`.
+Drops NaN values from `x`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
+
+---
+
+## `dropUndefined(x, strings=[])`
+
+Drops undefined values from `x`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
+
+By default, values that are considered to be undefined are `None`, `numpy.nan`, and `math.nan`. However, the second parameter gives you the option of passing in a list of strings that are also considered to be undefined. This is useful in cases where you're reading in data from (e.g.) a CSV file that contains empty strings, "NULL", "undefined", etc., and would like to drop those values as well.
 
 ---
 
@@ -164,6 +172,12 @@ Determines whether or not a tensor has ragged / jagged edges at any depth.
 
 ---
 
+## `isUndefined(x)`
+
+Determines whether or not a value is undefined. A value is considered to be undefined if it's `None`, `math.nan`, or `numpy.nan`.
+
+---
+
 ## `leastSquares(a, b)`
 
 Solves for `x` in the equation `ax = b` where `a`, `x`, and `b` are all matrices.
@@ -224,7 +238,7 @@ ttest_ind(a, b, equal_var=False, nan_policy="omit")[1]
 
 ## `replaceNaN(x, newValue=numpy.nan)`
 
-Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Unlike most of the other functions in this library, this function returns a plain Python `list`.
+Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
 ---
 

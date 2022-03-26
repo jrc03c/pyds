@@ -4,9 +4,10 @@ from .is_a_numpy_array import *
 from .is_a_pandas_dataframe import *
 from .is_a_pandas_series import *
 from .is_a_tensor import *
+from .is_undefined import *
 
 
-def dropNaN(x):
+def dropUndefined(x, strings=[]):
     if isATensor(x):
         if isAPandasDataFrame(x) or isAPandasSeries(x):
             x = x.values.tolist()
@@ -17,9 +18,9 @@ def dropNaN(x):
         out = []
 
         for value in x:
-            temp = dropNaN(value)
+            temp = dropUndefined(value, strings=strings)
 
-            if temp is not None:
+            if not isUndefined(temp):
                 out.append(temp)
 
         return out
@@ -29,25 +30,30 @@ def dropNaN(x):
 
         for key in x.keys():
             value = x[key]
-            temp = dropNaN(value)
+            temp = dropUndefined(value, strings=strings)
 
-            if temp is not None:
+            if not isUndefined(temp):
                 out[key] = temp
 
         return out
 
     else:
-        if isAFunction(x):
+        if isUndefined(x):
             return None
 
+        if type(x) == str:
+            if x in strings:
+                return None
+
+            return x
+
+        if isAFunction(x):
+            return x
+
         try:
-            return dropNaN(x.__dict__)
+            return dropUndefined(x.__dict__, strings=strings)
 
         except:
             pass
 
-        if isANumber(x):
-            return x
-
-        return None
-
+        return x

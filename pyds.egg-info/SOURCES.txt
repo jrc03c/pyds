@@ -14,6 +14,7 @@ pyds/count.py
 pyds/distance.py
 pyds/draw_correlation_matrix.py
 pyds/drop_nan.py
+pyds/drop_undefined.py
 pyds/filter.py
 pyds/flatten.py
 pyds/get_average_correlation.py
@@ -32,6 +33,7 @@ pyds/is_binary.py
 pyds/is_equal.py
 pyds/is_iterable.py
 pyds/is_jagged.py
+pyds/is_undefined.py
 pyds/js_object.py
 pyds/kebabify.py
 pyds/least_squares.py
