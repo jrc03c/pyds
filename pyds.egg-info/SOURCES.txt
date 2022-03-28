@@ -15,6 +15,7 @@ pyds/distance.py
 pyds/draw_correlation_matrix.py
 pyds/drop_nan.py
 pyds/drop_undefined.py
+pyds/every.py
 pyds/filter.py
 pyds/flatten.py
 pyds/get_average_correlation.py
@@ -55,6 +56,7 @@ pyds/set.py
 pyds/shuffle.py
 pyds/sign.py
 pyds/snakeify.py
+pyds/some.py
 pyds/sort.py
 pyds/truncated_svd.py
 pyds.egg-info/PKG-INFO

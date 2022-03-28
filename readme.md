@@ -76,7 +76,13 @@ By default, values that are considered to be undefined are `None`, `numpy.nan`, 
 
 ---
 
-## `filter(fn, arr)`
+## `every(fn, x)`
+
+Returns `True` if every value of `x` returns `True` when passed into `fn`; otherwise, returns `False`. This function is similar to JavaScript's [`Array.prototype.every`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) method.
+
+---
+
+## `filter(fn, x)`
 
 Returns an array containing only items where `fn(item)` is `True`.
 
@@ -208,7 +214,7 @@ Generates a random alphanumeric string of arbitrary length.
 
 ---
 
-## `map(fn, arr)`
+## `map(fn, x)`
 
 Returns an array in which `fn` has been applied to each top-level item in the array. Compare with [`apply`](#applyfn-x).
 
@@ -283,6 +289,12 @@ Shuffles an array.
 ## `sign(x)`
 
 Gets the sign of a number. For example, `sign(5) == 1`, `sign(-5) == -1`, and `sign(0) == 0`.
+
+---
+
+## `some(fn, x)`
+
+Returns `True` if some values of `x` return `True` when passed into `fn`; otherwise, returns `False`. This function is similar to JavaScript's [`Array.prototype.some`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) method.
 
 ---
 

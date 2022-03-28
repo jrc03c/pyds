@@ -18,11 +18,11 @@ def filter(a, b):
 
     assert isAFunction(
         fn
-    ), "You must pass a function and an array into the `filter` function!"
+    ), "You must pass a function and a tensor into the `filter` function!"
 
     assert isATensor(
         arr
-    ), "You must pass a function and an array into the `filter` function!"
+    ), "You must pass a function and a tensor into the `filter` function!"
 
     if isAPandasSeries(arr) or isAPandasDataFrame(arr):
         arr = arr.values.tolist()

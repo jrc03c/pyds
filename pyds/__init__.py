@@ -8,6 +8,7 @@ from .distance import *
 from .draw_correlation_matrix import *
 from .drop_nan import *
 from .drop_undefined import *
+from .every import *
 from .filter import *
 from .flatten import *
 from .get_average_correlation import *
@@ -48,5 +49,6 @@ from .set import *
 from .shuffle import *
 from .sign import *
 from .snakeify import *
+from .some import *
 from .sort import *
 from .truncated_svd import *
