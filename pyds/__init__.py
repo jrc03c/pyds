@@ -13,6 +13,7 @@ from .filter import *
 from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
+from .html_table import *
 from .indexer import *
 from .is_a_function import *
 from .is_a_matrix import *
