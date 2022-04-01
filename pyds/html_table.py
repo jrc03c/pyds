@@ -57,7 +57,6 @@ class HTMLTable:
         self, filename, shouldUseFancyTemplate=True,
     ):
         path = os.path.realpath(filename)
-        tableString = self.toString()
 
         if shouldUseFancyTemplate:
             df = {
@@ -71,7 +70,7 @@ class HTMLTable:
             )
 
         else:
-            out = tableString
+            out = self.toString()
 
         with open(path, "w") as file:
             soup = BeautifulSoup(out, "html5lib")
