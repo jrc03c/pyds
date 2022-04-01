@@ -20,6 +20,7 @@ pyds/filter.py
 pyds/flatten.py
 pyds/get_average_correlation.py
 pyds/get_correlation_matrix.py
+pyds/html_table.py
 pyds/indexer.py
 pyds/is_a_function.py
 pyds/is_a_matrix.py
