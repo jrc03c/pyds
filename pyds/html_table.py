@@ -1,10 +1,11 @@
 from .is_a_matrix import *
 from .is_a_pandas_dataframe import *
 from .make_key import *
+from bs4 import BeautifulSoup
 from pandas import DataFrame
+import json
 import os
 import re
-from bs4 import BeautifulSoup
 
 
 class HTMLTable:
@@ -60,7 +61,15 @@ class HTMLTable:
         tableString = self.toString()
 
         if shouldUseFancyTemplate:
-            out = fancyTemplate.replace("{{ table }}", tableString)
+            df = {
+                "columns": self.data.columns.tolist(),
+                "index": self.data.index.tolist(),
+                "values": self.data.values.tolist(),
+            }
+
+            out = fancyTemplate.replace(
+                "dataframe: null", "dataframe: " + json.dumps(df)
+            )
 
         else:
             out = tableString

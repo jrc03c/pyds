@@ -7,21 +7,157 @@
       content=" width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
 
     <style>
-      table,
-      table * {
+      *,
+      button,
+      input {
         font-family: monospace;
       }
 
-      tr td:first-child {
-        font-weight: bold;
+      input,
+      button {
+        border: 2px solid black;
+        border-radius: 0;
+        padding: 0.5em;
+      }
+
+      button {
+        cursor: pointer;
+        margin-right: 2px;
       }
 
       td {
         text-align: center;
+        border: 2px solid black;
+        padding: 0.5em;
+      }
+
+      tr td:first-child {
+        font-weight: bold;
+        border: 0;
+      }
+
+      hr {
+        margin: 1em 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+      }
+
+      .is-aligned-left {
+        text-align: left;
+      }
+
+      .is-aligned-center {
+        text-align: center;
+      }
+
+      .is-aligned-right {
+        text-align: right;
       }
     </style>
   </head>
   <body>
-    {{ table }}
+    <div id="app">
+      <div id="settings">
+        <p>
+          <b>Text alignment:&nbsp;</b>
+
+          <button @click="textAlign='left'">Left</button>
+          <button @click="textAlign='center'">Center</button>
+          <button @click="textAlign='right'">Right</button>
+        </p>
+
+        <p>
+          <b>Decimal places:&nbsp;</b>
+          <input type="number" min="0" max="16" v-model="decimalPlaces" />
+        </p>
+      </div>
+
+      <hr />
+
+      <div id="table">
+        <table v-if="dataframe">
+          <thead>
+            <tr>
+              <th></th>
+              <th
+                v-for="col in dataframe.columns"
+                :class="`is-aligned-${textAlign}`">
+                {{ col }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr v-for="i in range(0, dataframe.index.length)">
+              <td :class="`is-aligned-${textAlign}`">
+                {{ dataframe.index[i] }}
+              </td>
+
+              <td
+                v-for="value in dataframe.values[i]"
+                :class="`is-aligned-${textAlign}`">
+                {{ round(value) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        const app = Vue.createApp({
+          data() {
+            const self = this
+
+            return {
+              textAlign: "right",
+              decimalPlaces: 2,
+              dataframe: null,
+            }
+          },
+
+          methods: {
+            range(a, b) {
+              const out = []
+              for (let i = a; i < b; i++) out.push(i)
+              return out
+            },
+
+            round(value) {
+              const self = this
+
+              try {
+                return value.toFixed(self.decimalPlaces)
+              } catch (e) {
+                return value
+              }
+            },
+          },
+
+          mounted() {
+            const self = this
+
+            if (!self.dataframe) {
+              self.dataframe = {
+                columns: ["foo", "bar"],
+                index: ["row0", "row1", "row2"],
+                values: [
+                  [2, 3],
+                  [4, 5],
+                  [6, 7],
+                ],
+              }
+            }
+          },
+        })
+
+        app.mount("#app")
+      })
+    </script>
   </body>
 </html>
