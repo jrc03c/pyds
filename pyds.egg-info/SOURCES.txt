@@ -1,4 +1,5 @@
 .gitignore
+MANIFEST.in
 build.sh
 readme.md
 setup.py
@@ -21,6 +22,8 @@ pyds/flatten.py
 pyds/get_average_correlation.py
 pyds/get_correlation_matrix.py
 pyds/html_table.py
+pyds/html_table_fancy_template.html
+pyds/html_table_template.html
 pyds/indexer.py
 pyds/is_a_function.py
 pyds/is_a_matrix.py

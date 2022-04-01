@@ -1,0 +1,2 @@
+include pyds/html_table_fancy_template.html
+include pyds/html_table_template.html
