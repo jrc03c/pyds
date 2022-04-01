@@ -18,7 +18,7 @@ class HTMLTable:
         self.data = x
         self.path = None
 
-    def show(self, openCommand="firefox --private $FILE"):
+    def show(self, openCommand='firefox --private "$FILE"'):
         if self.path is None:
             self.path = os.path.realpath(makeKey(8) + ".html")
             self.save(self.path)
