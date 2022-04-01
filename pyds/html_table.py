@@ -44,9 +44,8 @@ class HTMLTable:
 
             rows += "</tr>"
 
-        out = regularTemplate.replace("{{ columns }}", columns).replace(
-            "{{ rows }}", rows
-        )
+        out = regularTemplate.replace("{{ columns }}", columns)
+        out = out.replace("{{ rows }}", rows)
         soup = BeautifulSoup(out, "html5lib")
         return soup.prettify()
 
