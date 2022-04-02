@@ -88,6 +88,52 @@ Returns an array containing only items where `fn(item)` is `True`.
 
 ---
 
+## `find(fn, x)`
+
+Returns the first value in `x` that returns `True` when passed into `fn`. This function is similar to JavaScript's [`Array.prototype.find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) method. This function works on arrays of any depth.
+
+For example:
+
+```py
+from pyds import find
+
+x = [
+  [2, 3, 4],
+  [5, 6, 7, 8]
+]
+
+find(lambda v: v > 5, x)
+# 6
+
+find(lambda v: len(v) > 3, x)
+# [5, 6, 7, 8]
+```
+
+---
+
+## `findIndex(fn, x)`
+
+Returns the index of the first value in `x` that returns `True` when passed into `fn`. This function is similar to JavaScript's [Array.prototype.findIndex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) method _except that_ it returns `None` if no value is found that satisfies the testing function. (JS, on the other hand, returns -1 if no such value is found. Such a strategy wouldn't work in Python because -1 is a valid index into Python arrays.) This function works on arrays of any depth. If `x` is 1-dimensional, then the index returned will be a single whole number. If `x` has 2 or more dimensions, then the index returned will be an array of whole numbers.
+
+For example:
+
+```py
+from pyds import findIndex
+
+greaterThanSix = lambda v: v > 6
+
+x = [2, 3, 4, 5, 6, 7]
+findIndex(greaterThanSix, x)
+# 5
+
+y = [[2, 3, 4], [5, 6, 7]]
+findIndex(greaterThanSix, y)
+# [1, 2]
+# in other words, the value at y[1][2] satisfies the `greaterThanSix` function
+```
+
+---
+
 ## `flatten(x)`
 
 Flattens a tensor to a vector.

@@ -10,6 +10,8 @@ from .drop_nan import *
 from .drop_undefined import *
 from .every import *
 from .filter import *
+from .find import *
+from .find_index import *
 from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
