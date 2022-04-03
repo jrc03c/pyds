@@ -1,12 +1,11 @@
-import unittest
-import json
+from numpy.random import random
+from pyds import isEqual, loadJSON, makeKey, saveJSON
 import os
 import shutil
-from pyds import loadJSON, makeKey, isEqual, saveJSON
-from numpy.random import random
+import unittest
 
 
-class LoadJSONTestCase(unittest.TestCase):
+class SaveJSONTestCase(unittest.TestCase):
     def setUp(self):
         obj = {}
         temp = obj
@@ -37,22 +36,16 @@ class LoadJSONTestCase(unittest.TestCase):
         pred = loadJSON("temp/" + self.filename)
         self.assertTrue(isEqual(self.obj, pred), msg="Failed to load JSON!")
 
-    def testErrors(self):
-        wrongs = [
-            234,
-            True,
-            False,
-            None,
-            [2, 3, 4],
-            {"hello": "world"},
-            lambda x: x * 2,
-        ]
+    def testCyclicObjects(self):
+        # This makes sure that we can serialize objects with cyclic references.
+        x = {}
+        x["me"] = x
+        failed = False
 
-        for item in wrongs:
-            self.assertRaises(
-                AssertionError, loadJSON, item,
-            )
+        try:
+            saveJSON("temp/" + makeKey(8), x)
 
-        self.assertRaises(
-            FileNotFoundError, loadJSON, makeKey(16),
-        )
+        except:
+            failed = True
+
+        self.assertFalse(failed, "Failed to serialize a cyclic object!")

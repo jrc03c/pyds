@@ -320,6 +320,12 @@ Reverses a number, string, or array.
 
 ---
 
+## `saveJSON(path, x)`
+
+Saves some data to disk as a JSON file. If `x` isn't already a string, then the function will do its best to serialize it and will raise an exception if it's not successful.
+
+---
+
 ## `set(x)`
 
 Returns the (flattened) set of values in a tensor.

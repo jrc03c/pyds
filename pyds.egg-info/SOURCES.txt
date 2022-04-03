@@ -58,6 +58,7 @@ pyds/range.py
 pyds/replace_nan.py
 pyds/replace_undefined.py
 pyds/reverse.py
+pyds/save_json.py
 pyds/set.py
 pyds/shuffle.py
 pyds/sign.py
