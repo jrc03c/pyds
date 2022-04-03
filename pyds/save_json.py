@@ -1,16 +1,35 @@
 from .find import *
 from .is_a_function import *
+from .is_a_number import *
 from .is_a_numpy_array import *
 from .is_a_pandas_dataframe import *
 from .is_a_pandas_series import *
 from .is_a_string import *
 from .is_a_tensor import *
+from .is_undefined import *
 import json
 import inspect
 
 
+def isPrimitive(x):
+    if isANumber(x):
+        return True
+
+    if isAString(x):
+        return True
+
+    if type(x) == bool:
+        return True
+
+    if isUndefined(x):
+        return True
+
+    return False
+
+
 def toSerializableObject(x, used=[]):
-    used.append(x)
+    if not isPrimitive(x) or len(used) == 0:
+        used.append(x)
 
     if isAFunction(x):
         return str(x)
@@ -23,8 +42,10 @@ def toSerializableObject(x, used=[]):
             out = []
 
             for item in x:
-                if item not in used:
-                    used.append(item)
+                if find(lambda other: other is item, used) is None:
+                    if not isPrimitive(item):
+                        used.append(item)
+
                     out.append(toSerializableObject(item, used=used))
 
                 else:
@@ -51,8 +72,10 @@ def toSerializableObject(x, used=[]):
         for key in x.keys():
             value = x[key]
 
-            if value not in used:
-                used.append(value)
+            if find(lambda other: other is value, used) is None:
+                if not isPrimitive(value):
+                    used.append(value)
+
                 out[key] = toSerializableObject(value, used=used)
 
             else:

@@ -1,7 +1,7 @@
 from .is_iterable import *
 from .is_a_numpy_array import *
 from .is_a_pandas_series import *
-from numpy import array
+from numpy import shape
 
 
 def isAVector(x):
@@ -11,7 +11,8 @@ def isAVector(x):
     if isAPandasSeries(x):
         x = x.values
 
-    if not isANumpyArray(x):
-        x = array(x, dtype=object)
+    try:
+        return len(shape(x)) == 1
 
-    return len(x.shape) == 1
+    except:
+        return False

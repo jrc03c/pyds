@@ -1,20 +1,19 @@
 from .is_iterable import *
-from .is_a_vector import *
-from numpy import array
+from .is_a_pandas_series import *
+from .is_a_pandas_dataframe import *
+from .is_a_string import *
+from numpy import shape
 
 
 def isATensor(x):
     if isIterable(x):
-        if isAVector(x):
-            return True
+        return not isAString(x) and not type(x) == dict
 
-        else:
-            temp = array(x, dtype=object)
+    if isAPandasSeries(x) or isAPandasDataFrame(x):
+        return True
 
-            if len(temp.shape) > 1:
-                return True
-            else:
-                return False
+    try:
+        return len(shape(x)) >= 1
 
-    else:
+    except:
         return False
