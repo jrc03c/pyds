@@ -25,4 +25,8 @@ def sign(x):
                 return -1
             return 0
 
-    return array(helper(x))
+    if isATensor(x):
+        return array(helper(x))
+
+    else:
+        return helper(x)
