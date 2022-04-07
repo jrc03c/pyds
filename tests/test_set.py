@@ -1,6 +1,7 @@
 import unittest
 from pyds import sort, set, isEqual, range
 from pandas import Series, DataFrame
+from numpy import array
 from numpy.random import normal
 
 
@@ -27,6 +28,46 @@ class SetTestCase(unittest.TestCase):
 
         self.assertTrue(
             isEqual(yTrue, yPred), msg="Failed to get the set of values from a tensor!"
+        )
+
+        x = [["foo", "foo"], ["foo", "bar", "foo"], ["foo", ["bar", ["baz"]]]]
+        yTrue = ["bar", "baz", "foo"]
+        yPred = sort(set(x))
+
+        self.assertTrue(
+            isEqual(yTrue, yPred),
+            msg="Failed to get the set of values from an array of strings!",
+        )
+
+        x = array(
+            [["foo", "foo"], ["foo", "bar", "foo"], ["foo", ["bar", ["baz"]]]],
+            dtype=object,
+        )
+
+        yTrue = ["bar", "baz", "foo"]
+        yPred = sort(set(x))
+
+        self.assertTrue(
+            isEqual(yTrue, yPred),
+            msg="Failed to get the set of values from a numpy array of strings!",
+        )
+
+        x = Series([["foo", "foo"], ["foo", "bar", "foo"], ["foo", ["bar", ["baz"]]]])
+        yTrue = ["bar", "baz", "foo"]
+        yPred = sort(set(x))
+
+        self.assertTrue(
+            isEqual(yTrue, yPred),
+            msg="Failed to get the set of values from a Series of strings!",
+        )
+
+        x = DataFrame({"foo": ["a", "b", "c"], "bar": ["f", "e", "d"]})
+        yTrue = ["a", "b", "c", "d", "e", "f"]
+        yPred = sort(set(x))
+
+        self.assertTrue(
+            isEqual(yTrue, yPred),
+            msg="Failed to get the set of values from a DataFrame of strings!",
         )
 
         try:
