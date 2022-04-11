@@ -11,7 +11,10 @@ from .drop_undefined import *
 from .every import *
 from .filter import *
 from .find import *
+from .find_all import *
 from .find_index import *
+from .find_indexes import *
+from .find_indices import *
 from .flatten import *
 from .get_average_correlation import *
 from .get_correlation_matrix import *
