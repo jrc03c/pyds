@@ -308,6 +308,32 @@ Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. 
 
 ---
 
+## `RScoreManager(shouldDropNaNValues=False)`
+
+The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
+
+Internally, the pseudo-code for the R-score calculation is:
+
+```
+if isBinaryData(baseline):
+  helper = mode
+else:
+  helper = mean
+
+rSquared = 1 - sum((true - pred) ** 2) / sum((true - helper(baseline)) ** 2)
+rScore = sign(rSquared) * sqrt(abs(rSquared))
+```
+
+**Instance methods:**
+
+`.update(true, pred, baseline=None)` = Updates the overall score given a single fold's true and predicted values (and optionally a baseline set to compare against). Generally speaking, `baseline` will be the dependent variable's training set, `true` will be the dependent variable's test set, and `pred` will be a model's prediction given the independent variable's test set.
+
+`.compute()` = Returns the final R-score. Call this after running through all cross-validation folds.
+
+Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `rScore` function above.
+
+---
+
 ## `range(a, b, step=1)`
 
 Returns a range of values.

@@ -47,6 +47,7 @@ from .orthonormalize import *
 from .outlier_mitigator import *
 from .p_value import *
 from .r_score import *
+from .r_score_manager import *
 from .range import *
 from .replace_nan import *
 from .replace_undefined import *
