@@ -310,7 +310,7 @@ Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. 
 
 ## `RScoreManager(shouldDropNaNValues=False)`
 
-The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
+The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `rScore` function above. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
 
 Internally, the pseudo-code for the R-score calculation is:
 
@@ -324,13 +324,15 @@ rSquared = 1 - sum((true - pred) ** 2) / sum((true - helper(baseline)) ** 2)
 rScore = sign(rSquared) * sqrt(abs(rSquared))
 ```
 
-**Instance methods:**
+### Instance methods
 
-`.update(true, pred, baseline=None)` = Updates the overall score given a single fold's true and predicted values (and optionally a baseline set to compare against). Generally speaking, `baseline` will be the dependent variable's training set, `true` will be the dependent variable's test set, and `pred` will be a model's prediction given the independent variable's test set.
+#### `.update(true, pred, baseline=None)`
 
-`.compute()` = Returns the final R-score. Call this after running through all cross-validation folds.
+Updates the overall score given a single fold's true and predicted values (and optionally a baseline set to compare against). Generally speaking, `baseline` will be the dependent variable's training set, `true` will be the dependent variable's test set, and `pred` will be a model's prediction given the independent variable's test set.
 
-Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `rScore` function above.
+#### `.compute()`
+
+Returns the final R-score. Call this after running through all cross-validation folds.
 
 ---
 
@@ -396,6 +398,18 @@ This is a class that makes it easy to get rows of data that only exist in certai
 
 For example, imagine you ran two surveys on the same group of people. In the first survey, most people answered most questions, but a few people either never started the survey or didn't answer all of the questions. The same is true of the second survey, although the people that failed to start or to answer all of the questions in the second survey aren't necessarily the same people as in the first survey. When analyzing the results of the two surveys, we want to line up Person A's responses in the first survey with their responses in the second survey; same for Person B, Person C, and so on. We also want to drop rows that contain missing or NaN values from both data sets. The `Indexer` class is designed to help with those problems.
 
+### Instance methods
+
+#### `.fit(x, y, z, ...)`
+
+Gets the intersection of all data set indexes.
+
+#### `.transform(x, y, z, ...)`
+
+Returns subsets of the given data sets using the index from the `fit` method.
+
+Note that the data sets passed into the `fit` method do not have to be the same data sets as the ones passed into the `transform` method.
+
 ```python
 from pyds import Indexer
 from pandas import DataFrame
@@ -449,6 +463,18 @@ This process works even if the row orders are shuffled! The way it works, though
 This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `maxScore * MAD`.
 
 The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
+
+### Instance methods
+
+#### `.fit(x)`
+
+Determines whether or not outliers exist in the given data set and thus whether or not data sets passed into the `transform` function should be modified.
+
+#### `.transform(a, b, c, ...)`
+
+Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - maxScore * MAD(x), median(x) + maxScore * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
+
+Do note that if you pass a data set into `transform` that has a minimum value lower than `min(x)`, a warning will be shown since the mitigator will end up trying to take the log of negative numbers.
 
 ```python
 from pyds import OutlierMitigator
