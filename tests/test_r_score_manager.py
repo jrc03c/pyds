@@ -1,6 +1,8 @@
-from numpy import isnan, nan
+from numpy import abs, isnan, mean, nan, sqrt, sum
 from numpy.random import normal, random
-from pyds import rScore, RScoreManager
+from pyds import rScore, RScoreManager, sign
+from sklearn.model_selection import KFold
+from sklearn.linear_model import LinearRegression
 import pandas as pd
 import unittest
 
@@ -104,6 +106,39 @@ class RScoreManagerTestCase(unittest.TestCase):
         r1 = rScore(x, y)
         r2 = RScoreManager().update(x, y).compute()
         self.assertEqual(r1, r2)
+
+    def testCompareWithManuallySumming(self):
+        x = normal(size=[1000, 3])
+        y = normal(size=1000)
+
+        x = pd.DataFrame(x)
+        y = pd.DataFrame(y)
+
+        kf = KFold(n_splits=10, shuffle=True)
+        manager = RScoreManager()
+        sseTestVsPred = 0
+        sseTestVsBaseline = 0
+
+        for trainIndex, testIndex in kf.split(x):
+            xTrain = x.iloc[trainIndex, :].values
+            xTest = x.iloc[testIndex, :].values
+            yTrain = y.iloc[trainIndex].values
+            yTest = y.iloc[testIndex].values
+
+            model = LinearRegression()
+            model.fit(xTrain, yTrain)
+            yPred = model.predict(xTest)
+
+            manager.update(yTest, yPred, baseline=yTrain)
+            sseTestVsPred += sum((yTest - yPred) ** 2)
+            sseTestVsBaseline += sum((yTest - mean(yTrain)) ** 2)
+
+        score1 = manager.compute()
+
+        r2 = 1 - sseTestVsPred / sseTestVsBaseline
+        score2 = sign(r2) * sqrt(abs(r2))
+
+        self.assertLess(abs(score1 - score2), 0.01)
 
     def testErrors(self):
         wrongs = [
