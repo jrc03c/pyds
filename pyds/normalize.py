@@ -1,8 +1,8 @@
-from numpy import mean, std, array
-from .is_a_tensor import *
-from .contains_only_numbers import *
-from .is_a_pandas_dataframe import *
-from .is_a_numpy_array import *
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_tensor import isATensor
+from numpy import array, mean, std
 
 
 def normalize(x):

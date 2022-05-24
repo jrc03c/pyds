@@ -1,12 +1,11 @@
-from .is_a_number import *
-from .is_a_tensor import *
-from .contains_only_numbers import *
-from .is_equal import *
-from .is_a_pandas_series import *
-from .is_a_pandas_dataframe import *
-from .is_a_numpy_array import *
-from numpy import sqrt, sum, array, ndarray, shape
-from pandas import Series
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_number import isANumber
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_tensor import isATensor
+from .is_equal import isEqual
+from numpy import array, shape, sqrt, sum
 
 
 def distance(a, b):

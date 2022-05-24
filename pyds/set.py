@@ -1,5 +1,6 @@
-from .flatten import *
-from .is_a_tensor import *
+from .flatten import flatten
+from .is_a_tensor import isATensor
+from numpy import array
 
 
 def set(x):

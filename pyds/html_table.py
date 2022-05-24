@@ -1,11 +1,10 @@
-from .is_a_matrix import *
-from .is_a_pandas_dataframe import *
-from .make_key import *
+from .is_a_matrix import isAMatrix
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .make_key import makeKey
 from bs4 import BeautifulSoup
 from pandas import DataFrame
 import json
 import os
-import re
 
 
 class HTMLTable:

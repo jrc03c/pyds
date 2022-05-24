@@ -1,6 +1,6 @@
-from .flatten import *
-from .is_a_number import *
-from .is_a_tensor import *
+from .flatten import flatten
+from .is_a_number import isANumber
+from .is_a_tensor import isATensor
 
 
 def containsOnlyNumbers(x):

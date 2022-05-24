@@ -1,5 +1,5 @@
-from .is_a_tensor import *
-from .contains_only_numbers import *
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_tensor import isATensor
 from numpy.linalg import norm
 
 

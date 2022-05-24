@@ -1,14 +1,13 @@
-from .find import *
-from .is_a_function import *
-from .is_a_number import *
-from .is_a_numpy_array import *
-from .is_a_pandas_dataframe import *
-from .is_a_pandas_series import *
-from .is_a_string import *
-from .is_a_tensor import *
-from .is_undefined import *
+from .find import find
+from .is_a_function import isAFunction
+from .is_a_number import isANumber
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_string import isAString
+from .is_a_tensor import isATensor
+from .is_undefined import isUndefined
 import json
-import inspect
 
 
 def isPrimitive(x):

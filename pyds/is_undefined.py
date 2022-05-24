@@ -1,4 +1,4 @@
-from .is_a_tensor import *
+from .is_a_tensor import isATensor
 from math import isnan as mathIsNaN
 from numpy import isnan as numpyIsNaN
 

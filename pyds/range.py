@@ -1,5 +1,5 @@
-from .is_a_number import *
-from .sign import *
+from .is_a_number import isANumber
+from .sign import sign
 from numpy import arange
 
 

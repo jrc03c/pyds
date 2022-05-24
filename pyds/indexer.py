@@ -1,6 +1,6 @@
-from .is_a_pandas_dataframe import *
-from .is_a_pandas_series import *
-from .is_a_vector import *
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_vector import isAVector
 
 # DO NOT import pyds.set!
 

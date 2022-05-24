@@ -1,5 +1,5 @@
-from .is_a_tensor import *
-from .set import *
+from .is_a_tensor import isATensor
+from .set import set
 
 
 def isJagged(x):

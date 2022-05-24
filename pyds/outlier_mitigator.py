@@ -1,12 +1,12 @@
-from .contains_only_numbers import *
-from .filter import *
-from .flatten import *
-from .is_a_number import *
-from .is_a_numpy_array import *
-from .is_a_pandas_series import *
-from .is_a_tensor import *
-from .is_binary import *
-from .sort import *
+from .contains_only_numbers import containsOnlyNumbers
+from .filter import filter
+from .flatten import flatten
+from .is_a_number import isANumber
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_tensor import isATensor
+from .is_binary import isBinary
+from .sort import sort
 from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, where
 import warnings
 

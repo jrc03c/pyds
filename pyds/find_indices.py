@@ -1,4 +1,4 @@
-from .find_indexes import *
+from .find_indexes import findIndexes
 
 
 def findIndices(*args):

@@ -1,7 +1,7 @@
-from numpy import shape, array
-from .is_a_tensor import *
-from .is_a_function import *
-from .is_jagged import *
+from .is_a_function import isAFunction
+from .is_a_tensor import isATensor
+from .is_jagged import isJagged
+from numpy import array
 
 
 def apply(a, b):

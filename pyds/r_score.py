@@ -1,10 +1,10 @@
-from .contains_only_numbers import *
-from .is_a_numpy_array import *
-from .is_a_pandas_dataframe import *
-from .is_a_pandas_series import *
-from .is_a_tensor import *
-from .is_binary import *
-from .sign import *
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_tensor import isATensor
+from .is_binary import isBinary
+from .sign import sign
 from numpy import abs, array, mean, nan, sqrt, sum
 import scipy
 

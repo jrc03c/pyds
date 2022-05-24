@@ -1,7 +1,7 @@
-from .is_a_matrix import *
-from .is_a_number import *
-from .is_a_pandas_dataframe import *
-from .is_a_numpy_array import *
+from .is_a_matrix import isAMatrix
+from .is_a_number import isANumber
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
 from numpy.linalg import svd
 from scipy.linalg import diagsvd
 

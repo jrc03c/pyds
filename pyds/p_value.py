@@ -1,7 +1,7 @@
-from .is_a_vector import *
-from .is_a_numpy_array import *
-from .is_a_pandas_series import *
-from .contains_only_numbers import *
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_vector import isAVector
 from scipy.stats import ttest_ind
 
 

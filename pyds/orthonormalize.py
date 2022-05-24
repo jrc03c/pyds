@@ -1,82 +1,14 @@
-"""
-let {
-  assert,
-  isArray,
-  shape,
-  transpose,
-  copy,
-  chop,
-  distance,
-  identity,
-  dot,
-  add,
-  scale,
-  pow,
-} = require("js-math-tools")
-
-let containsOnlyNumbers = require("./contains-only-numbers.js")
-let getMagnitude = require("./get-magnitude.js")
-let divide = (a, b) => scale(a, pow(b, -1))
-let subtract = (a, b) => add(a, scale(b, -1))
-
-function project(v, u) {
-  assert(isArray(v), "`project` only works on vectors!")
-  assert(isArray(u), "`project` only works on vectors!")
-  assert(containsOnlyNumbers(v), "`project` only works on vectors of numbers!")
-  assert(containsOnlyNumbers(u), "`project` only works on vectors of numbers!")
-  assert(shape(v).length === 1, "`project` only works on vectors!")
-  assert(shape(u).length === 1, "`project` only works on vectors!")
-  return scale(dot(u, v) / dot(u, u), u)
-}
-
-function gramSchmidtOrthonormalize(x) {
-  assert(isArray(x), "`gramSchmidtOrthonormalize` only works on matrices!")
-
-  assert(
-    containsOnlyNumbers(x),
-    "`gramSchmidtOrthonormalize` only works on matrices of numbers!"
-  )
-
-  assert(
-    shape(x).length === 2,
-    "`gramSchmidtOrthonormalize` only works on matrices!"
-  )
-
-  // note: this produces a matrix where the *columns* are orthogonal to each other!
-  let temp = transpose(x)
-  let bases = []
-
-  temp.forEach((v, i) => {
-    let vCopy = copy(v)
-    bases.forEach(basis => (vCopy = subtract(vCopy, project(vCopy, basis))))
-    bases.push(vCopy)
-  })
-
-  let out = bases.map(basis => divide(basis, getMagnitude(basis)))
-  let outTranspose = transpose(out)
-
-  // assert(
-  //   chop(distance(identity(out.length), dot(out, outTranspose))) === 0,
-  //   "The matrix produced by the `gramSchmidtOrthonormalize` function must be orthogonal!"
-  // )
-
-  return outTranspose
-}
-
-module.exports = gramSchmidtOrthonormalize
-"""
-
+from .chop import chop
+from .contains_only_numbers import containsOnlyNumbers
+from .distance import distance
+from .is_a_matrix import isAMatrix
+from .is_a_numpy_array import isANumpyArray
+from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_pandas_series import isAPandasSeries
+from .is_a_vector import isAVector
+from .map import map
 from copy import deepcopy
-from numpy import array, zeros, dot
-from .contains_only_numbers import *
-from .is_a_matrix import *
-from .chop import *
-from .distance import *
-from .is_a_numpy_array import *
-from .is_a_pandas_dataframe import *
-from .is_a_pandas_series import *
-from .map import *
-from .is_a_vector import *
+from numpy import array, dot, zeros
 
 
 def getMagnitude(x):
@@ -86,9 +18,11 @@ def getMagnitude(x):
 def project(v, u):
     assert isAVector(v), "The `project` function only works on vectors!"
     assert isAVector(u), "The `project` function only works on vectors!"
+
     assert containsOnlyNumbers(
         v
     ), "The `project` function only works on vectors of numbers!"
+
     assert containsOnlyNumbers(
         u
     ), "The `project` function only works on vectors of numbers!"

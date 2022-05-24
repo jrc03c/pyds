@@ -1,8 +1,8 @@
-from .flatten import *
-from .set import *
-from .is_a_number import *
-from .is_a_tensor import *
-from .sort import *
+from .flatten import flatten
+from .is_a_number import isANumber
+from .is_a_tensor import isATensor
+from .set import set
+from .sort import sort
 
 
 def isBinary(x):

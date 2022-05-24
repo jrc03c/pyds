@@ -1,6 +1,5 @@
-from .is_iterable import *
-from .is_a_numpy_array import *
-from .is_a_pandas_series import *
+from .is_a_pandas_series import isAPandasSeries
+from .is_iterable import isIterable
 from numpy import shape
 
 

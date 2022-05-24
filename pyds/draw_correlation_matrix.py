@@ -1,4 +1,4 @@
-from .get_correlation_matrix import *
+from .get_correlation_matrix import getCorrelationMatrix
 import matplotlib.pyplot as plot
 
 

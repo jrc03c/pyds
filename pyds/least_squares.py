@@ -1,6 +1,6 @@
-from .is_a_matrix import *
-from .is_a_vector import *
-from .contains_only_numbers import *
+from .contains_only_numbers import containsOnlyNumbers
+from .is_a_matrix import isAMatrix
+from .is_a_vector import isAVector
 from numpy.linalg import lstsq
 
 
