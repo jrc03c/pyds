@@ -37,52 +37,81 @@ class SaveJSONTestCase(unittest.TestCase):
         pred = loadJSON("temp/" + self.filename)
         self.assertTrue(isEqual(self.obj, pred), msg="Failed to load JSON!")
 
-    # def testCyclicObjects(self):
-    #     # This makes sure that we can serialize objects with cyclic references.
-    #     x = {}
-    #     x["me"] = x
-    #     failed = False
+    def testCyclicObjects(self):
+        # This makes sure that we can serialize objects with cyclic references.
+        x = {}
+        x["me"] = x
+        failed = False
 
-    #     try:
-    #         saveJSON("temp/" + makeKey(8), x)
+        try:
+            saveJSON("temp/" + makeKey(8), x)
 
-    #     except:
-    #         failed = True
+        except:
+            failed = True
 
-    #     self.assertFalse(failed, "Failed to serialize a cyclic object!")
+        self.assertFalse(failed, "Failed to serialize a cyclic object!")
 
-    # def testNumpyArrays(self):
-    #     x = random(size=[100])
-    #     failed = False
+    def testNumpyArrays(self):
+        x = random(size=[100])
+        failed = False
 
-    #     try:
-    #         saveJSON("temp/" + makeKey(8), x)
+        try:
+            saveJSON("temp/" + makeKey(8), x)
 
-    #     except:
-    #         failed = True
+        except:
+            failed = True
 
-    #     self.assertFalse(failed, "Failed to save a numpy array as a JSON file!")
+        self.assertFalse(failed, "Failed to save a numpy array as a JSON file!")
 
-    # def testPandasSeries(self):
-    #     x = pd.Series(random(size=[100]))
-    #     failed = False
+    def testPandasSeries(self):
+        x = pd.Series(random(size=[100]))
+        failed = False
 
-    #     try:
-    #         saveJSON("temp/" + makeKey(8), x)
+        try:
+            saveJSON("temp/" + makeKey(8), x)
 
-    #     except:
-    #         failed = True
+        except:
+            failed = True
 
-    #     self.assertFalse(failed, "Failed to save a pandas Series as a JSON file!")
+        self.assertFalse(failed, "Failed to save a pandas Series as a JSON file!")
 
-    # def testPandasDataFrame(self):
-    #     x = pd.DataFrame(random(size=[10, 10]))
-    #     failed = False
+    def testPandasDataFrame(self):
+        x = pd.DataFrame(random(size=[10, 10]))
+        failed = False
 
-    #     try:
-    #         saveJSON("temp/" + makeKey(8), x)
+        try:
+            saveJSON("temp/" + makeKey(8), x)
 
-    #     except:
-    #         failed = True
+        except:
+            failed = True
 
-    #     self.assertFalse(failed, "Failed to save a pandas DataFrame as a JSON file!")
+        self.assertFalse(failed, "Failed to save a pandas DataFrame as a JSON file!")
+
+    def testLotsOfDataTypes(self):
+        path = "temp/whatevs.json"
+
+        values = [
+            234,
+            "foo",
+            True,
+            False,
+            None,
+            [2, 3, "four", [5, 6, {"seven": 8}]],
+            {"hello": "world"},
+        ]
+
+        for true in values:
+            saveJSON(path, true)
+            pred = loadJSON(path)
+            self.assertTrue(isEqual(true, pred))
+
+        class Person:
+            def __init__(self, name, age):
+                self.name = name
+                self.age = age
+
+        alice = Person("Alice", 23)
+        saveJSON(path, alice)
+        aliceTrue = {"name": "Alice", "age": 23}
+        alicePred = loadJSON(path)
+        self.assertTrue(isEqual(alicePred, aliceTrue))

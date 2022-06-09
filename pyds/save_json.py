@@ -27,68 +27,89 @@ def isPrimitive(x):
 
 
 def toSerializableObject(x, used=[]):
-    if not isPrimitive(x) or len(used) == 0:
-        used.append(x)
+    # cases to handle:
+    # primitives:
+    #   - numbers
+    #   - strings
+    #   - booleans
+    #   - undefined / None / nan
+    # functions
+    # arrays
+    #   - plain lists
+    #   - numpy arrays
+    #   - pandas series and dataframes
+    # dictionaries
+    # class instances
+    # circular references
+    if isPrimitive(x):
+        return x
 
-    if isAFunction(x):
+    elif isAFunction(x):
         return str(x)
 
-    if isATensor(x):
+    elif isATensor(x):
         if isANumpyArray(x):
             return toSerializableObject(x.tolist(), used=used)
 
-        if not isAPandasSeries(x) and not isAPandasDataFrame(x):
+        elif isAPandasSeries(x):
+            return {
+                "name": x.name,
+                "values": toSerializableObject(x.values.tolist(), used=used),
+                "index": toSerializableObject(x.index.tolist(), used=used),
+            }
+
+        elif isAPandasDataFrame(x):
+            return {
+                "values": toSerializableObject(x.values.tolist(), used=used),
+                "columns": toSerializableObject(x.columns.tolist(), used=used),
+                "index": toSerializableObject(x.index.tolist(), used=used),
+            }
+
+        else:
             out = []
 
             for item in x:
-                if find(lambda other: other is item, used) is None:
+                hexId = hex(id(item))
+
+                if not hexId in used:
                     if not isPrimitive(item):
-                        used.append(item)
+                        used.append(hexId)
 
                     out.append(toSerializableObject(item, used=used))
 
                 else:
-                    out.append("<cyclic reference to: " + hex(id(item)) + ">")
+                    out.append("<cyclic reference to: " + hexId + ">")
 
             return out
 
-    if isAPandasSeries(x):
-        return {
-            "values": toSerializableObject(x.values.tolist(), used=used),
-            "index": toSerializableObject(x.index.tolist(), used=used),
-        }
+    else:
+        try:
+            out = {}
 
-    if isAPandasDataFrame(x):
-        return {
-            "values": toSerializableObject(x.values.tolist(), used=used),
-            "columns": toSerializableObject(x.columns.tolist(), used=used),
-            "index": toSerializableObject(x.index.tolist(), used=used),
-        }
+            for key in x.keys():
+                value = x[key]
+                hexId = hex(id(value))
 
-    try:
-        out = {}
+                if not hexId in used:
+                    if not isPrimitive(value):
+                        used.append(hexId)
 
-        for key in x.keys():
-            value = x[key]
+                    out[key] = toSerializableObject(value, used=used)
 
-            if find(lambda other: other is value, used) is None:
-                if not isPrimitive(value):
-                    used.append(value)
+                else:
+                    out[key] = "<cyclic reference to: " + hexId + ">"
 
-                out[key] = toSerializableObject(value, used=used)
+            return out
 
-            else:
-                out[key] = "<cyclic reference to: " + hex(id(value)) + ">"
+        except:
+            pass
 
-        return out
+        try:
+            return toSerializableObject(x.__dict__, used=used)
 
-    except:
-        pass
+        except:
+            pass
 
-    try:
-        return toSerializableObject(x.__dict__, used=used)
-
-    except:
         return x
 
 
@@ -98,12 +119,13 @@ def saveJSON(path, data, indentation=2):
     if not isAString(data):
         try:
             data = toSerializableObject(data)
-            data = json.dumps(data, sort_keys=True, indent=indentation)
 
         except:
             raise Exception(
                 "The data passed into the `saveJSON` function could not be serialized!"
             )
+
+    data = json.dumps(data, sort_keys=True, indent=indentation)
 
     with open(path, "w") as file:
         file.write(data)
