@@ -7,14 +7,14 @@ This package is just a little collection of helper tools and classes for working
 Install with `pip`:
 
 ```bash
-pip install git+https://github.com/jrc03c/pyds
+pip install -U git+https://github.com/jrc03c/pyds
 ```
 
 Or install with `conda`:
 
 ```bash
 conda install pip git
-pip install git+https://github.com/jrc03c/pyds
+pip install -U git+https://github.com/jrc03c/pyds
 ```
 
 # Usage
