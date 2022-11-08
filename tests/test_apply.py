@@ -25,6 +25,13 @@ class ApplyTestCase(unittest.TestCase):
         for pair in rights:
             self.assertTrue(isEqual(pair[0], pair[1]))
 
+    def testWithLambdaWithoutParams(self):
+        x = [2, 3, 4, 5, 6]
+        y = apply(lambda: "foo", x)
+
+        for item in y:
+            self.assertEqual(item, "foo")
+
     def testErrors(self):
         wrongs = [
             [double, "foo"],

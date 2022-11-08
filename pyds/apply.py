@@ -1,6 +1,7 @@
 from .is_a_function import isAFunction
 from .is_a_tensor import isATensor
 from .is_jagged import isJagged
+from inspect import signature
 from numpy import array
 
 
@@ -20,7 +21,13 @@ def apply(a, b):
             return [helper(fn, item) for item in x]
 
         else:
-            return fn(x)
+            sig = signature(fn)
+
+            if len(sig.parameters) > 0:
+                return fn(x)
+
+            else:
+                return fn()
 
     out = helper(fn, x)
 
