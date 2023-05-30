@@ -56,9 +56,9 @@ Gets the Euclidean distance between two tensors of the same shape.
 
 ---
 
-## `drawCorrelationMatrix(c)`
+## `drawCorrelationMatrix(c, neg_hue=0, pos_hue=120)`
 
-Plots a [correlation matrix](#getcorrelationmatrixa-bnone). (This function doesn't actually display the plot yet, though; you'll need to call `matplotlib.pyplot.show()` or similar to display the plot.)
+Plots a [correlation matrix](#getcorrelationmatrixa-bnone). (This function doesn't actually display the plot yet, though; you'll need to call `matplotlib.pyplot.show()` or similar to display the plot.) The `pos_hue` and `neg_hue` represent hue values as degrees between 0 and 360. See the Seaborn [`diverging_palette`](https://seaborn.pydata.org/generated/seaborn.diverging_palette.html) docs for more info.
 
 ---
 
