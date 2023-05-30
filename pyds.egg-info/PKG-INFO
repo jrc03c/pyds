@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyds
-Version: 0.0.34
+Version: 0.0.35
 Summary: A collection of helper tools for doing data science stuff. Please don't judge my ignorance too harshly.
 Home-page: https://github.com/jrc03c/pyds
 Author: jrc03c
