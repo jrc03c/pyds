@@ -56,9 +56,9 @@ Gets the Euclidean distance between two tensors of the same shape.
 
 ---
 
-## `drawCorrelationMatrix(a, b)`
+## `drawCorrelationMatrix(c)`
 
-Plots a [correlation matrix](#getcorrelationmatrixa-bnone).
+Plots a [correlation matrix](#getcorrelationmatrixa-bnone). (This function doesn't actually display the plot yet, though; you'll need to call `matplotlib.pyplot.show()` or similar to display the plot.)
 
 ---
 
