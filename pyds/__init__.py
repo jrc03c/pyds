@@ -46,6 +46,7 @@ from .normalize import normalize
 from .orthonormalize import orthonormalize
 from .outlier_mitigator import OutlierMitigator
 from .p_value import pValue
+from .parse_float import parseFloat
 from .r_score import rScore
 from .r_score_manager import RScoreManager
 from .range import range
