@@ -382,6 +382,12 @@ Returns `True` if some values of `x` return `True` when passed into `fn`; otherw
 
 Sorts an array, optionally using a function (as in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)) to determine whether items should be moved up or down.
 
+Note that the arguments are reversible to maintain consistency with other similar functions in this library. For example, this works:
+
+```python
+sort(lambda a, b: a - b, [3, 2, 4, 3, 5, 4])
+```
+
 Unlike most of the other functions in this library, this function does _not_ return a numpy array; it returns a plain ol' Python `list`. I made this choice because the alternative was spending time figuring out types of data in the sorted set, which seemed unnecessarily costly and complex. And if I didn't try to figure out types and just return a numpy array containing the sorted data, it would often complain at me that the array was jagged or that I needed to set `dtype="object"` for the array. So, in the end, it was easiest just to return a `list`.
 
 ---
