@@ -1,9 +1,9 @@
 import unittest
-from pyds import sign, sort, set, isEqual
-from numpy import vectorize, array
+
+from numpy import array
 from numpy.random import random
 
-round = vectorize(round)
+from pyds import isEqual, round, sign
 
 
 class SignTestCase(unittest.TestCase):

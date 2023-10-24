@@ -1,10 +1,10 @@
 import unittest
-from pyds import isBinary
+
 from numpy import *
 from numpy.random import *
-from pandas import Series, DataFrame
+from pandas import DataFrame, Series
 
-round = vectorize(round)
+from pyds import isBinary, round
 
 
 class IsBinaryTestCase(unittest.TestCase):

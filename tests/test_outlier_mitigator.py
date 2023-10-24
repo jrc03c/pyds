@@ -1,11 +1,11 @@
 import unittest
-from pyds import OutlierMitigator, isEqual, makeKey, rScore
-from numpy import *
-from numpy.random import *
-from pandas import Series, DataFrame
 from math import floor
 
-round = vectorize(round)
+from numpy import *
+from numpy.random import *
+from pandas import DataFrame, Series
+
+from pyds import OutlierMitigator, isEqual, makeKey, round, rScore
 
 
 class OutlierMitigatorTestCase(unittest.TestCase):
@@ -109,8 +109,8 @@ class OutlierMitigatorTestCase(unittest.TestCase):
                 lambda: makeKey(8),
             ]
 
-            index = floor(random() * len(x))
-            func = funcs[floor(random() * len(funcs))]
+            index = int(random() * len(x))
+            func = funcs[int(random() * len(funcs))]
             x[index] = func()
 
         x = array(x)
@@ -161,4 +161,3 @@ class OutlierMitigatorTestCase(unittest.TestCase):
         for pair in wrongs:
             print(pair[0], pair[1])
             self.assertRaises(AssertionError, helper, pair[0], pair[1])
-

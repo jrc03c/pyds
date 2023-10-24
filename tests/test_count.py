@@ -1,9 +1,9 @@
 import unittest
-from pyds import count, isEqual, filter, flatten
+
 from numpy import vectorize
 from numpy.random import random
 
-round = vectorize(round)
+from pyds import count, filter, flatten, isEqual, round
 
 
 class CountTestCase(unittest.TestCase):
@@ -48,4 +48,3 @@ class CountTestCase(unittest.TestCase):
 
     def testErrors(self):
         pass
-
