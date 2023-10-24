@@ -34,7 +34,7 @@ Applies a function to each element in a tensor. Note that this differs from [`ma
 
 ## `chop(x, threshold=1e-10)`
 
-Rounds almost-zero values (where `abs(x) < threshold`) to zero.
+Rounds almost-zero values (where `abs(x) < threshold`) to zero. Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
 
 ---
 
@@ -46,13 +46,13 @@ Determines whether or not a tensor contains only numbers.
 
 ## `correl(a, b)`
 
-Gets the correlation between two vectors.
+Computes the correlation between two vectors.
 
 ---
 
 ## `distance(a, b)`
 
-Gets the Euclidean distance between two tensors of the same shape.
+Computes the Euclidean distance between two tensors of the same shape.
 
 ---
 
@@ -142,13 +142,79 @@ Flattens a tensor to a vector.
 
 ## `getAverageCorrelation(a, b)`
 
-Computes the average correlation between two matrices by first computing the [correlation matrix](#getcorrelationmatrixa-bnone) between the two and then averaging all of the values.
+Computes the average correlation between pairs of corresponding columns in matrices `a` and `b`.
 
 ---
 
 ## `getCorrelationMatrix(a, b=None)`
 
-Gets the correlation matrix between two matrices by comparing each column in `a` with each column in `b`. If `b` is `None`, then the correlation matrix is computed for `a` against itself.
+Computes the correlation matrix between two matrices by comparing each column in `a` with each column in `b`. If `b` is `None`, then the correlation matrix is computed for `a` against itself.
+
+---
+
+## `Indexer(isVerbose=True)`
+
+This is a class that makes it easy to get rows of data that only exist in certain Series or DataFrames. If `isVerbose` is `True`, the `Indexer` will warn in the console if it fails to remove all missing or NaN values from a transformed data set.
+
+For example, imagine you ran two surveys on the same group of people. In the first survey, most people answered most questions, but a few people either never started the survey or didn't answer all of the questions. The same is true of the second survey, although the people that failed to start or to answer all of the questions in the second survey aren't necessarily the same people as in the first survey. When analyzing the results of the two surveys, we want to line up Person A's responses in the first survey with their responses in the second survey; same for Person B, Person C, and so on. We also want to drop rows that contain missing or NaN values from both data sets. The `Indexer` class is designed to help with those problems.
+
+### Instance methods
+
+#### `.fit(x, y, z, ...)`
+
+Finds and records the intersection of all data set indexes.
+
+#### `.transform(x, y, z, ...)`
+
+Returns subsets of the given data sets using the index from the `fit` method.
+
+Note that the data sets passed into the `fit` method do not have to be the same data sets as the ones passed into the `transform` method.
+
+```python
+from pyds import Indexer
+from pandas import DataFrame
+
+# Imagine these are the two survey data sets:
+
+survey1 = DataFrame({
+  "age": [21, 32, 43, None, 65],
+  "name": ["Janet", "Phil", "Rodney", "Alicia", "Marge"],
+})
+
+survey2 = DataFrame({
+  "color": [None, "red", "green", "blue", "yellow"],
+  "name": ["Janet", "Phil", "Rodney", "Alicia", "Marge"],
+})
+
+# Notice that Alicia seems to have failed to indicate her
+# age in the first survey, and Janet failed to indicate
+# a color in the second survey. So, we should probably
+# drop Alicia and Janet from the final analysis.
+
+indexer = Indexer()
+indexer.fit(survey1, survey2)
+survey1, survey2 = indexer.transform(survey1, survey2)
+
+print(survey1)
+
+"""
+      age    name
+1    32.0    Phil
+2    43.0  Rodney
+4    65.0   Marge
+"""
+
+print(survey2)
+
+"""
+    color    name
+1     red    Phil
+2   green  Rodney
+4  yellow   Marge
+"""
+```
+
+This process works even if the row orders are shuffled! The way it works, though, is by comparing the `index` of each Series or DataFrame, so it's important to make sure that each DataFrame has the correct `index`! It's probably ideal, for example, to assign some unique identifier (like an email address) as the `index` in each data set so that they can be compared correctly.
 
 ---
 
@@ -250,7 +316,7 @@ Loads a JSON file from disk.
 
 ## `magnitude(a)`
 
-Gets the two-norm of a tensor.
+Computes the Euclidean norm (i.e., two-norm) of a tensor.
 
 ---
 
@@ -268,13 +334,45 @@ Returns an array in which `fn` has been applied to each top-level item in the ar
 
 ## `normalize(x)`
 
-Returns `(x - mean(x)) / std(x)`.
+Returns `(x - mean(x)) / std(x)`. Works on arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
 
 ---
 
 ## `orthonormalize(x)`
 
 Returns an orthonormalized copy of a matrix in which each column is orthogonal to every other column. The orthonormalization is achieved using the [Gram-Schmidt process](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process).
+
+---
+
+## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5, shouldShowWarnings=True)`
+
+This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `maxScore * MAD`.
+
+The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
+
+### Instance methods
+
+#### `.fit(x)`
+
+Determines whether or not outliers exist in the given data set and thus whether or not data sets passed into the `transform` function should be modified.
+
+#### `.transform(a, b, c, ...)`
+
+Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - maxScore * MAD(x), median(x) + maxScore * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
+
+Do note that if you pass a data set into `transform` that has a minimum value lower than `min(x)`, a warning will be shown since the mitigator will end up trying to take the log of negative numbers.
+
+```python
+from pyds import OutlierMitigator
+
+gator = OutlierMitigator()
+x = [1, 2, 3, 4, 5, 100]
+gator.fit(x)
+x = gator.transform(x)
+
+print(x)
+# [0. 0.69314718 1.09861229 1.38629436 1.60943791 2.39789527]
+```
 
 ---
 
@@ -299,6 +397,20 @@ Replaces any NaN values in `x` with the specified new value, which by default is
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
 By default, values that are considered to be undefined are `None`, `numpy.nan`, and `math.nan`. However, the second parameter gives you the option of passing in a list of strings that are also considered to be undefined. This is useful in cases where you're reading in data from (e.g.) a CSV file that contains empty strings, "NULL", "undefined", etc., and would like to replace those values as well.
+
+---
+
+## `round(x)`
+
+Same as `roundStandard(x)`.
+
+---
+
+## `roundStandard(x)`
+
+Rounds a number to the nearest integer. Note that this does _not_ have the same functionality as the built-in Python [`round`](https://docs.python.org/3/library/functions.html#round) function _or_ the numpy [`round`](https://numpy.org/doc/stable/reference/generated/numpy.round.html) function! Both of those use "banker's rounding", which rounds numbers that are half-way between two integers (e.g., 2.5) to _the nearest even integer_ (e.g., 1.5 rounds to 2, but 2.5 also rounds to 2)! Instead, this implementation rounds in the "usual" way that we all learned in grade school: numbers exactly half-way between two integers (e.g. 2.5) are always rounded _up_.
+
+Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
 
 ---
 
@@ -368,7 +480,7 @@ Shuffles an array.
 
 ## `sign(x)`
 
-Gets the sign of a number. For example, `sign(5) == 1`, `sign(-5) == -1`, and `sign(0) == 0`.
+Gets the sign of a number. For example, `sign(5) == 1`, `sign(-5) == -1`, and `sign(0) == 0`. Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
 
 ---
 
@@ -398,101 +510,10 @@ Performs singular value decomposition on a matrix and returns U, Σ, and V matri
 
 ---
 
-## `Indexer(isVerbose=True)`
+# Todo
 
-This is a class that makes it easy to get rows of data that only exist in certain Series or DataFrames. If `isVerbose` is `True`, the `Indexer` will warn in the console if it fails to remove all missing or NaN values from a transformed data set.
-
-For example, imagine you ran two surveys on the same group of people. In the first survey, most people answered most questions, but a few people either never started the survey or didn't answer all of the questions. The same is true of the second survey, although the people that failed to start or to answer all of the questions in the second survey aren't necessarily the same people as in the first survey. When analyzing the results of the two surveys, we want to line up Person A's responses in the first survey with their responses in the second survey; same for Person B, Person C, and so on. We also want to drop rows that contain missing or NaN values from both data sets. The `Indexer` class is designed to help with those problems.
-
-### Instance methods
-
-#### `.fit(x, y, z, ...)`
-
-Gets the intersection of all data set indexes.
-
-#### `.transform(x, y, z, ...)`
-
-Returns subsets of the given data sets using the index from the `fit` method.
-
-Note that the data sets passed into the `fit` method do not have to be the same data sets as the ones passed into the `transform` method.
-
-```python
-from pyds import Indexer
-from pandas import DataFrame
-
-# Imagine these are the two survey data sets:
-
-survey1 = DataFrame({
-  "age": [21, 32, 43, None, 65],
-  "name": ["Janet", "Phil", "Rodney", "Alicia", "Marge"],
-})
-
-survey2 = DataFrame({
-  "color": [None, "red", "green", "blue", "yellow"],
-  "name": ["Janet", "Phil", "Rodney", "Alicia", "Marge"],
-})
-
-# Notice that Alicia seems to have failed to indicate her
-# age in the first survey, and Janet failed to indicate
-# a color in the second survey. So, we should probably
-# drop Alicia and Janet from the final analysis.
-
-indexer = Indexer()
-indexer.fit(survey1, survey2)
-survey1, survey2 = indexer.transform(survey1, survey2)
-
-print(survey1)
-
-"""
-      age    name
-1    32.0    Phil
-2    43.0  Rodney
-4    65.0   Marge
-"""
-
-print(survey2)
-
-"""
-    color    name
-1     red    Phil
-2   green  Rodney
-4  yellow   Marge
-"""
-```
-
-This process works even if the row orders are shuffled! The way it works, though, is by comparing the `index` of each Series or DataFrame, so it's important to make sure that each DataFrame has the correct `index`! It's probably ideal, for example, to assign some unique identifier (like an email address) as the `index` in each data set so that they can be compared correctly.
-
----
-
-## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5, shouldShowWarnings=True)`
-
-This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `maxScore * MAD`.
-
-The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
-
-### Instance methods
-
-#### `.fit(x)`
-
-Determines whether or not outliers exist in the given data set and thus whether or not data sets passed into the `transform` function should be modified.
-
-#### `.transform(a, b, c, ...)`
-
-Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - maxScore * MAD(x), median(x) + maxScore * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
-
-Do note that if you pass a data set into `transform` that has a minimum value lower than `min(x)`, a warning will be shown since the mitigator will end up trying to take the log of negative numbers.
-
-```python
-from pyds import OutlierMitigator
-
-gator = OutlierMitigator()
-x = [1, 2, 3, 4, 5, 100]
-gator.fit(x)
-x = gator.transform(x)
-
-print(x)
-# [0. 0.69314718 1.09861229 1.38629436 1.60943791 2.39789527]
-```
+- Make sure that all functions that accept various tensor formats return tensors in those same formats (if possible).
+- Make sure that all functions that iterate over arrays (e.g., `find`, `map`, etc.) receive arguments in the same order: function, then array. For example, the signature of `sort` should be `sort(fn, x)` rather than `sort(x, fn)`.
 
 ---
 
