@@ -52,6 +52,7 @@ from .range import range
 from .replace_nan import replaceNaN
 from .replace_undefined import replaceUndefined
 from .reverse import reverse
+from .round_standard import round, roundStandard
 from .save_json import saveJSON
 from .set import set
 from .shuffle import shuffle
