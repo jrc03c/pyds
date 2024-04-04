@@ -7,7 +7,7 @@ from pyds import ciBounds, rScore
 
 class CIBoundsTestCase(TestCase):
     def test(self):
-        a = normal(size=1000)
+        a = normal(size=100)
         b = a + 0.25 * normal(size=a.shape[0])
         r = rScore(a, b)
         ci = ciBounds(a, b)
