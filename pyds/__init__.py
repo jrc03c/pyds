@@ -1,6 +1,7 @@
 from .apply import apply
 from .camelify import camelify
 from .chop import chop
+from .ci_bounds import ciBounds
 from .contains_only_numbers import containsOnlyNumbers
 from .correl import correl
 from .count import count

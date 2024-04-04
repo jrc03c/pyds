@@ -38,6 +38,12 @@ Rounds almost-zero values (where `abs(x) < threshold`) to zero. Works on numbers
 
 ---
 
+## `ciBounds(true, pred, p=95, n=1000, scorer=rScore, progress=lambda x: x)`
+
+Returns the upper and lower confidence interval bounds given two tensors, a percent confidence interval (`p`, which must be between 0 and 100), a number of bootstrap iterations (`n`), a scoring function (`scorer`, which by default is this library's `rScore` function), and a progress callback function (`progress`).
+
+---
+
 ## `containsOnlyNumbers(x)`
 
 Determines whether or not a tensor contains only numbers.

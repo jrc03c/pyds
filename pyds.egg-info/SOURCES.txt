@@ -9,6 +9,7 @@ pyds/__init__.py
 pyds/apply.py
 pyds/camelify.py
 pyds/chop.py
+pyds/ci_bounds.py
 pyds/contains_only_numbers.py
 pyds/correl.py
 pyds/count.py
@@ -79,6 +80,7 @@ tests/notes.md
 tests/test_apply.py
 tests/test_camelify.py
 tests/test_chop.py
+tests/test_ci_bounds.py
 tests/test_contains_only_numbers.py
 tests/test_correl.py
 tests/test_count.py
