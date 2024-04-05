@@ -59,6 +59,7 @@ pyds/outlier_mitigator.py
 pyds/p_value.py
 pyds/r_score.py
 pyds/r_score_manager.py
+pyds/r_squared.py
 pyds/range.py
 pyds/replace_nan.py
 pyds/replace_undefined.py
