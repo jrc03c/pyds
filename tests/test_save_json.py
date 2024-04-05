@@ -39,8 +39,7 @@ class SaveJSONTestCase(unittest.TestCase):
         pred = loadJSON("temp/" + self.filename)
         self.assertTrue(isEqual(self.obj, pred), msg="Failed to load JSON!")
 
-    def testCyclicObjects(self):
-        # This makes sure that we can serialize objects with cyclic references.
+        # test cyclic objects
         x = {}
         x["me"] = x
         failed = False
@@ -53,7 +52,7 @@ class SaveJSONTestCase(unittest.TestCase):
 
         self.assertFalse(failed, "Failed to serialize a cyclic object!")
 
-    def testNumpyArrays(self):
+        # test numpy arrays
         x = random(size=[100])
         failed = False
 
@@ -65,7 +64,7 @@ class SaveJSONTestCase(unittest.TestCase):
 
         self.assertFalse(failed, "Failed to save a numpy array as a JSON file!")
 
-    def testPandasSeries(self):
+        # test pandas series
         x = pd.Series(random(size=[100]))
         failed = False
 
@@ -77,7 +76,7 @@ class SaveJSONTestCase(unittest.TestCase):
 
         self.assertFalse(failed, "Failed to save a pandas Series as a JSON file!")
 
-    def testPandasDataFrame(self):
+        # test pandas dataframes
         x = pd.DataFrame(random(size=[10, 10]))
         failed = False
 
@@ -89,9 +88,7 @@ class SaveJSONTestCase(unittest.TestCase):
 
         self.assertFalse(failed, "Failed to save a pandas DataFrame as a JSON file!")
 
-    def testLotsOfDataTypes(self):
-        path = "temp/whatevs.json"
-
+        # test lots of data types
         values = [
             234,
             "foo",
@@ -103,17 +100,24 @@ class SaveJSONTestCase(unittest.TestCase):
         ]
 
         for true in values:
+            path = "temp/{}.json".format(makeKey(8))
             saveJSON(path, true)
             pred = loadJSON(path)
             self.assertTrue(isEqual(true, pred))
+            os.remove(path)
 
         class Person:
             def __init__(self, name, age):
                 self.name = name
                 self.age = age
 
+        path = "temp/{}.json".format(makeKey(8))
         alice = Person("Alice", 23)
         saveJSON(path, alice)
         aliceTrue = {"age": 23, "name": "Alice"}
         alicePred = loadJSON(path)
-        self.assertTrue(isEqual(alicePred, aliceTrue))
+        self.assertTrue(type(aliceTrue) == type(alicePred))
+        self.assertTrue(isEqual(list(alicePred.keys()), list(aliceTrue.keys())))
+
+        for key in alicePred.keys():
+            self.assertTrue(isEqual(alicePred[key], aliceTrue[key]))
