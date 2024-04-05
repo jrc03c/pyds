@@ -1,7 +1,9 @@
 import unittest
-from pyds import truncatedSVD, rScore, range
-from numpy import zeros, dot, shape
+
+from numpy import dot, shape, zeros
 from numpy.random import normal
+
+from pyds import isAVector, range, rScore, truncatedSVD
 
 
 def diagonalize(s, size=None):

@@ -1,6 +1,8 @@
 import unittest
-from pyds import sort, isEqual
-from numpy.random import *
+
+from numpy.random import normal
+
+from pyds import isEqual, sort
 
 
 class SortTestCase(unittest.TestCase):

@@ -1,8 +1,10 @@
 import unittest
-from pyds import shuffle, isEqual, sort, set
+
 from numpy import shape
 from numpy.random import normal
-from pandas import Series, DataFrame
+from pandas import DataFrame, Series
+
+from pyds import isEqual, set, shuffle, sort
 
 
 class ShuffleTestCase(unittest.TestCase):

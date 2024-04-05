@@ -1,5 +1,6 @@
-from .is_a_number import isANumber
 from numpy.random import random
+
+from .is_a_number import isANumber
 
 
 def makeKey(n):

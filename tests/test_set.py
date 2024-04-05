@@ -1,8 +1,10 @@
 import unittest
-from pyds import sort, set, isEqual, range
-from pandas import Series, DataFrame
+
 from numpy import array
 from numpy.random import normal
+from pandas import DataFrame, Series
+
+from pyds import isEqual, range, set, sort
 
 
 class SetTestCase(unittest.TestCase):

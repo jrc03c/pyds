@@ -1,9 +1,10 @@
+from numpy import mean
+
 from .contains_only_numbers import containsOnlyNumbers
 from .correl import correl
 from .is_a_matrix import isAMatrix
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .range import range
-from numpy import mean
 
 
 def getAverageCorrelation(a, b):

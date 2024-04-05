@@ -1,10 +1,12 @@
+import json
+import os
+
+from bs4 import BeautifulSoup
+from pandas import DataFrame
+
 from .is_a_matrix import isAMatrix
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .make_key import makeKey
-from bs4 import BeautifulSoup
-from pandas import DataFrame
-import json
-import os
 
 
 class HTMLTable:
@@ -53,7 +55,9 @@ class HTMLTable:
         return self
 
     def save(
-        self, filename, shouldUseFancyTemplate=True,
+        self,
+        filename,
+        shouldUseFancyTemplate=True,
     ):
         path = os.path.realpath(filename)
 

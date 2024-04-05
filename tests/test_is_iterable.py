@@ -1,8 +1,9 @@
 import unittest
+
+from numpy.random import normal
+from pandas import DataFrame, Series
+
 from pyds import isIterable
-from numpy import *
-from numpy.random import *
-from pandas import Series, DataFrame
 
 
 class IsIterableTestCase(unittest.TestCase):

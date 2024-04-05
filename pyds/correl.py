@@ -1,6 +1,7 @@
+from scipy.stats import pearsonr
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_vector import isAVector
-from scipy.stats import pearsonr
 
 
 def correl(a, b):

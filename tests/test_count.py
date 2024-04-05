@@ -1,6 +1,5 @@
 import unittest
 
-from numpy import vectorize
 from numpy.random import random
 
 from pyds import count, filter, flatten, isEqual, round

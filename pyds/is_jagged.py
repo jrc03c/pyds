@@ -28,4 +28,3 @@ def isJagged(x):
         return True
 
     return False
-

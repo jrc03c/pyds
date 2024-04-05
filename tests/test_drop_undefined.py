@@ -1,9 +1,11 @@
+import unittest
 from math import nan as mathNaN
+
 from numpy import nan as numpyNaN
 from numpy.random import normal
 from pandas import DataFrame, Series
+
 from pyds import dropUndefined, isEqual
-import unittest
 
 
 class DropUndefinedTestCase(unittest.TestCase):
@@ -61,4 +63,3 @@ class DropUndefinedTestCase(unittest.TestCase):
             isEqual(yTrue, yPred),
             msg="Failed to correctly drop undefined values from a list!",
         )
-

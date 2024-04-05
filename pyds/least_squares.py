@@ -1,7 +1,8 @@
+from numpy.linalg import lstsq
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_matrix import isAMatrix
 from .is_a_vector import isAVector
-from numpy.linalg import lstsq
 
 
 def leastSquares(a, b):

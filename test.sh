@@ -1,1 +1,1 @@
-nosetests --nologcapture
+pytest

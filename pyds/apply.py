@@ -1,8 +1,10 @@
+from inspect import signature
+
+from numpy import array
+
 from .is_a_function import isAFunction
 from .is_a_tensor import isATensor
 from .is_jagged import isJagged
-from inspect import signature
-from numpy import array
 
 
 def apply(a, b):

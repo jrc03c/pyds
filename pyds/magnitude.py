@@ -1,6 +1,7 @@
+from numpy.linalg import norm
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_tensor import isATensor
-from numpy.linalg import norm
 
 
 def magnitude(a):

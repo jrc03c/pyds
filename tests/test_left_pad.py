@@ -1,6 +1,8 @@
 import unittest
-from pyds import leftPad
+
 from numpy import nan
+
+from pyds import leftPad
 
 
 class LeftPadTestCase(unittest.TestCase):
@@ -26,5 +28,8 @@ class LeftPadTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(
-                AssertionError, leftPad, pair[0], pair[1],
+                AssertionError,
+                leftPad,
+                pair[0],
+                pair[1],
             )

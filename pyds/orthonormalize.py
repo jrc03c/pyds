@@ -1,4 +1,7 @@
-from .chop import chop
+from copy import deepcopy
+
+from numpy import array, dot, zeros
+
 from .contains_only_numbers import containsOnlyNumbers
 from .distance import distance
 from .is_a_matrix import isAMatrix
@@ -7,8 +10,6 @@ from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_vector import isAVector
 from .map import map
-from copy import deepcopy
-from numpy import array, dot, zeros
 
 
 def getMagnitude(x):
@@ -68,4 +69,3 @@ def orthonormalize(x):
 
     ortho = map(bases, lambda basis: basis / getMagnitude(basis))
     return ortho.T
-

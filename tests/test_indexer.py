@@ -1,9 +1,10 @@
 import unittest
-from pyds import Indexer, range, containsOnlyNumbers, isEqual, distance, flatten
+
+from numpy.random import normal, random
 from pandas import DataFrame as DF
 from pandas import Series
-from numpy import *
-from numpy.random import *
+
+from pyds import Indexer, containsOnlyNumbers, distance, flatten, isEqual, range
 
 
 class IndexerTestCase(unittest.TestCase):
@@ -87,9 +88,13 @@ class IndexerTestCase(unittest.TestCase):
             self.assertRaises(AssertionError, indexer.fit, item)
 
             self.assertRaises(
-                AssertionError, indexer.transform, item,
+                AssertionError,
+                indexer.transform,
+                item,
             )
 
             self.assertRaises(
-                AssertionError, indexer.fit, item,
+                AssertionError,
+                indexer.fit,
+                item,
             )

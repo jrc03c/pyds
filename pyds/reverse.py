@@ -1,7 +1,8 @@
+from numpy import array
+
 from .is_a_number import isANumber
 from .is_a_string import isAString
 from .is_a_tensor import isATensor
-from numpy import array
 
 
 def reverse(x):

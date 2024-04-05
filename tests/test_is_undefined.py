@@ -1,7 +1,9 @@
-from math import nan as mathNaN
-from numpy import nan as numpyNaN
-from pyds import isUndefined
 import unittest
+from math import nan as mathNaN
+
+from numpy import nan as numpyNaN
+
+from pyds import isUndefined
 
 
 class IsUndefinedTestCase(unittest.TestCase):

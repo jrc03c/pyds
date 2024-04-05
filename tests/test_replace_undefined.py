@@ -1,7 +1,9 @@
+import unittest
+
 from numpy import nan
 from numpy.random import normal
+
 from pyds import isEqual, replaceUndefined
-import unittest
 
 
 class ReplaceUndefinedTestCase(unittest.TestCase):
@@ -71,4 +73,3 @@ class ReplaceUndefinedTestCase(unittest.TestCase):
                 [2, 3, "foobar", "foobar"],
             )
         )
-

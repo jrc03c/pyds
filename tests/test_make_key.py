@@ -1,6 +1,8 @@
 import unittest
-from pyds import makeKey
+
 from numpy.random import random
+
+from pyds import makeKey
 
 
 class MakeKeyTestCase(unittest.TestCase):

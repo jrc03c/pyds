@@ -50,4 +50,3 @@ def dropNaN(x):
             return x
 
         return None
-

@@ -1,6 +1,8 @@
 import unittest
-from pyds import apply, isEqual
+
 from numpy.random import normal
+
+from pyds import apply, isEqual
 
 double = lambda x: x * 2
 
@@ -52,4 +54,3 @@ class ApplyTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(AssertionError, apply, pair[0], pair[1])
-

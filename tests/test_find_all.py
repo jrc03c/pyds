@@ -1,6 +1,8 @@
-from pyds import findAll, isEqual
-import pandas as pd
 import unittest
+
+import pandas as pd
+
+from pyds import findAll, isEqual
 
 
 class FindAllTestCase(unittest.TestCase):
@@ -54,4 +56,3 @@ class FindAllTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(AssertionError, findAll, pair[0], pair[1])
-

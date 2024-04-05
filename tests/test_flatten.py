@@ -1,8 +1,10 @@
 import unittest
+
+from numpy import shape
+from numpy.random import normal
+from pandas import DataFrame, Series
+
 from pyds import flatten
-from numpy import *
-from numpy.random import *
-from pandas import Series, DataFrame
 
 
 class FlattenTestCase(unittest.TestCase):

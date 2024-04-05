@@ -1,3 +1,6 @@
+import scipy
+from numpy import abs, array, mean, nan, shape, sqrt, sum
+
 from .drop_nan import dropNaN
 from .flatten import flatten
 from .is_a_number import isANumber
@@ -8,8 +11,6 @@ from .is_a_tensor import isATensor
 from .is_binary import isBinary
 from .is_equal import isEqual
 from .sign import sign
-from numpy import abs, array, mean, nan, shape, sqrt, sum
-import scipy
 
 
 def mode(x):

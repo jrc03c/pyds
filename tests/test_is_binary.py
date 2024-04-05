@@ -1,7 +1,7 @@
 import unittest
 
-from numpy import *
-from numpy.random import *
+from numpy import nan
+from numpy.random import normal, random
 from pandas import DataFrame, Series
 
 from pyds import isBinary, round

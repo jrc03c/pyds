@@ -1,8 +1,9 @@
+from scipy.stats import ttest_ind
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_vector import isAVector
-from scipy.stats import ttest_ind
 
 
 def pValue(a, b):

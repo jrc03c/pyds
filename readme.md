@@ -392,6 +392,18 @@ ttest_ind(a, b, equal_var=False, nan_policy="omit")[1]
 
 ---
 
+## `range(a, b, step=1)`
+
+Returns a range of values.
+
+---
+
+## `reverse(x)`
+
+Reverses a number, string, or array.
+
+---
+
 ## `replaceNaN(x, newValue=numpy.nan)`
 
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
@@ -420,9 +432,9 @@ Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas
 
 ---
 
-## `rScore(true, pred)`
+## `rScore(true, pred, baseline=None)`
 
-Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`.
+Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`. See the `rSquared` function for more information about the `baseline` parameter.
 
 ---
 
@@ -454,15 +466,21 @@ Returns the final R-score. Call this after running through all cross-validation 
 
 ---
 
-## `range(a, b, step=1)`
+## `rSquared(true, pred, baseline=None)`
 
-Returns a range of values.
+Computes an R^2 value for two tensors. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`.
 
----
+The formula for R^2 that's used here is:
 
-## `reverse(x)`
+```
+R^2 = 1 - sum((true - pred)**2) / sum((true - mean(true))**2)
+```
 
-Reverses a number, string, or array.
+However, the mean value computed in the denominator can use a different data set, which I've here called `baseline`. By default, `baseline` is the same as `true`. But the `baseline` variable might be useful if computing scores using data that's been split into training and testing sets. For example:
+
+```py
+rSquared(y_true_test, y_pred_test, baseline=y_true_train)
+```
 
 ---
 
@@ -516,8 +534,10 @@ Performs singular value decomposition on a matrix and returns U, Σ, and V matri
 
 ---
 
-# Todo
+# To do
 
+- Add more tests for the `ciBounds` function.
+- Add tests for the `rSquared` function.
 - Make sure that all functions that accept various tensor formats return tensors in those same formats (if possible).
 - Make sure that all functions that iterate over arrays (e.g., `find`, `map`, etc.) receive arguments in the same order: function, then array. For example, the signature of `sort` should be `sort(fn, x)` rather than `sort(x, fn)`.
 

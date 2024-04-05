@@ -1,9 +1,10 @@
-import unittest
-import json
 import os
 import shutil
-from pyds import loadJSON, makeKey, isEqual, saveJSON
+import unittest
+
 from numpy.random import random
+
+from pyds import isEqual, loadJSON, makeKey, saveJSON
 
 
 class LoadJSONTestCase(unittest.TestCase):
@@ -50,9 +51,13 @@ class LoadJSONTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(
-                AssertionError, loadJSON, item,
+                AssertionError,
+                loadJSON,
+                item,
             )
 
         self.assertRaises(
-            FileNotFoundError, loadJSON, makeKey(16),
+            FileNotFoundError,
+            loadJSON,
+            makeKey(16),
         )

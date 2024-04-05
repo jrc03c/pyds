@@ -1,6 +1,8 @@
-from pyds import find, isEqual
-import pandas as pd
 import unittest
+
+import pandas as pd
+
+from pyds import find, isEqual
 
 
 class FindTestCase(unittest.TestCase):
@@ -53,4 +55,3 @@ class FindTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(AssertionError, find, pair[0], pair[1])
-

@@ -1,6 +1,8 @@
 import unittest
-from pyds import filter, isEqual
+
 from numpy import array
+
+from pyds import filter, isEqual
 
 
 class FilterTestCase(unittest.TestCase):

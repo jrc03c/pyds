@@ -1,5 +1,6 @@
-from pyds import isAFunction
 import unittest
+
+from pyds import isAFunction
 
 
 class IsAFunctionTestCase(unittest.TestCase):

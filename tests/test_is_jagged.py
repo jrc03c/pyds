@@ -1,6 +1,8 @@
 import unittest
-from pyds import isJagged
+
 from numpy.random import normal
+
+from pyds import isJagged
 
 
 class IsJaggedTestCase(unittest.TestCase):
@@ -30,4 +32,3 @@ class IsJaggedTestCase(unittest.TestCase):
 
     def testErrors(self):
         pass
-

@@ -1,9 +1,10 @@
+from numpy import array
+
 from .is_a_number import isANumber
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
-from numpy import array
 
 
 def sign(x):

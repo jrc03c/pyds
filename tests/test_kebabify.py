@@ -1,5 +1,6 @@
-from pyds.kebabify import kebabify
 import unittest
+
+from pyds.kebabify import kebabify
 
 
 class KebabifyTestCase(unittest.TestCase):
@@ -31,4 +32,3 @@ class KebabifyTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(AssertionError, kebabify, item)
-

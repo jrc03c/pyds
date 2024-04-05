@@ -1,8 +1,10 @@
 import unittest
-from numpy import eye, dot
-from numpy.random import random, normal
-from pyds import rScore, orthonormalize
+
+from numpy import dot, eye
+from numpy.random import normal, random
 from pandas import DataFrame
+
+from pyds import orthonormalize, rScore
 
 
 class OrthonormalizeTestCase(unittest.TestCase):
@@ -31,4 +33,3 @@ class OrthonormalizeTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(Exception, orthonormalize, item)
-

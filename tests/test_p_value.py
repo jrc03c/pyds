@@ -1,6 +1,8 @@
 import unittest
-from pyds import pValue
+
 from numpy.random import normal
+
+from pyds import pValue
 
 
 class PValueTestCase(unittest.TestCase):

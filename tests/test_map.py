@@ -1,7 +1,8 @@
 import unittest
-from pyds import map, isEqual
+
 from numpy import array
-from numpy.random import normal
+
+from pyds import isEqual, map
 
 
 class MapTestCase(unittest.TestCase):
@@ -57,5 +58,8 @@ class MapTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(
-                AssertionError, map, pair[0], pair[1],
+                AssertionError,
+                map,
+                pair[0],
+                pair[1],
             )

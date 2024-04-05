@@ -1,8 +1,10 @@
+import unittest
+
 from numpy import isnan, shape, zeros
 from numpy.random import normal
 from pandas import Series
+
 from pyds import rScore
-import unittest
 
 
 class RScoreTestCase(unittest.TestCase):

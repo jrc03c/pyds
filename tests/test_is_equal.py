@@ -1,11 +1,11 @@
 import unittest
-from pyds import isEqual
-from numpy import *
-from numpy.random import *
-from pandas import Series, DataFrame
+from math import nan as mathNan
 
 from numpy import nan as numpyNan
-from math import nan as mathNan
+from numpy.random import normal, seed
+from pandas import DataFrame, Series
+
+from pyds import isEqual
 
 
 class IsEqualTestCase(unittest.TestCase):

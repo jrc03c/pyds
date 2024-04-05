@@ -1,8 +1,9 @@
 import unittest
-from pyds import getAverageCorrelation
-from numpy import *
-from numpy.random import *
+
+from numpy.random import normal, random
 from pandas import DataFrame
+
+from pyds import getAverageCorrelation
 
 
 class GetAverageCorrelationTestCase(unittest.TestCase):

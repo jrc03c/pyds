@@ -1,7 +1,9 @@
 import unittest
-from pyds import reverse, sort, isEqual
+
 from numpy import array
 from numpy.random import normal
+
+from pyds import isEqual, reverse
 
 
 class ReverseTestCase(unittest.TestCase):

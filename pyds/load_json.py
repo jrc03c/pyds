@@ -1,5 +1,6 @@
-from .is_a_string import isAString
 import json
+
+from .is_a_string import isAString
 
 
 def loadJSON(path):

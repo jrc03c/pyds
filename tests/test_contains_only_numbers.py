@@ -1,7 +1,9 @@
 import unittest
-from pyds import containsOnlyNumbers
+
 from numpy import nan
-from numpy.random import *
+from numpy.random import normal
+
+from pyds import containsOnlyNumbers
 
 
 class ContainsOnlyNumbersTestCase(unittest.TestCase):

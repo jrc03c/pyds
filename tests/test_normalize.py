@@ -1,8 +1,10 @@
 import unittest
+
 from numpy import mean, std
 from numpy.random import normal
 from pandas import DataFrame as DF
-from pyds import normalize, chop
+
+from pyds import chop, normalize
 
 
 class NormalizeTestCase(unittest.TestCase):

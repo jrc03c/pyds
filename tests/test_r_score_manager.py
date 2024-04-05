@@ -1,10 +1,12 @@
+import unittest
+
+import pandas as pd
 from numpy import abs, isnan, mean, nan, sqrt, sum
 from numpy.random import normal, random
-from pyds import rScore, RScoreManager, sign
-from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
-import pandas as pd
-import unittest
+from sklearn.model_selection import KFold
+
+from pyds import RScoreManager, rScore, sign
 
 
 class RScoreManagerTestCase(unittest.TestCase):

@@ -1,7 +1,9 @@
+import unittest
+
 from numpy import nan
 from numpy.random import normal
+
 from pyds import isEqual, replaceNaN
-import unittest
 
 
 class ReplaceNaNTestCase(unittest.TestCase):
@@ -49,4 +51,3 @@ class ReplaceNaNTestCase(unittest.TestCase):
         self.assertTrue(
             isEqual(replaceNaN([2, 3, "four"], newValue="foobar"), [2, 3, "foobar"])
         )
-

@@ -1,10 +1,11 @@
+from numpy import abs, array
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_number import isANumber
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
-from numpy import abs, array
 
 
 def chop(x, threshold=1e-10):

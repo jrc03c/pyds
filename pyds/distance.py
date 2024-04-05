@@ -1,3 +1,5 @@
+from numpy import array, shape, sqrt, sum
+
 from .contains_only_numbers import containsOnlyNumbers
 from .is_a_number import isANumber
 from .is_a_numpy_array import isANumpyArray
@@ -5,7 +7,6 @@ from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
 from .is_equal import isEqual
-from numpy import array, shape, sqrt, sum
 
 
 def distance(a, b):

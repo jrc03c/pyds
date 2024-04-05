@@ -1,4 +1,5 @@
 import pandas as pd
 
+
 def isAPandasDataFrame(x):
-  return type(x) is pd.DataFrame
+    return type(x) is pd.DataFrame

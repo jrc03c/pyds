@@ -13,4 +13,3 @@ def kebabify(text):
         return words[0]
 
     return "-".join(words)
-

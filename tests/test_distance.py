@@ -1,6 +1,8 @@
 import unittest
-from pyds import distance
+
 from numpy.random import normal
+
+from pyds import distance
 
 
 class DistanceTestCase(unittest.TestCase):
@@ -13,7 +15,7 @@ class DistanceTestCase(unittest.TestCase):
 
         self.assertEqual(
             distance([1, 2, 3], [4, 5, 6]),
-            27 ** 0.5,
+            27**0.5,
             msg="Cannot get the distance from one vector to another!",
         )
 

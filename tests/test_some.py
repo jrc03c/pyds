@@ -1,7 +1,9 @@
-from numpy.random import random
-from pyds import flatten, some
-import pandas as pd
 import unittest
+
+import pandas as pd
+from numpy.random import random
+
+from pyds import some
 
 
 class SomeTestCase(unittest.TestCase):

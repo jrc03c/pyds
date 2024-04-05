@@ -10,4 +10,3 @@ fnTypes = [type(eye), type(foo.bar)]
 
 def isAFunction(x):
     return type(x) in fnTypes
-

@@ -1,8 +1,9 @@
 import unittest
-from pyds import magnitude, distance
-from numpy import *
-from numpy.random import *
-from pandas import Series, DataFrame
+
+from numpy.random import normal
+from pandas import DataFrame, Series
+
+from pyds import distance, magnitude
 
 
 class MagnitudeTestCase(unittest.TestCase):
@@ -44,5 +45,7 @@ class MagnitudeTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(
-                AssertionError, magnitude, item,
+                AssertionError,
+                magnitude,
+                item,
             )

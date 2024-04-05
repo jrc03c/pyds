@@ -1,6 +1,6 @@
 def isIterable(x):
-  try:
-    iter(x)
-    return True
-  except:
-    return False
+    try:
+        iter(x)
+        return True
+    except:
+        return False

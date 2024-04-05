@@ -1,7 +1,8 @@
 import unittest
+
+from numpy.random import normal, random
+
 from pyds import correl
-from numpy import *
-from numpy.random import *
 
 
 class CorrelTestCase(unittest.TestCase):

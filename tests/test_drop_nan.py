@@ -1,6 +1,8 @@
-from numpy.random import normal
-from pyds import dropNaN, isEqual
 import unittest
+
+from numpy.random import normal
+
+from pyds import dropNaN, isEqual
 
 
 class DropNaNTestCase(unittest.TestCase):

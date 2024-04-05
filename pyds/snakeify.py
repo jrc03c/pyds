@@ -13,4 +13,3 @@ def snakeify(text):
         return words[0]
 
     return "_".join(words)
-

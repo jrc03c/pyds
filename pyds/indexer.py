@@ -1,6 +1,5 @@
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
-from .is_a_vector import isAVector
 
 # DO NOT import pyds.set!
 
@@ -12,8 +11,8 @@ class Indexer:
 
     def fit(self, *args):
         for item in args:
-            assert isAPandasDataFrame(item) or isAPandasSeries(
-                item
+            assert (
+                isAPandasDataFrame(item) or isAPandasSeries(item)
             ), "All items passed into the `fit` method must be pandas DataFrames or Series!"
 
         index = None
@@ -35,8 +34,8 @@ class Indexer:
         reallyOut = []
 
         for item in args:
-            assert isAPandasDataFrame(item) or isAPandasSeries(
-                item
+            assert (
+                isAPandasDataFrame(item) or isAPandasSeries(item)
             ), "All items passed into the `transform` method must be pandas DataFrames or Series!"
 
             out = item.loc[self.index]

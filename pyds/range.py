@@ -1,6 +1,7 @@
+from numpy import arange
+
 from .is_a_number import isANumber
 from .sign import sign
-from numpy import arange
 
 
 def range(a, b, step=1):

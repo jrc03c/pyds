@@ -1,4 +1,7 @@
-from .contains_only_numbers import containsOnlyNumbers
+import warnings
+
+from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, where
+
 from .filter import filter
 from .flatten import flatten
 from .is_a_number import isANumber
@@ -7,8 +10,6 @@ from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
 from .is_binary import isBinary
 from .sort import sort
-from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, where
-import warnings
 
 
 class OutlierMitigator:

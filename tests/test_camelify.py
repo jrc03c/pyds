@@ -1,5 +1,6 @@
-from pyds.camelify import camelify
 import unittest
+
+from pyds.camelify import camelify
 
 
 class CamelifyTestCase(unittest.TestCase):
@@ -7,7 +8,10 @@ class CamelifyTestCase(unittest.TestCase):
         rights = [
             ["foobarbaz", "foobarbaz"],
             ["Hello, world! My name is Josh.", "helloWorldMyNameIsJosh"],
-            ["'42 is the number thou shalt count!'", "42IsTheNumberThouShaltCount",],
+            [
+                "'42 is the number thou shalt count!'",
+                "42IsTheNumberThouShaltCount",
+            ],
             ["I don't like you.", "iDontLikeYou"],
             ["howAboutNow", "howAboutNow"],
         ]
@@ -28,4 +32,3 @@ class CamelifyTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(AssertionError, camelify, item)
-

@@ -1,8 +1,9 @@
 import unittest
+
+from numpy.random import normal
+from pandas import DataFrame, Series
+
 from pyds import isAPandasSeries
-from pandas import Series, DataFrame
-from numpy import *
-from numpy.random import *
 
 
 class IsAPandasSeriesTestCase(unittest.TestCase):

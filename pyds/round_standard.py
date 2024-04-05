@@ -1,6 +1,6 @@
-from math import ceil, floor, nan
+from math import nan
 
-from numpy import array, shape
+from numpy import array
 from pandas import DataFrame, Series
 
 from .is_a_numpy_array import isANumpyArray

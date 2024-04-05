@@ -1,7 +1,9 @@
 import unittest
-from pyds import chop, distance, isEqual
-from numpy.random import *
-from pandas import Series, DataFrame
+
+from numpy.random import normal, random, seed
+from pandas import DataFrame, Series
+
+from pyds import chop, isEqual
 
 
 class ChopTestCase(unittest.TestCase):
@@ -49,5 +51,7 @@ class ChopTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(
-                AssertionError, chop, item,
+                AssertionError,
+                chop,
+                item,
             )

@@ -1,5 +1,6 @@
-from pyds.snakeify import snakeify
 import unittest
+
+from pyds.snakeify import snakeify
 
 
 class SnakeifyTestCase(unittest.TestCase):
@@ -31,4 +32,3 @@ class SnakeifyTestCase(unittest.TestCase):
 
         for item in wrongs:
             self.assertRaises(AssertionError, snakeify, item)
-

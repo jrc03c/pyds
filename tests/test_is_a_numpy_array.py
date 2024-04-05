@@ -1,8 +1,10 @@
 import unittest
-from pyds import isANumpyArray
-from numpy import *
-from numpy.random import *
+
+from numpy import array, ndarray
+from numpy.random import normal, random
 from pandas import DataFrame as DF
+
+from pyds import isANumpyArray
 
 
 class IsANumpyArrayTestCase(unittest.TestCase):

@@ -1,6 +1,8 @@
 import unittest
-from pyds import range, isEqual
+
 from numpy import array
+
+from pyds import isEqual, range
 
 
 class RangeTestCase(unittest.TestCase):

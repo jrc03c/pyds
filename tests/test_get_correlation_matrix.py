@@ -1,8 +1,10 @@
 import unittest
-from pyds import getCorrelationMatrix, flatten
-from numpy import *
-from numpy.random import *
+
+from numpy import transpose
+from numpy.random import normal
 from pandas import DataFrame
+
+from pyds import flatten, getCorrelationMatrix
 
 
 class GetCorrelationMatrixTestCase(unittest.TestCase):

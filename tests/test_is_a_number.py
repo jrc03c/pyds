@@ -1,6 +1,8 @@
 import unittest
-from pyds import isANumber
+
 from numpy import nan
+
+from pyds import isANumber
 
 
 class IsANumberTestCase(unittest.TestCase):

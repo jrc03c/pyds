@@ -1,8 +1,10 @@
 import unittest
-from pyds import leastSquares, rScore
-from numpy import *
-from numpy.random import *
+
+from numpy import dot
+from numpy.random import normal
 from pandas import DataFrame
+
+from pyds import leastSquares, rScore
 
 
 class LeastSquaresTestCase(unittest.TestCase):
@@ -44,5 +46,8 @@ class LeastSquaresTestCase(unittest.TestCase):
 
         for pair in wrongs:
             self.assertRaises(
-                AssertionError, leastSquares, pair[0], pair[1],
+                AssertionError,
+                leastSquares,
+                pair[0],
+                pair[1],
             )

@@ -1,9 +1,11 @@
-from numpy.random import random
-from pyds import isEqual, loadJSON, makeKey, saveJSON
 import os
-import pandas as pd
 import shutil
 import unittest
+
+import pandas as pd
+from numpy.random import random
+
+from pyds import isEqual, loadJSON, makeKey, saveJSON
 
 
 class SaveJSONTestCase(unittest.TestCase):
@@ -112,6 +114,6 @@ class SaveJSONTestCase(unittest.TestCase):
 
         alice = Person("Alice", 23)
         saveJSON(path, alice)
-        aliceTrue = {"name": "Alice", "age": 23}
+        aliceTrue = {"age": 23, "name": "Alice"}
         alicePred = loadJSON(path)
         self.assertTrue(isEqual(alicePred, aliceTrue))

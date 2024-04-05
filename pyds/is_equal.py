@@ -1,11 +1,13 @@
+from math import nan as mathNan
+
+from numpy import nan as numpyNan
+
 from .is_a_function import isAFunction
 from .is_a_number import isANumber
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
-from math import nan as mathNan
-from numpy import nan as numpyNan
 
 
 def isEqual(a, b):

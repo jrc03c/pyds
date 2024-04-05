@@ -1,10 +1,11 @@
+from numpy import array
+
 from .is_a_function import isAFunction
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
 from .is_jagged import isJagged
-from numpy import array
 
 oldFilter = filter
 

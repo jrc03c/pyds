@@ -1,8 +1,7 @@
 import unittest
-from math import floor
 
-from numpy import *
-from numpy.random import *
+from numpy import array, clip, log, median, shape
+from numpy.random import normal, random
 from pandas import DataFrame, Series
 
 from pyds import OutlierMitigator, isEqual, makeKey, round, rScore

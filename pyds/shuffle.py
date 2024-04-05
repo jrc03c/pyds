@@ -1,7 +1,8 @@
+import numpy
+
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
-import numpy
 
 
 def shuffle(x):

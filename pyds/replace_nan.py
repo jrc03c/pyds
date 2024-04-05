@@ -1,10 +1,11 @@
+from numpy import nan
+
 from .is_a_function import isAFunction
 from .is_a_number import isANumber
 from .is_a_numpy_array import isANumpyArray
 from .is_a_pandas_dataframe import isAPandasDataFrame
 from .is_a_pandas_series import isAPandasSeries
 from .is_a_tensor import isATensor
-from numpy import nan
 
 
 # Note that this function's structure should be closely linked to dropNaN's!
@@ -46,4 +47,3 @@ def replaceNaN(x, newValue=nan):
             return x
 
         return newValue
-
