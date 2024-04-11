@@ -1,8 +1,8 @@
-from .__helpers__ import alphanumerics, quoteVariations
+from .__helpers__ import alphanumerics, quote_variations
 
 
 def camelify(text):
-    assert type(text) == str, "`text` must be a string!"
+    isinstance(text, str), "`text` must be a string!"
 
     text = text.strip()
     out = ""
@@ -21,7 +21,7 @@ def camelify(text):
 
             shouldCapitalizeNextCharacter = False
 
-        elif char not in quoteVariations:
+        elif char not in quote_variations:
             shouldCapitalizeNextCharacter = True
 
     return out

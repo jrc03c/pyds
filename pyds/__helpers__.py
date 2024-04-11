@@ -1,16 +1,16 @@
 alphanumerics = "abcdefghijklmnopqrstuvwxyz1234567890"
-quoteVariations = "'’❜"
+quote_variations = "'’❜"
 
 
-def replaceAll(text, a, b):
+def replace_all(text, a, b):
     return b.join(text.split(a))
 
 
 def clean(text):
-    assert type(text) == str, "`text` must be a string!"
+    assert isinstance(text, str), "`text` must be a string!"
 
-    doubleSpace = "  "
-    singleSpace = " "
+    double_space = "  "
+    single_space = " "
     out = ""
 
     for char in text:
@@ -19,13 +19,13 @@ def clean(text):
         if char in alphanumerics:
             out += char
 
-        elif char in quoteVariations:
+        elif char in quote_variations:
             out += ""
 
         else:
-            out += singleSpace
+            out += single_space
 
-    while doubleSpace in out:
-        out = replaceAll(out, doubleSpace, singleSpace)
+    while double_space in out:
+        out = replace_all(out, double_space, single_space)
 
     return out.strip()

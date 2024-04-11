@@ -2,24 +2,24 @@ from inspect import signature
 
 from numpy import array
 
-from .is_a_function import isAFunction
-from .is_a_tensor import isATensor
-from .is_jagged import isJagged
+from .is_a_function import is_a_function
+from .is_a_tensor import is_a_tensor
+from .is_jagged import is_jagged
 
 
 def apply(a, b):
-    if isAFunction(a):
+    if is_a_function(a):
         fn = a
         x = b
     else:
         fn = b
         x = a
 
-    assert isAFunction(fn), "`fn` must be a function!"
-    assert isATensor(x), "`x` must be a tensor!"
+    assert is_a_function(fn), "`fn` must be a function!"
+    assert is_a_tensor(x), "`x` must be a tensor!"
 
     def helper(fn, x):
-        if isATensor(x):
+        if is_a_tensor(x):
             return [helper(fn, item) for item in x]
 
         else:
@@ -33,7 +33,7 @@ def apply(a, b):
 
     out = helper(fn, x)
 
-    if isJagged(out):
+    if is_jagged(out):
         return array(out, dtype=object)
     else:
         return array(out)
