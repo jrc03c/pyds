@@ -59,7 +59,7 @@ def test_errors():
 
         try:
             apply(pair[0], pair[1])
-        except:
+        except Exception:
             raised = True
 
         assert raised

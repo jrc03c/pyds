@@ -33,7 +33,7 @@ def test_errors():
 
         try:
             camelify(item)
-        except:
+        except Exception:
             raised = True
 
         assert raised
