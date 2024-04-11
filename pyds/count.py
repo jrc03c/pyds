@@ -1,17 +1,17 @@
 from .flatten import flatten
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def count(x, item=None):
-    assert isATensor(x), "`x` must be a tensor!"
+    assert is_a_tensor(x), "`x` must be a tensor!"
 
-    if isAPandasDataFrame(x) or isAPandasSeries(x):
+    if is_a_pandas_dataframe(x) or is_a_pandas_series(x):
         x = x.values
 
-    if isANumpyArray(x):
+    if is_a_numpy_array(x):
         x = x.tolist()
 
     out = {}
