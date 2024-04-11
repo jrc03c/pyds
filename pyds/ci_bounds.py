@@ -13,10 +13,10 @@ def ci_bounds(true, pred, p=95, n=1000, scorer=r_score, progress=lambda x: x):
     if is_a_pandas_dataframe(pred) or is_a_pandas_series(pred):
         return ci_bounds(true, pred.values, p=p, n=n, scorer=scorer, progress=progress)
 
-    if type(true) == list:
+    if isinstance(true, list):
         true = array(true)
 
-    if type(pred) == list:
+    if isinstance(pred, list):
         pred = array(pred)
 
     scores = []
