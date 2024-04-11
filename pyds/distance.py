@@ -1,36 +1,36 @@
 from numpy import array, shape, sqrt, sum
 
-from .contains_only_numbers import containsOnlyNumbers
-from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
-from .is_equal import isEqual
+from .contains_only_numbers import contains_only_numbers
+from .is_a_number import is_a_number
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
+from .is_equal import is_equal
 
 
 def distance(a, b):
-    if not isANumber(a):
-        assert isATensor(a), "`a` must be a number, vector, matrix, or tensor!"
-        assert containsOnlyNumbers(a), "`a` must contain only numbers!"
+    if not is_a_number(a):
+        assert is_a_tensor(a), "`a` must be a number, vector, matrix, or tensor!"
+        assert contains_only_numbers(a), "`a` must contain only numbers!"
 
-        if isAPandasSeries(a) or isAPandasDataFrame(a):
+        if is_a_pandas_series(a) or is_a_pandas_dataframe(a):
             a = a.values
 
-        if not isANumpyArray(a):
+        if not is_a_numpy_array(a):
             a = array(a)
 
-    if not isANumber(b):
-        assert isATensor(b), "`b` must be a number, vector, matrix, or tensor!"
-        assert containsOnlyNumbers(b), "`b` must contain only numbers!"
+    if not is_a_number(b):
+        assert is_a_tensor(b), "`b` must be a number, vector, matrix, or tensor!"
+        assert contains_only_numbers(b), "`b` must contain only numbers!"
 
-        if isAPandasSeries(b) or isAPandasDataFrame(b):
+        if is_a_pandas_series(b) or is_a_pandas_dataframe(b):
             b = b.values
 
-        if not isANumpyArray(b):
+        if not is_a_numpy_array(b):
             b = array(b)
 
-    if isATensor(a) and isATensor(b):
-        assert isEqual(shape(a), shape(b)), "`a` and `b` must have the same shape!"
+    if is_a_tensor(a) and is_a_tensor(b):
+        assert is_equal(shape(a), shape(b)), "`a` and `b` must have the same shape!"
 
     return sqrt(sum((a - b) ** 2))
