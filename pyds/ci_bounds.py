@@ -1,17 +1,17 @@
 from numpy import array, percentile
 from numpy.random import random
 
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .r_score import rScore
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .r_score import r_score
 
 
-def ciBounds(true, pred, p=95, n=1000, scorer=rScore, progress=lambda x: x):
-    if isAPandasDataFrame(true) or isAPandasSeries(true):
-        return ciBounds(true.values, pred, p=p, n=n, scorer=scorer, progress=progress)
+def ci_bounds(true, pred, p=95, n=1000, scorer=r_score, progress=lambda x: x):
+    if is_a_pandas_dataframe(true) or is_a_pandas_series(true):
+        return ci_bounds(true.values, pred, p=p, n=n, scorer=scorer, progress=progress)
 
-    if isAPandasDataFrame(pred) or isAPandasSeries(pred):
-        return ciBounds(true, pred.values, p=p, n=n, scorer=scorer, progress=progress)
+    if is_a_pandas_dataframe(pred) or is_a_pandas_series(pred):
+        return ci_bounds(true, pred.values, p=p, n=n, scorer=scorer, progress=progress)
 
     if type(true) == list:
         true = array(true)
