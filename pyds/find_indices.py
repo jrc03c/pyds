@@ -1,5 +1,5 @@
-from .find_indexes import findIndexes
+from .find_indexes import find_indexes
 
 
-def findIndices(*args):
-    return findIndexes(*args)
+def find_indices(*args):
+    return find_indexes(*args)

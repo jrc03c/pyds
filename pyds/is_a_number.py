@@ -2,14 +2,14 @@ from math import isnan as mathIsNaN
 
 from numpy import isnan as numpyIsNaN
 
-from .is_a_tensor import isATensor
+from .is_a_tensor import is_a_tensor
 
 
 def isANumber(x):
     if x is None:
         return False
 
-    if isATensor(x):
+    if is_a_tensor(x):
         return False
 
     try:
@@ -26,10 +26,10 @@ def isANumber(x):
     except:
         pass
 
-    if type(x) == bool:
+    if isinstance(x, bool):
         return False
 
-    if type(x) == str:
+    if isinstance(x, str):
         return False
 
     try:

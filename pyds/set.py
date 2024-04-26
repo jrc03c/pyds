@@ -1,11 +1,11 @@
 from numpy import array
 
 from .flatten import flatten
-from .is_a_tensor import isATensor
+from .is_a_tensor import is_a_tensor
 
 
 def set(x):
-    assert isATensor(x), "`x` must be a tensor!"
+    assert is_a_tensor(x), "`x` must be a tensor!"
 
     out = []
 

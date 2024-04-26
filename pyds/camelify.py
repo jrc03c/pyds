@@ -6,22 +6,22 @@ def camelify(text):
 
     text = text.strip()
     out = ""
-    shouldCapitalizeNextCharacter = False
+    should_capitalize_next_character = False
 
     for char in text:
         if char.lower() in alphanumerics:
             if len(out) == 0:
                 out += char.lower()
 
-            elif shouldCapitalizeNextCharacter:
+            elif should_capitalize_next_character:
                 out += char.upper()
 
             else:
                 out += char
 
-            shouldCapitalizeNextCharacter = False
+            should_capitalize_next_character = False
 
         elif char not in quote_variations:
-            shouldCapitalizeNextCharacter = True
+            should_capitalize_next_character = True
 
     return out

@@ -1,19 +1,19 @@
 from numpy import array
 
 from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def sign(x):
     def helper(x):
-        if isATensor(x):
-            if isAPandasSeries(x) or isAPandasDataFrame(x):
+        if is_a_tensor(x):
+            if is_a_pandas_series(x) or is_a_pandas_dataframe(x):
                 x = x.values.tolist()
 
-            if isANumpyArray(x):
+            if is_a_numpy_array(x):
                 x = x.tolist()
 
             return [helper(v) for v in x]
@@ -27,7 +27,7 @@ def sign(x):
                 return -1
             return 0
 
-    if isATensor(x):
+    if is_a_tensor(x):
         return array(helper(x))
 
     else:

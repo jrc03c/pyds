@@ -1,7 +1,7 @@
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def merge(a, b, fn):
@@ -34,25 +34,25 @@ def alphasort(a, b):
 
 
 def sort(a, b=None):
-    if isATensor(a):
+    if is_a_tensor(a):
         x = a
         fn = b
     else:
         x = b
         fn = a
 
-    assert isATensor(x), "`x` must be a tensor!"
+    assert is_a_tensor(x), "`x` must be a tensor!"
 
-    if isANumpyArray(x):
+    if is_a_numpy_array(x):
         x = x.tolist()
 
-    if isAPandasSeries(x) or isAPandasDataFrame(x):
+    if is_a_pandas_series(x) or is_a_pandas_dataframe(x):
         x = x.values.tolist()
 
     if fn is None:
         fn = alphasort
 
-    assert type(fn) == type(sort), "`fn` must be a function!"
+    assert isinstance(fn, type(sort), "`fn` must be a function!")
 
     def helper(x, fn):
         if len(x) <= 1:

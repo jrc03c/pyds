@@ -2,7 +2,7 @@ from numpy import array
 
 from .is_a_number import isANumber
 from .is_a_string import isAString
-from .is_a_tensor import isATensor
+from .is_a_tensor import is_a_tensor
 
 
 def reverse(x):
@@ -17,7 +17,7 @@ def reverse(x):
 
         return out
 
-    if isATensor(x):
+    if is_a_tensor(x):
         out = []
 
         for i in range(0, len(x)):

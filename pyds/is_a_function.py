@@ -8,5 +8,5 @@ eye = lambda x: x
 fnTypes = [type(eye), type(foo.bar)]
 
 
-def isAFunction(x):
+def is_a_function(x):
     return type(x) in fnTypes

@@ -3,30 +3,30 @@ from math import nan
 from numpy import array
 from pandas import DataFrame, Series
 
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 from .sign import sign
 
 
 def roundStandard(x):
-    if isAPandasDataFrame(x):
+    if is_a_pandas_dataframe(x):
         out = DataFrame(roundStandard(x.values))
         out.columns = x.columns
         out.index = x.index
         return out
 
-    if isAPandasSeries(x):
+    if is_a_pandas_series(x):
         out = Series(roundStandard(x.values))
         out.index = x.index
         out.name = x.name
         return out
 
-    if isANumpyArray(x):
+    if is_a_numpy_array(x):
         return array(roundStandard(x.tolist()))
 
-    if isATensor(x):
+    if is_a_tensor(x):
         return [roundStandard(v) for v in x]
 
     try:

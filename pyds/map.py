@@ -1,43 +1,43 @@
 from numpy import array
 
-from .is_a_function import isAFunction
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
-from .is_jagged import isJagged
+from .is_a_function import is_a_function
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
+from .is_jagged import is_jagged
 from .set import set
 
 oldMap = map
 
 
 def map(a, b):
-    if isAFunction(a):
+    if is_a_function(a):
         fn = a
         arr = b
     else:
         fn = b
         arr = a
 
-    assert isAFunction(
+    assert is_a_function(
         fn
     ), "You must pass a function and a tensor into the `map` function!"
 
-    assert isATensor(
+    assert is_a_tensor(
         arr
     ), "You must pass a function and a tensor into the `map` function!"
 
-    if isAPandasSeries(arr) or isAPandasDataFrame(arr):
+    if is_a_pandas_series(arr) or is_a_pandas_dataframe(arr):
         arr = arr.values.tolist()
 
-    if isANumpyArray(arr):
+    if is_a_numpy_array(arr):
         arr = arr.tolist()
 
     out = list(oldMap(fn, arr))
 
     types = set(list(oldMap(lambda v: type(v), out)))
 
-    if isJagged(out) or len(types) > 1:
+    if is_jagged(out) or len(types) > 1:
         return array(out, dtype=object)
     else:
         return array(out)

@@ -1,6 +1,6 @@
 from numpy import shape
 
-from .is_a_pandas_series import isAPandasSeries
+from .is_a_pandas_series import is_a_pandas_series
 from .is_iterable import isIterable
 
 
@@ -8,7 +8,7 @@ def isAVector(x):
     if not isIterable(x):
         return False
 
-    if isAPandasSeries(x):
+    if is_a_pandas_series(x):
         x = x.values
 
     try:

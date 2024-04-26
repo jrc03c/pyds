@@ -17,7 +17,7 @@ class EveryTestCase(unittest.TestCase):
 
         x = [[2, 3, 4], [5, 6]]
 
-        self.assertTrue(every(x, lambda row: type(row) == list))
+        self.assertTrue(every(x, lambda row: isinstance(row, list)))
         self.assertFalse(every(x, lambda row: len(row) > 2))
 
         x = pd.DataFrame(random(size=[100, 100]))

@@ -3,7 +3,7 @@ import unittest
 from numpy.random import normal
 from pandas import DataFrame, Series
 
-from pyds import isAPandasSeries
+from pyds import is_a_pandas_series
 
 
 class IsAPandasSeriesTestCase(unittest.TestCase):
@@ -11,7 +11,9 @@ class IsAPandasSeriesTestCase(unittest.TestCase):
         series = [Series(dtype="object"), Series(normal(size=100))]
 
         for s in series:
-            self.assertTrue(isAPandasSeries(s), msg="Failed to identify pandas Series!")
+            self.assertTrue(
+                is_a_pandas_series(s), msg="Failed to identify pandas Series!"
+            )
 
         others = [
             234,
@@ -27,5 +29,5 @@ class IsAPandasSeriesTestCase(unittest.TestCase):
 
         for item in others:
             self.assertFalse(
-                isAPandasSeries(item), msg="Failed to identify non-pandas-Series!"
+                is_a_pandas_series(item), msg="Failed to identify non-pandas-Series!"
             )

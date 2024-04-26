@@ -2,14 +2,14 @@ import unittest
 
 import pandas as pd
 
-from pyds import findIndex, isEqual
+from pyds import find_index, isEqual
 
 
 class FindTestCase(unittest.TestCase):
     def test(self):
         x = [2, 3, 4, 5, 6, 7]
         yTrue = 3
-        yPred = findIndex(lambda v: v > 4, x)
+        yPred = find_index(lambda v: v > 4, x)
 
         self.assertTrue(
             isEqual(yTrue, yPred),
@@ -18,7 +18,7 @@ class FindTestCase(unittest.TestCase):
 
         x = [2, [3, 4, [5, 6, 7, [8, 9, 10]]]]
         yTrue = [1, 2, 3, 1]
-        yPred = findIndex(lambda v: v > 8, x)
+        yPred = find_index(lambda v: v > 8, x)
 
         self.assertTrue(
             isEqual(yTrue, yPred),
@@ -32,7 +32,7 @@ class FindTestCase(unittest.TestCase):
 
         x = pd.DataFrame([[2, 3, 4], [5, 6, 7]])
         yTrue = [0, 0]
-        yPred = findIndex(lambda v: v < 3, x)
+        yPred = find_index(lambda v: v < 3, x)
 
         self.assertTrue(
             isEqual(yTrue, yPred),
@@ -45,7 +45,7 @@ class FindTestCase(unittest.TestCase):
         )
 
         yTrue = [1, 2]
-        yPred = findIndex(x, lambda v: v > 6)
+        yPred = find_index(x, lambda v: v > 6)
 
         self.assertTrue(
             isEqual(yTrue, yPred),
@@ -70,4 +70,4 @@ class FindTestCase(unittest.TestCase):
         ]
 
         for pair in wrongs:
-            self.assertRaises(AssertionError, findIndex, pair[0], pair[1])
+            self.assertRaises(AssertionError, find_index, pair[0], pair[1])

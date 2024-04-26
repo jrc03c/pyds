@@ -4,31 +4,31 @@ import os
 from bs4 import BeautifulSoup
 from pandas import DataFrame
 
-from .is_a_matrix import isAMatrix
-from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_matrix import is_a_matrix
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .make_key import makeKey
 
 
 class HTMLTable:
     def __init__(self, x):
-        assert isAMatrix(x), "`x` must be a matrix!"
+        assert is_a_matrix(x), "`x` must be a matrix!"
 
-        if not isAPandasDataFrame(x):
+        if not is_a_pandas_dataframe(x):
             x = DataFrame(x)
 
         self.data = x
         self.path = None
 
-    def show(self, openCommand='firefox --private "$FILE"'):
+    def show(self, open_command='firefox --private "$FILE"'):
         if self.path is None:
             self.path = os.path.realpath(makeKey(8) + ".html")
             self.save(self.path)
             print("Saved HTML file to: " + self.path)
 
-        os.system(openCommand.replace("$FILE", self.path))
+        os.system(open_command.replace("$FILE", self.path))
         return self
 
-    def toString(self):
+    def to_string(self):
         columns = ""
         rows = ""
 
@@ -51,7 +51,7 @@ class HTMLTable:
         return soup.prettify()
 
     def print(self):
-        print(self.toString())
+        print(self.to_string())
         return self
 
     def save(
@@ -73,7 +73,7 @@ class HTMLTable:
             )
 
         else:
-            out = self.toString()
+            out = self.to_string()
 
         with open(path, "w") as file:
             soup = BeautifulSoup(out, "html5lib")
@@ -83,12 +83,12 @@ class HTMLTable:
         return self
 
 
-selfPath = os.path.dirname(os.path.realpath(__file__))
-fancyTemplatePath = os.path.join(selfPath, "html_table_fancy_template.html")
-regularTemplatePath = os.path.join(selfPath, "html_table_template.html")
+self_path = os.path.dirname(os.path.realpath(__file__))
+fancy_template_path = os.path.join(self_path, "html_table_fancy_template.html")
+regular_template_path = os.path.join(self_path, "html_table_template.html")
 
-with open(fancyTemplatePath, "r") as file:
+with open(fancy_template_path, "r") as file:
     fancyTemplate = file.read()
 
-with open(regularTemplatePath, "r") as file:
+with open(regular_template_path, "r") as file:
     regularTemplate = file.read()

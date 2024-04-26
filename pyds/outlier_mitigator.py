@@ -5,9 +5,9 @@ from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, 
 from .filter import filter
 from .flatten import flatten
 from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 from .is_binary import isBinary
 from .sort import sort
 
@@ -31,12 +31,12 @@ class OutlierMitigator:
 
     def fit(self, x):
         # make sure the data is a tensor
-        assert isATensor(x), "`x` must be a vector, matrix, or tensor!"
+        assert is_a_tensor(x), "`x` must be a vector, matrix, or tensor!"
 
-        if isAPandasSeries(x):
+        if is_a_pandas_series(x):
             x = x.values
 
-        if isANumpyArray(x):
+        if is_a_numpy_array(x):
             x = x.tolist()
 
         # turn into a vector
@@ -102,12 +102,12 @@ class OutlierMitigator:
         reallyOut = []
 
         for x in args:
-            assert isATensor(x), "`x` must be a vector, matrix, or tensor!"
+            assert is_a_tensor(x), "`x` must be a vector, matrix, or tensor!"
 
-            if isAPandasSeries(x):
+            if is_a_pandas_series(x):
                 x = x.values
 
-            if isANumpyArray(x):
+            if is_a_numpy_array(x):
                 x = x.tolist()
 
             xShape = shape(x)

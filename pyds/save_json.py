@@ -1,13 +1,13 @@
 import json
 
-from .is_a_function import isAFunction
+from .is_a_function import is_a_function
 from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
 from .is_a_string import isAString
-from .is_a_tensor import isATensor
-from .is_undefined import isUndefined
+from .is_a_tensor import is_a_tensor
+from .is_undefined import is_undefined
 
 
 def isPrimitive(x):
@@ -17,10 +17,10 @@ def isPrimitive(x):
     if isAString(x):
         return True
 
-    if type(x) == bool:
+    if isinstance(x, bool):
         return True
 
-    if isUndefined(x):
+    if is_undefined(x):
         return True
 
     return False
@@ -44,21 +44,21 @@ def toSerializableObject(x, used=[]):
     if isPrimitive(x):
         return x
 
-    elif isAFunction(x):
+    elif is_a_function(x):
         return str(x)
 
-    elif isATensor(x):
-        if isANumpyArray(x):
+    elif is_a_tensor(x):
+        if is_a_numpy_array(x):
             return toSerializableObject(x.tolist(), used=used)
 
-        elif isAPandasSeries(x):
+        elif is_a_pandas_series(x):
             return {
                 "name": x.name,
                 "values": toSerializableObject(x.values.tolist(), used=used),
                 "index": toSerializableObject(x.index.tolist(), used=used),
             }
 
-        elif isAPandasDataFrame(x):
+        elif is_a_pandas_dataframe(x):
             return {
                 "values": toSerializableObject(x.values.tolist(), used=used),
                 "columns": toSerializableObject(x.columns.tolist(), used=used),

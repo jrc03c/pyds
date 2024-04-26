@@ -1,27 +1,27 @@
 from scipy.stats import ttest_ind
 
-from .contains_only_numbers import containsOnlyNumbers
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_series import isAPandasSeries
+from .contains_only_numbers import contains_only_numbers
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_series import is_a_pandas_series
 from .is_a_vector import isAVector
 
 
 def pValue(a, b):
     assert isAVector(a), "`a` must be a vector!"
     assert isAVector(b), "`b` must be a vector!"
-    assert containsOnlyNumbers(a), "`a` must contain only numbers!"
-    assert containsOnlyNumbers(b), "`b` must contain only numbers!"
+    assert contains_only_numbers(a), "`a` must contain only numbers!"
+    assert contains_only_numbers(b), "`b` must contain only numbers!"
 
-    if isANumpyArray(a):
+    if is_a_numpy_array(a):
         a = a.tolist()
 
-    if isANumpyArray(b):
+    if is_a_numpy_array(b):
         b = b.tolist()
 
-    if isAPandasSeries(a):
+    if is_a_pandas_series(a):
         a = a.values
 
-    if isAPandasSeries(b):
+    if is_a_pandas_series(b):
         b = b.values
 
     return ttest_ind(a, b, equal_var=False, nan_policy="omit")[1]

@@ -1,12 +1,12 @@
-from .is_a_function import isAFunction
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_function import is_a_function
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def every(a, b):
-    if isAFunction(a):
+    if is_a_function(a):
         x = b
         fn = a
 
@@ -14,18 +14,18 @@ def every(a, b):
         x = a
         fn = b
 
-    assert isATensor(
+    assert is_a_tensor(
         x
     ), "You must pass a function and a tensor into the `every` function!"
 
-    assert isAFunction(
+    assert is_a_function(
         fn
     ), "You must pass a function and a tensor into the `every` function!"
 
-    if isAPandasDataFrame(x) or isAPandasSeries(x):
+    if is_a_pandas_dataframe(x) or is_a_pandas_series(x):
         x = x.values
 
-    if isANumpyArray(x):
+    if is_a_numpy_array(x):
         x = x.tolist()
 
     for value in x:

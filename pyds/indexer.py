@@ -1,18 +1,18 @@
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
 
 # DO NOT import pyds.set!
 
 
 class Indexer:
     def __init__(self, isVerbose=True):
-        assert type(isVerbose) == bool, "`isVerbose` must be a boolean!"
+        assert isinstance(isVerbose, bool, "`isVerbose` must be a boolean!")
         self.isVerbose = isVerbose
 
     def fit(self, *args):
         for item in args:
             assert (
-                isAPandasDataFrame(item) or isAPandasSeries(item)
+                is_a_pandas_dataframe(item) or is_a_pandas_series(item)
             ), "All items passed into the `fit` method must be pandas DataFrames or Series!"
 
         index = None
@@ -35,7 +35,7 @@ class Indexer:
 
         for item in args:
             assert (
-                isAPandasDataFrame(item) or isAPandasSeries(item)
+                is_a_pandas_dataframe(item) or is_a_pandas_series(item)
             ), "All items passed into the `transform` method must be pandas DataFrames or Series!"
 
             out = item.loc[self.index]

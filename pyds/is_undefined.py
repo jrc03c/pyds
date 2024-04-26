@@ -2,14 +2,14 @@ from math import isnan as mathIsNaN
 
 from numpy import isnan as numpyIsNaN
 
-from .is_a_tensor import isATensor
+from .is_a_tensor import is_a_tensor
 
 
-def isUndefined(x):
+def is_undefined(x):
     if x is None:
         return True
 
-    if isATensor(x):
+    if is_a_tensor(x):
         return False
 
     try:

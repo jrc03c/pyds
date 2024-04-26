@@ -3,7 +3,7 @@ import unittest
 from numpy.random import normal
 from pandas import DataFrame, Series
 
-from pyds import isAMatrix
+from pyds import is_a_matrix
 
 
 class IsAMatrixTestCase(unittest.TestCase):
@@ -15,7 +15,7 @@ class IsAMatrixTestCase(unittest.TestCase):
         ]
 
         for matrix in matrices:
-            self.assertTrue(isAMatrix(matrix), msg="Failed to identify matrices!")
+            self.assertTrue(is_a_matrix(matrix), msg="Failed to identify matrices!")
 
         others = [
             [2, 3, 4],
@@ -33,4 +33,4 @@ class IsAMatrixTestCase(unittest.TestCase):
         ]
 
         for item in others:
-            self.assertFalse(isAMatrix(item), msg="Failed to identify non-matrices!")
+            self.assertFalse(is_a_matrix(item), msg="Failed to identify non-matrices!")

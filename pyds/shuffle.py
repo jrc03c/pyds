@@ -1,14 +1,14 @@
 import numpy
 
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def shuffle(x):
-    assert isATensor(x), "`x` must be a tensor!"
+    assert is_a_tensor(x), "`x` must be a tensor!"
 
-    if isAPandasSeries(x) or isAPandasDataFrame(x):
+    if is_a_pandas_series(x) or is_a_pandas_dataframe(x):
         x = x.values
 
     out = numpy.copy(x)

@@ -3,7 +3,7 @@ import unittest
 from numpy.random import normal
 from pandas import DataFrame, Series
 
-from pyds import isATensor
+from pyds import is_a_tensor
 
 
 class IsATensorTestCase(unittest.TestCase):
@@ -20,7 +20,7 @@ class IsATensorTestCase(unittest.TestCase):
         ]
 
         for tensor in tensors:
-            self.assertTrue(isATensor(tensor), msg="Failed to identify tensors!")
+            self.assertTrue(is_a_tensor(tensor), msg="Failed to identify tensors!")
 
         others = [
             234,
@@ -33,4 +33,4 @@ class IsATensorTestCase(unittest.TestCase):
         ]
 
         for item in others:
-            self.assertFalse(isATensor(item), msg="Failed to identify non-tensors!")
+            self.assertFalse(is_a_tensor(item), msg="Failed to identify non-tensors!")

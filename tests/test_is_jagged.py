@@ -2,7 +2,7 @@ import unittest
 
 from numpy.random import normal
 
-from pyds import isJagged
+from pyds import is_jagged
 
 
 class IsJaggedTestCase(unittest.TestCase):
@@ -26,9 +26,9 @@ class IsJaggedTestCase(unittest.TestCase):
 
         for pair in pairs:
             if pair[1] is True:
-                self.assertTrue(isJagged(pair[0]))
+                self.assertTrue(is_jagged(pair[0]))
             else:
-                self.assertFalse(isJagged(pair[1]))
+                self.assertFalse(is_jagged(pair[1]))
 
     def testErrors(self):
         pass

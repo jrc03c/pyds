@@ -1,20 +1,20 @@
 from numpy import array
 
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def flatten(x):
     def helper(x):
-        if isAPandasSeries(x) or isAPandasDataFrame(x):
+        if is_a_pandas_series(x) or is_a_pandas_dataframe(x):
             x = x.values.tolist()
 
-        if isANumpyArray(x):
+        if is_a_numpy_array(x):
             x = x.tolist()
 
-        if isATensor(x):
+        if is_a_tensor(x):
             out = []
 
             for item in x:

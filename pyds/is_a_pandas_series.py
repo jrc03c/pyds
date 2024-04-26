@@ -1,5 +1,5 @@
 import pandas as pd
 
 
-def isAPandasSeries(x):
+def is_a_pandas_series(x):
     return type(x) is pd.Series

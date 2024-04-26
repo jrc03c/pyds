@@ -2,7 +2,7 @@ from .__helpers__ import clean
 
 
 def snakeify(text):
-    assert type(text) == str, "`text` must be a string!"
+    assert isinstance(text, str, "`text` must be a string!")
 
     words = clean(text).split(" ")
 

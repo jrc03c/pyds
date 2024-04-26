@@ -1,13 +1,13 @@
 from .flatten import flatten
-from .is_a_function import isAFunction
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_function import is_a_function
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
-def findIndexes(a, b):
-    if isAFunction(a):
+def find_indexes(a, b):
+    if is_a_function(a):
         fn = a
         x = b
 
@@ -15,18 +15,18 @@ def findIndexes(a, b):
         fn = b
         x = a
 
-    assert isAFunction(
+    assert is_a_function(
         fn
-    ), "You must pass a function and a tensor into the `findIndexes` function!"
+    ), "You must pass a function and a tensor into the `find_indexes` function!"
 
-    assert isATensor(
+    assert is_a_tensor(
         x
-    ), "You must pass a function and a tensor into the `findIndexes` function!"
+    ), "You must pass a function and a tensor into the `find_indexes` function!"
 
-    if isAPandasDataFrame(x) or isAPandasSeries(x):
+    if is_a_pandas_dataframe(x) or is_a_pandas_series(x):
         x = x.values
 
-    if isANumpyArray(x):
+    if is_a_numpy_array(x):
         x = x.tolist()
 
     out = []
@@ -44,7 +44,7 @@ def findIndexes(a, b):
     for i in range(0, len(x)):
         try:
             item = x[i]
-            results = findIndexes(fn, item)
+            results = find_indexes(fn, item)
 
             if results is not None and len(results) > 0:
                 for result in results:

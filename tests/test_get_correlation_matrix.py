@@ -4,14 +4,14 @@ from numpy import transpose
 from numpy.random import normal
 from pandas import DataFrame
 
-from pyds import flatten, getCorrelationMatrix
+from pyds import flatten, get_correlation_matrix
 
 
 class GetCorrelationMatrixTestCase(unittest.TestCase):
     def test(self):
         a = normal(size=[1000, 50])
         b = normal(size=[1000, 50])
-        c = getCorrelationMatrix(a, b)
+        c = get_correlation_matrix(a, b)
 
         self.assertEqual(
             c.shape,
@@ -38,7 +38,7 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
             x.append(d + 0.0001 * normal(size=1000))
 
         x = transpose(x)
-        c = getCorrelationMatrix(x)
+        c = get_correlation_matrix(x)
 
         self.assertGreater(
             min(flatten(c)),
@@ -56,7 +56,7 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
         f = DataFrame(normal(size=[100, 100]))
 
         try:
-            getCorrelationMatrix(e, f)
+            get_correlation_matrix(e, f)
             failed = False
         except:
             failed = True
@@ -81,4 +81,4 @@ class GetCorrelationMatrixTestCase(unittest.TestCase):
         ]
 
         for pair in wrongs:
-            self.assertRaises(AssertionError, getCorrelationMatrix, pair[0], pair[1])
+            self.assertRaises(AssertionError, get_correlation_matrix, pair[0], pair[1])

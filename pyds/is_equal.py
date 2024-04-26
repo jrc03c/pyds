@@ -2,12 +2,12 @@ from math import nan as mathNan
 
 from numpy import nan as numpyNan
 
-from .is_a_function import isAFunction
+from .is_a_function import is_a_function
 from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 
 
 def isEqual(a, b):
@@ -29,17 +29,17 @@ def isEqual(a, b):
     if type(a) != type(b):
         return False
 
-    if isATensor(a) and isATensor(b):
-        if isAPandasSeries(a) or isAPandasDataFrame(a):
+    if is_a_tensor(a) and is_a_tensor(b):
+        if is_a_pandas_series(a) or is_a_pandas_dataframe(a):
             a = a.values
 
-        if isAPandasSeries(b) or isAPandasDataFrame(b):
+        if is_a_pandas_series(b) or is_a_pandas_dataframe(b):
             b = b.values
 
-        if isANumpyArray(a):
+        if is_a_numpy_array(a):
             a = a.tolist()
 
-        if isANumpyArray(b):
+        if is_a_numpy_array(b):
             b = b.tolist()
 
         if len(a) != len(b):
@@ -51,7 +51,7 @@ def isEqual(a, b):
 
         return True
 
-    if type(a) == dict and type(b) == dict:
+    if isinstance(a, dict and type(b) == dict):
         aKeys = list(sorted(a.keys()))
         bKeys = list(sorted(b.keys()))
 
@@ -69,7 +69,7 @@ def isEqual(a, b):
 
         return True
 
-    if isAFunction(a) and isAFunction(b):
+    if is_a_function(a) and is_a_function(b):
         return a is b
 
     try:

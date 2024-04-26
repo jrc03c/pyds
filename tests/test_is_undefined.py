@@ -3,7 +3,7 @@ from math import nan as mathNaN
 
 from numpy import nan as numpyNaN
 
-from pyds import isUndefined
+from pyds import is_undefined
 
 
 class IsUndefinedTestCase(unittest.TestCase):
@@ -12,7 +12,7 @@ class IsUndefinedTestCase(unittest.TestCase):
 
         for value in undefineds:
             self.assertTrue(
-                isUndefined(value),
+                is_undefined(value),
                 msg="Incorrectly marked an undefined value as defined!",
             )
 
@@ -20,6 +20,6 @@ class IsUndefinedTestCase(unittest.TestCase):
 
         for value in defineds:
             self.assertFalse(
-                isUndefined(value),
+                is_undefined(value),
                 msg="Incorrectly marked a defined value as undefined!",
             )

@@ -3,31 +3,31 @@ import unittest
 from numpy import nan
 from numpy.random import normal
 
-from pyds import containsOnlyNumbers
+from pyds import contains_only_numbers
 
 
 class ContainsOnlyNumbersTestCase(unittest.TestCase):
     def test(self):
         self.assertEqual(
-            containsOnlyNumbers([2, 3, 4]),
+            contains_only_numbers([2, 3, 4]),
             True,
             msg="Fails to detect that an array contains only numbers!",
         )
 
         self.assertEqual(
-            containsOnlyNumbers(normal(size=[5, 5, 5, 5])),
+            contains_only_numbers(normal(size=[5, 5, 5, 5])),
             True,
             msg="Fails to detect that a tensor contains only numbers!",
         )
 
         self.assertEqual(
-            containsOnlyNumbers(["foo", "bar", "baz"]),
+            contains_only_numbers(["foo", "bar", "baz"]),
             False,
             msg="Fails to detect that an array of strings does not contain only numbers!",
         )
 
         self.assertEqual(
-            containsOnlyNumbers([nan, nan, nan]),
+            contains_only_numbers([nan, nan, nan]),
             False,
             msg="Fails to detect that an array of NaNs does not contain only numbers!",
         )
@@ -44,4 +44,4 @@ class ContainsOnlyNumbersTestCase(unittest.TestCase):
         ]
 
         for item in wrongs:
-            self.assertRaises(AssertionError, containsOnlyNumbers, item)
+            self.assertRaises(AssertionError, contains_only_numbers, item)

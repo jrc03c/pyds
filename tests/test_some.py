@@ -17,7 +17,7 @@ class SomeTestCase(unittest.TestCase):
 
         x = [[2, 3, 4], [5, 6], "foo", 234, True, False, None, {}, lambda x: x]
 
-        self.assertTrue(some(x, lambda item: type(item) == list))
+        self.assertTrue(some(x, lambda item: isinstance(item, list)))
         self.assertFalse(some(x, lambda item: item == "hello"))
 
         x = pd.DataFrame(random(size=[100, 100]))

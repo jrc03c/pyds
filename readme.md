@@ -44,7 +44,7 @@ Returns the upper and lower confidence interval bounds given two tensors, a perc
 
 ---
 
-## `containsOnlyNumbers(x)`
+## `contains_only_numbers(x)`
 
 Determines whether or not a tensor contains only numbers.
 
@@ -117,23 +117,23 @@ find(lambda v: len(v) > 3, x)
 
 ---
 
-## `findIndex(fn, x)`
+## `find_index(fn, x)`
 
-Returns the index of the first value in `x` that returns `True` when passed into `fn`. This function is similar to JavaScript's [Array.prototype.findIndex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) method _except that_ it returns `None` if no value is found that satisfies the testing function. (JS, on the other hand, returns -1 if no such value is found. Such a strategy wouldn't work in Python because -1 is a valid index into Python arrays.) This function works on arrays of any depth. If `x` is 1-dimensional, then the index returned will be a single whole number. If `x` has 2 or more dimensions, then the index returned will be an array of whole numbers.
+Returns the index of the first value in `x` that returns `True` when passed into `fn`. This function is similar to JavaScript's [Array.prototype.find_index](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find_index) method _except that_ it returns `None` if no value is found that satisfies the testing function. (JS, on the other hand, returns -1 if no such value is found. Such a strategy wouldn't work in Python because -1 is a valid index into Python arrays.) This function works on arrays of any depth. If `x` is 1-dimensional, then the index returned will be a single whole number. If `x` has 2 or more dimensions, then the index returned will be an array of whole numbers.
 
 For example:
 
 ```py
-from pyds import findIndex
+from pyds import find_index
 
 greaterThanSix = lambda v: v > 6
 
 x = [2, 3, 4, 5, 6, 7]
-findIndex(greaterThanSix, x)
+find_index(greaterThanSix, x)
 # 5
 
 y = [[2, 3, 4], [5, 6, 7]]
-findIndex(greaterThanSix, y)
+find_index(greaterThanSix, y)
 # [1, 2]
 # in other words, the value at y[1][2] satisfies the `greaterThanSix` function
 ```
@@ -152,7 +152,7 @@ Computes the average correlation between pairs of corresponding columns in matri
 
 ---
 
-## `getCorrelationMatrix(a, b=None)`
+## `get_correlation_matrix(a, b=None)`
 
 Computes the correlation matrix between two matrices by comparing each column in `a` with each column in `b`. If `b` is `None`, then the correlation matrix is computed for `a` against itself.
 
@@ -224,7 +224,7 @@ This process works even if the row orders are shuffled! The way it works, though
 
 ---
 
-## `isAMatrix(x)`
+## `is_a_matrix(x)`
 
 Determines whether or not a value is a matrix.
 
@@ -236,19 +236,19 @@ Determines whether or not a value is a number.
 
 ---
 
-## `isANumpyArray(x)`
+## `is_a_numpy_array(x)`
 
 Determines whether or not a value is a numpy [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html).
 
 ---
 
-## `isAPandasDataFrame(x)`
+## `is_a_pandas_dataframe(x)`
 
 Determines whether or not a value is a pandas [DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html).
 
 ---
 
-## `isAPandasSeries(x)`
+## `is_a_pandas_series(x)`
 
 Determines whether or not a value is a pandas [Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html).
 
@@ -260,7 +260,7 @@ Determines whether or not a value is a string.
 
 ---
 
-## `isATensor(x)`
+## `is_a_tensor(x)`
 
 Determines whether or not a value is a tensor.
 
@@ -290,13 +290,13 @@ Determines whether or not a value can be iterated over.
 
 ---
 
-## `isJagged(x)`
+## `is_jagged(x)`
 
 Determines whether or not a tensor has ragged / jagged edges at any depth.
 
 ---
 
-## `isUndefined(x)`
+## `is_undefined(x)`
 
 Determines whether or not a value is undefined. A value is considered to be undefined if it's `None`, `math.nan`, or `numpy.nan`.
 

@@ -3,7 +3,7 @@ import unittest
 from numpy.random import normal
 from pandas import DataFrame, Series
 
-from pyds import isAPandasDataFrame
+from pyds import is_a_pandas_dataframe
 
 
 class IsAPandasDataFrameTestCase(unittest.TestCase):
@@ -15,7 +15,7 @@ class IsAPandasDataFrameTestCase(unittest.TestCase):
 
         for df in dfs:
             self.assertTrue(
-                isAPandasDataFrame(df), msg="Failed to identify pandas DataFrames!"
+                is_a_pandas_dataframe(df), msg="Failed to identify pandas DataFrames!"
             )
 
         others = [
@@ -32,6 +32,6 @@ class IsAPandasDataFrameTestCase(unittest.TestCase):
 
         for item in others:
             self.assertFalse(
-                isAPandasDataFrame(item),
+                is_a_pandas_dataframe(item),
                 msg="Failed to identify non-pandas-DataFrames!",
             )

@@ -4,7 +4,7 @@ from numpy.random import normal, random
 from pandas import DataFrame as DF
 from pandas import Series
 
-from pyds import Indexer, containsOnlyNumbers, distance, flatten, isEqual, range
+from pyds import Indexer, contains_only_numbers, distance, flatten, isEqual, range
 
 
 class IndexerTestCase(unittest.TestCase):
@@ -42,7 +42,7 @@ class IndexerTestCase(unittest.TestCase):
         xPrime = indexer.fit(x).transform(x)
 
         self.assertTrue(
-            containsOnlyNumbers(xPrime.values),
+            contains_only_numbers(xPrime.values),
             msg="The indexer did not correctly drop NaN values from a DataFrame!",
         )
 

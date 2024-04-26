@@ -4,10 +4,10 @@ from numpy import abs, array, mean, nan, shape, sqrt, sum
 from .drop_nan import dropNaN
 from .flatten import flatten
 from .is_a_number import isANumber
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 from .is_binary import isBinary
 from .is_equal import isEqual
 from .sign import sign
@@ -27,29 +27,29 @@ class RScoreManager:
         if baseline is None:
             baseline = true
 
-        assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
-        assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
+        assert is_a_tensor(true), "`true` must be a vector, matrix, or tensor!"
+        assert is_a_tensor(pred), "`pred` must be a vector, matrix, or tensor!"
 
-        assert isATensor(
+        assert is_a_tensor(
             baseline
         ), "`baseline` must be `None` or a vector, matrix, or tensor!"
 
-        if isAPandasSeries(true) or isAPandasDataFrame(true):
+        if is_a_pandas_series(true) or is_a_pandas_dataframe(true):
             true = true.values
 
-        if not isANumpyArray(true):
+        if not is_a_numpy_array(true):
             true = array(true)
 
-        if isAPandasSeries(pred) or isAPandasDataFrame(pred):
+        if is_a_pandas_series(pred) or is_a_pandas_dataframe(pred):
             pred = pred.values
 
-        if not isANumpyArray(pred):
+        if not is_a_numpy_array(pred):
             pred = array(pred)
 
-        if isAPandasSeries(baseline) or isAPandasDataFrame(baseline):
+        if is_a_pandas_series(baseline) or is_a_pandas_dataframe(baseline):
             baseline = baseline.values
 
-        if not isANumpyArray(baseline):
+        if not is_a_numpy_array(baseline):
             baseline = array(baseline)
 
         assert isEqual(

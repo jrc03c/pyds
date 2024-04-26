@@ -32,7 +32,7 @@ class FilterTestCase(unittest.TestCase):
 
         x = [234, "foo", True, False, None, {}, lambda x: x, []]
         yTrue = array([234, True, False], dtype=object)
-        yPred = filter(lambda v: type(v) == bool or type(v) == int, x)
+        yPred = filter(lambda v: isinstance(v, bool or type(v) == int, x))
 
         self.assertTrue(
             isEqual(yTrue, yPred),

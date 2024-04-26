@@ -1,5 +1,5 @@
 import pandas as pd
 
 
-def isAPandasDataFrame(x):
+def is_a_pandas_dataframe(x):
     return type(x) is pd.DataFrame

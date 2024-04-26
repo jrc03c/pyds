@@ -2,12 +2,12 @@ from copy import deepcopy
 
 from numpy import array, dot, zeros
 
-from .contains_only_numbers import containsOnlyNumbers
+from .contains_only_numbers import contains_only_numbers
 from .distance import distance
-from .is_a_matrix import isAMatrix
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
+from .is_a_matrix import is_a_matrix
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
 from .is_a_vector import isAVector
 from .map import map
 
@@ -20,40 +20,40 @@ def project(v, u):
     assert isAVector(v), "The `project` function only works on vectors!"
     assert isAVector(u), "The `project` function only works on vectors!"
 
-    assert containsOnlyNumbers(
+    assert contains_only_numbers(
         v
     ), "The `project` function only works on vectors of numbers!"
 
-    assert containsOnlyNumbers(
+    assert contains_only_numbers(
         u
     ), "The `project` function only works on vectors of numbers!"
 
-    if isAPandasSeries(v):
+    if is_a_pandas_series(v):
         v = v.values
 
-    if not isANumpyArray(v):
+    if not is_a_numpy_array(v):
         v = array(v)
 
-    if isAPandasSeries(u):
+    if is_a_pandas_series(u):
         u = u.values
 
-    if not isANumpyArray(u):
+    if not is_a_numpy_array(u):
         u = array(u)
 
     return u * dot(u, v) / dot(u, u)
 
 
 def orthonormalize(x):
-    assert isAMatrix(x), "The `orthonormalize` function only works on matrices!"
+    assert is_a_matrix(x), "The `orthonormalize` function only works on matrices!"
 
-    assert containsOnlyNumbers(
+    assert contains_only_numbers(
         x
     ), "The `orthonormalize` function only works on matrices of numbers!"
 
-    if isAPandasDataFrame(x):
+    if is_a_pandas_dataframe(x):
         x = x.values
 
-    if not isANumpyArray(x):
+    if not is_a_numpy_array(x):
         x = array(x)
 
     temp = x.T

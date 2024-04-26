@@ -116,7 +116,7 @@ class SaveJSONTestCase(unittest.TestCase):
         saveJSON(path, alice)
         aliceTrue = {"age": 23, "name": "Alice"}
         alicePred = loadJSON(path)
-        self.assertTrue(type(aliceTrue) == type(alicePred))
+        self.assertTrue(isinstance(aliceTrue, type(alicePred)))
         self.assertTrue(isEqual(list(alicePred.keys()), list(aliceTrue.keys())))
 
         for key in alicePred.keys():

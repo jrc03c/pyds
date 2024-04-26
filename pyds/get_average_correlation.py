@@ -1,22 +1,22 @@
 from numpy import mean
 
-from .contains_only_numbers import containsOnlyNumbers
+from .contains_only_numbers import contains_only_numbers
 from .correl import correl
-from .is_a_matrix import isAMatrix
-from .is_a_pandas_dataframe import isAPandasDataFrame
+from .is_a_matrix import is_a_matrix
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .range import range
 
 
 def getAverageCorrelation(a, b):
-    assert isAMatrix(a), "`a` must be a matrix!"
-    assert isAMatrix(b), "`b` must be a matrix!"
-    assert containsOnlyNumbers(a), "`a` must contain only numbers!"
-    assert containsOnlyNumbers(b), "`b` must contain only numbers!"
+    assert is_a_matrix(a), "`a` must be a matrix!"
+    assert is_a_matrix(b), "`b` must be a matrix!"
+    assert contains_only_numbers(a), "`a` must contain only numbers!"
+    assert contains_only_numbers(b), "`b` must contain only numbers!"
 
-    if isAPandasDataFrame(a):
+    if is_a_pandas_dataframe(a):
         a = a.values
 
-    if isAPandasDataFrame(b):
+    if is_a_pandas_dataframe(b):
         b = b.values
 
     temp = []

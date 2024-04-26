@@ -1,11 +1,11 @@
 import scipy
 from numpy import array, mean, nan, sum
 
-from .contains_only_numbers import containsOnlyNumbers
-from .is_a_numpy_array import isANumpyArray
-from .is_a_pandas_dataframe import isAPandasDataFrame
-from .is_a_pandas_series import isAPandasSeries
-from .is_a_tensor import isATensor
+from .contains_only_numbers import contains_only_numbers
+from .is_a_numpy_array import is_a_numpy_array
+from .is_a_pandas_dataframe import is_a_pandas_dataframe
+from .is_a_pandas_series import is_a_pandas_series
+from .is_a_tensor import is_a_tensor
 from .is_binary import isBinary
 
 
@@ -17,29 +17,29 @@ def rSquared(true, pred, baseline=None):
     if baseline is None:
         baseline = true
 
-    assert isATensor(true), "`true` must be a vector, matrix, or tensor!"
-    assert isATensor(pred), "`pred` must be a vector, matrix, or tensor!"
-    assert isATensor(baseline), "`baseline` must be a vector, matrix, or tensor!"
-    assert containsOnlyNumbers(true), "`true` must contain only numbers!"
-    assert containsOnlyNumbers(pred), "`pred` must contain only numbers!"
-    assert containsOnlyNumbers(baseline), "`baseline` must contain only numbers!"
+    assert is_a_tensor(true), "`true` must be a vector, matrix, or tensor!"
+    assert is_a_tensor(pred), "`pred` must be a vector, matrix, or tensor!"
+    assert is_a_tensor(baseline), "`baseline` must be a vector, matrix, or tensor!"
+    assert contains_only_numbers(true), "`true` must contain only numbers!"
+    assert contains_only_numbers(pred), "`pred` must contain only numbers!"
+    assert contains_only_numbers(baseline), "`baseline` must contain only numbers!"
 
-    if isAPandasSeries(true) or isAPandasDataFrame(true):
+    if is_a_pandas_series(true) or is_a_pandas_dataframe(true):
         true = true.values
 
-    if isAPandasSeries(pred) or isAPandasDataFrame(pred):
+    if is_a_pandas_series(pred) or is_a_pandas_dataframe(pred):
         pred = pred.values
 
-    if isAPandasSeries(baseline) or isAPandasDataFrame(baseline):
+    if is_a_pandas_series(baseline) or is_a_pandas_dataframe(baseline):
         baseline = baseline.values
 
-    if not isANumpyArray(true):
+    if not is_a_numpy_array(true):
         true = array(true)
 
-    if not isANumpyArray(pred):
+    if not is_a_numpy_array(pred):
         pred = array(pred)
 
-    if not isANumpyArray(baseline):
+    if not is_a_numpy_array(baseline):
         baseline = array(baseline)
 
     if isBinary(baseline):

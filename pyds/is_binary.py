@@ -1,10 +1,10 @@
 from .flatten import flatten
 from .is_a_number import isANumber
-from .is_a_tensor import isATensor
+from .is_a_tensor import is_a_tensor
 
 
 def isBinary(x):
-    if isATensor(x):
+    if is_a_tensor(x):
         temp = flatten(x)
 
         for v in temp:

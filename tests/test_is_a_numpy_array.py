@@ -4,7 +4,7 @@ from numpy import array, ndarray
 from numpy.random import normal, random
 from pandas import DataFrame as DF
 
-from pyds import isANumpyArray
+from pyds import is_a_numpy_array
 
 
 class IsANumpyArrayTestCase(unittest.TestCase):
@@ -17,7 +17,9 @@ class IsANumpyArrayTestCase(unittest.TestCase):
         ]
 
         for arr in arrays:
-            self.assertTrue(isANumpyArray(arr), msg="Failed to identify numpy arrays!")
+            self.assertTrue(
+                is_a_numpy_array(arr), msg="Failed to identify numpy arrays!"
+            )
 
         others = [
             234,
@@ -32,5 +34,5 @@ class IsANumpyArrayTestCase(unittest.TestCase):
 
         for item in others:
             self.assertFalse(
-                isANumpyArray(item), msg="Failed to identify non-numpy-arrays!"
+                is_a_numpy_array(item), msg="Failed to identify non-numpy-arrays!"
             )
