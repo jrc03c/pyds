@@ -4,30 +4,30 @@ from numpy import abs, array, clip, inf, log, max, median, min, reshape, shape, 
 
 from .filter import filter
 from .flatten import flatten
-from .is_a_number import isANumber
+from .is_a_number import is_a_number
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_series import is_a_pandas_series
 from .is_a_tensor import is_a_tensor
-from .is_binary import isBinary
+from .is_binary import is_binary
 from .sort import sort
 
 
 class OutlierMitigator:
     def __init__(
         self,
-        isAllowedToClip=True,
-        isAllowedToTakeTheLog=True,
-        maxScore=5,
-        shouldShowWarnings=True,
+        is_allowed_to_clip=True,
+        is_allowed_to_take_the_log=True,
+        max_score=5,
+        should_show_warnings=True,
     ):
-        self.isAllowedToClip = isAllowedToClip
-        self.isAllowedToTakeTheLog = isAllowedToTakeTheLog
-        self.maxScore = maxScore
+        self.is_allowed_to_clip = is_allowed_to_clip
+        self.is_allowed_to_take_the_log = is_allowed_to_take_the_log
+        self.max_score = max_score
         self.median = 0
         self.mad = 0
         self.min = 0
-        self.exceededMaxScore = False
-        self.shouldShowWarnings = shouldShowWarnings
+        self.exceeded_max_score = False
+        self.should_show_warnings = should_show_warnings
 
     def fit(self, x):
         # make sure the data is a tensor
@@ -43,13 +43,13 @@ class OutlierMitigator:
         x = flatten(x)
 
         # drop NaN values
-        x = filter(lambda v: isANumber(v), x)
+        x = filter(lambda v: is_a_number(v), x)
 
         if len(x) == 0:
             return self
 
         # if the data is binary, then don't do anything else
-        if isBinary(x):
+        if is_binary(x):
             return self
 
         # determine whether the max score was exceeded
@@ -65,11 +65,13 @@ class OutlierMitigator:
 
             if len(low) == 0:
                 before = self.median
+
             else:
                 before = max(low)
 
             if len(high) == 0:
                 after = self.median
+
             else:
                 after = min(high)
 
@@ -80,17 +82,17 @@ class OutlierMitigator:
 
         score = max(abs(x - self.median) / self.mad)
 
-        if score > self.maxScore:
-            self.exceededMaxScore = True
+        if score > self.max_score:
+            self.exceeded_max_score = True
 
         return self
 
     def transform(self, *args):
-        def betterMin(x):
+        def better_min(x):
             lowest = inf
 
             for value in flatten(x):
-                if isANumber(value) and value < lowest:
+                if is_a_number(value) and value < lowest:
                     lowest = value
 
             return lowest
@@ -99,7 +101,7 @@ class OutlierMitigator:
             len(args) > 0
         ), "You must pass at least one vector, matrix, or tensor into the `transform` method!"
 
-        reallyOut = []
+        really_out = []
 
         for x in args:
             assert is_a_tensor(x), "`x` must be a vector, matrix, or tensor!"
@@ -110,49 +112,49 @@ class OutlierMitigator:
             if is_a_numpy_array(x):
                 x = x.tolist()
 
-            xShape = shape(x)
+            x_shape = shape(x)
             x = flatten(x)
 
-            xClean = filter(lambda v: isANumber(v), x)
+            x_clean = filter(lambda v: is_a_number(v), x)
 
-            if isBinary(xClean):
-                reallyOut.append(reshape(x, xShape))
+            if is_binary(x_clean):
+                really_out.append(reshape(x, x_shape))
                 continue
 
             if (
-                self.shouldShowWarnings
-                and betterMin(x) < self.min
-                and self.isAllowedToTakeTheLog
+                self.should_show_warnings
+                and better_min(x) < self.min
+                and self.is_allowed_to_take_the_log
             ):
                 if len(args) == 1:
-                    message = "Note that the data you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformed data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data passed into the `train` method has a minimum value less than or equal to the minimum value of the data passed into the `transform` method, or (2) disable log-taking by passing `isAllowedToTakeTheLog=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `shouldShowWarnings=False` to the `OutlierMitigator` constructor."
+                    message = "Note that the data you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformed data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data passed into the `train` method has a minimum value less than or equal to the minimum value of the data passed into the `transform` method, or (2) disable log-taking by passing `is_allowed_to_take_the_log=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `should_show_warnings=False` to the `OutlierMitigator` constructor."
 
                 else:
-                    message = "Note that one of the data sets you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformation of that data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data set passed into the `train` method has a minimum value less than or equal to all of the minimum values of the data sets passed into the `transform` method, or (2) disable log-taking by passing `isAllowedToTakeTheLog=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `shouldShowWarnings=False` to the `OutlierMitigator` constructor."
+                    message = "Note that one of the data sets you passed into the `transform` method has a minimum value that is less than the minimum value of the training set, which means that the transformation of that data will therefore contain some NaN values (since we'll be trying to take the log of negative numbers)! To avoid acquiring NaNs, either (1) transform your data sets so that the data set passed into the `train` method has a minimum value less than or equal to all of the minimum values of the data sets passed into the `transform` method, or (2) disable log-taking by passing `is_allowed_to_take_the_log=False` to the `OutlierMitigator` constructor. To suppress this warning, pass `should_show_warnings=False` to the `OutlierMitigator` constructor."
 
                 warnings.warn(message)
 
             out = []
 
             for v in x:
-                if self.exceededMaxScore and isANumber(v):
-                    if self.isAllowedToClip:
+                if self.exceeded_max_score and is_a_number(v):
+                    if self.is_allowed_to_clip:
                         v = clip(
                             v,
-                            self.median - self.maxScore * self.mad,
-                            self.median + self.maxScore * self.mad,
+                            self.median - self.max_score * self.mad,
+                            self.median + self.max_score * self.mad,
                         )
 
-                    if self.isAllowedToTakeTheLog:
+                    if self.is_allowed_to_take_the_log:
                         with warnings.catch_warnings():
                             warnings.simplefilter("ignore")
                             v = log(v - self.min + 1)
 
                 out.append(v)
 
-            reallyOut.append(reshape(out, xShape))
+            really_out.append(reshape(out, x_shape))
 
-        if len(reallyOut) == 1:
-            return reallyOut[0]
+        if len(really_out) == 1:
+            return really_out[0]
 
-        return tuple(reallyOut)
+        return tuple(really_out)
