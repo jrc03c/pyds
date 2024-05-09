@@ -38,7 +38,7 @@ def find_indexes(a, b):
             if fn(item):
                 out.append([i])
 
-        except:
+        except Exception:
             pass
 
     for i in range(0, len(x)):
@@ -50,7 +50,7 @@ def find_indexes(a, b):
                 for result in results:
                     out.append([i] + flatten(result).tolist())
 
-        except:
+        except Exception:
             pass
 
     if len(out) > 0:

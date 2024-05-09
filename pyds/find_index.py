@@ -36,7 +36,7 @@ def find_index(a, b):
             if fn(item):
                 return i
 
-        except:
+        except Exception:
             pass
 
     for i in range(0, len(x)):
@@ -47,7 +47,7 @@ def find_index(a, b):
             if result is not None:
                 return [i] + flatten(result).tolist()
 
-        except:
+        except Exception:
             pass
 
     return None
