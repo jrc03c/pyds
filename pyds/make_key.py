@@ -1,10 +1,10 @@
 from numpy.random import random
 
-from .is_a_number import isANumber
+from .is_a_number import is_a_number
 
 
-def makeKey(n):
-    assert isANumber(n) and n >= 0 and int(n) == n, "`n` must be a whole number!"
+def make_key(n):
+    assert is_a_number(n) and n >= 0 and int(n) == n, "`n` must be a whole number!"
 
     alpha = "abcdefghijklmnopqrstuvwxyz1234567890"
     out = ""
