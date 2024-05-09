@@ -8,7 +8,7 @@ from .is_a_tensor import is_a_tensor
 from .is_undefined import is_undefined
 
 
-def replaceUndefined(x, newValue=nan, strings=[]):
+def replace_undefined(x, new_value=nan, strings=[]):
     if is_a_tensor(x):
         if is_a_pandas_dataframe(x) or is_a_pandas_series(x):
             x = x.values.tolist()
@@ -19,7 +19,7 @@ def replaceUndefined(x, newValue=nan, strings=[]):
         out = []
 
         for value in x:
-            temp = replaceUndefined(value, newValue=newValue, strings=strings)
+            temp = replace_undefined(value, new_value=new_value, strings=strings)
             out.append(temp)
 
         return out
@@ -29,18 +29,18 @@ def replaceUndefined(x, newValue=nan, strings=[]):
 
         for key in x.keys():
             value = x[key]
-            temp = replaceUndefined(value, newValue=newValue, strings=strings)
+            temp = replace_undefined(value, new_value=new_value, strings=strings)
             out[key] = temp
 
         return out
 
     else:
         if is_undefined(x):
-            return newValue
+            return new_value
 
         if isinstance(x, str):
             if x in strings:
-                return newValue
+                return new_value
 
             return x
 
@@ -48,9 +48,9 @@ def replaceUndefined(x, newValue=nan, strings=[]):
             return x
 
         try:
-            return replaceUndefined(x.__dict__, newValue=newValue, strings=strings)
+            return replace_undefined(x.__dict__, new_value=new_value, strings=strings)
 
-        except:
+        except Exception:
             pass
 
         return x
