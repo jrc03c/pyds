@@ -1,11 +1,11 @@
 from numpy import abs, isnan, nan, sqrt
 
-from .r_squared import rSquared
+from .r_squared import r_squared
 from .sign import sign
 
 
-def rScore(true, pred, baseline=None):
-    r2 = rSquared(true, pred, baseline=baseline)
+def r_score(true, pred, baseline=None):
+    r2 = r_squared(true, pred, baseline=baseline)
 
     if isnan(r2):
         return nan
