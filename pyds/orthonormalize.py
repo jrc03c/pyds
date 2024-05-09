@@ -8,17 +8,14 @@ from .is_a_matrix import is_a_matrix
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
-from .is_a_vector import isAVector
+from .is_a_vector import is_a_vector
+from .magnitude import magnitude
 from .map import map
 
 
-def getMagnitude(x):
-    return distance(x, zeros(x.shape))
-
-
 def project(v, u):
-    assert isAVector(v), "The `project` function only works on vectors!"
-    assert isAVector(u), "The `project` function only works on vectors!"
+    assert is_a_vector(v), "The `project` function only works on vectors!"
+    assert is_a_vector(u), "The `project` function only works on vectors!"
 
     assert contains_only_numbers(
         v
@@ -60,12 +57,12 @@ def orthonormalize(x):
     bases = []
 
     for row in temp:
-        rowCopy = deepcopy(row)
+        row_copy = deepcopy(row)
 
         for basis in bases:
-            rowCopy = rowCopy - project(rowCopy, basis)
+            row_copy = row_copy - project(row_copy, basis)
 
-        bases.append(rowCopy)
+        bases.append(row_copy)
 
-    ortho = map(bases, lambda basis: basis / getMagnitude(basis))
+    ortho = map(bases, lambda basis: basis / magnitude(basis))
     return ortho.T
