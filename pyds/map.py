@@ -8,7 +8,7 @@ from .is_a_tensor import is_a_tensor
 from .is_jagged import is_jagged
 from .set import set
 
-oldMap = map
+old_map = map
 
 
 def map(a, b):
@@ -33,11 +33,11 @@ def map(a, b):
     if is_a_numpy_array(arr):
         arr = arr.tolist()
 
-    out = list(oldMap(fn, arr))
-
-    types = set(list(oldMap(lambda v: type(v), out)))
+    out = list(old_map(fn, arr))
+    types = set(list(old_map(lambda v: type(v), out)))
 
     if is_jagged(out) or len(types) > 1:
         return array(out, dtype=object)
+
     else:
         return array(out)
