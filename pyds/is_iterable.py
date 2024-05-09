@@ -1,6 +1,7 @@
-def isIterable(x):
+def is_iterable(x):
     try:
         iter(x)
         return True
-    except:
+
+    except Exception:
         return False
