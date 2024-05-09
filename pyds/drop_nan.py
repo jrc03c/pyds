@@ -43,7 +43,7 @@ def drop_nan(x):
         try:
             return drop_nan(x.__dict__)
 
-        except:
+        except Exception:
             pass
 
         if is_a_number(x):
