@@ -38,9 +38,9 @@ Rounds almost-zero values (where `abs(x) < threshold`) to zero. Works on numbers
 
 ---
 
-## `ciBounds(true, pred, p=95, n=1000, scorer=rScore, progress=lambda x: x)`
+## `ci_bounds(true, pred, p=95, n=1000, scorer=r_score, progress=lambda x: x)`
 
-Returns the upper and lower confidence interval bounds given two tensors, a percent confidence interval (`p`, which must be between 0 and 100), a number of bootstrap iterations (`n`), a scoring function (`scorer`, which by default is this library's `rScore` function), and a progress callback function (`progress`).
+Returns the upper and lower confidence interval bounds given two tensors, a percent confidence interval (`p`, which must be between 0 and 100), a number of bootstrap iterations (`n`), a scoring function (`scorer`, which by default is this library's `r_score` function), and a progress callback function (`progress`).
 
 ---
 
@@ -62,19 +62,19 @@ Computes the Euclidean distance between two tensors of the same shape.
 
 ---
 
-## `drawCorrelationMatrix(c, neg_hue=0, pos_hue=120)`
+## `draw_correlation_matrix(c, neg_hue=0, pos_hue=120)`
 
 Plots a [correlation matrix](#getcorrelationmatrixa-bnone). (This function doesn't actually display the plot yet, though; you'll need to call `matplotlib.pyplot.show()` or similar to display the plot.) The `pos_hue` and `neg_hue` represent hue values as degrees between 0 and 360. See the Seaborn [`diverging_palette`](https://seaborn.pydata.org/generated/seaborn.diverging_palette.html) docs for more info.
 
 ---
 
-## `dropNaN(x)`
+## `drop_nan(x)`
 
 Drops NaN values from `x`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
 ---
 
-## `dropUndefined(x, strings=[])`
+## `drop_undefined(x, strings=[])`
 
 Drops undefined values from `x`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
@@ -146,7 +146,7 @@ Flattens a tensor to a vector.
 
 ---
 
-## `getAverageCorrelation(a, b)`
+## `get_average_correlation(a, b)`
 
 Computes the average correlation between pairs of corresponding columns in matrices `a` and `b`.
 
@@ -230,7 +230,7 @@ Determines whether or not a value is a matrix.
 
 ---
 
-## `isANumber(x)`
+## `is_a_number(x)`
 
 Determines whether or not a value is a number.
 
@@ -254,7 +254,7 @@ Determines whether or not a value is a pandas [Series](https://pandas.pydata.org
 
 ---
 
-## `isAString(x)`
+## `is_a_string(x)`
 
 Determines whether or not a value is a string.
 
@@ -266,25 +266,25 @@ Determines whether or not a value is a tensor.
 
 ---
 
-## `isAVector(x)`
+## `is_a_vector(x)`
 
 Determines whether or not a value is a vector.
 
 ---
 
-## `isBinary(x)`
+## `is_binary(x)`
 
 Determines whether or not a tensor contains only binary (0 and 1) values.
 
 ---
 
-## `isEqual(a, b)`
+## `is_equal(a, b)`
 
-Determines whether or not two values are equal in a deep sense, though do note that it returns `False` if the two values don't have the same type (e.g., even if a plain Python `list` and a numpy array contain the same numerical values, `isEqual` would return `False` because they aren't the same type; but if you converted them both to the same type, then `isEqual` would return `True` regardless of how "deep" the arrays are).
+Determines whether or not two values are equal in a deep sense, though do note that it returns `False` if the two values don't have the same type (e.g., even if a plain Python `list` and a numpy array contain the same numerical values, `is_equal` would return `False` because they aren't the same type; but if you converted them both to the same type, then `is_equal` would return `True` regardless of how "deep" the arrays are).
 
 ---
 
-## `isIterable(x)`
+## `is_iterable(x)`
 
 Determines whether or not a value can be iterated over.
 
@@ -302,19 +302,19 @@ Determines whether or not a value is undefined. A value is considered to be unde
 
 ---
 
-## `leastSquares(a, b)`
+## `least_squares(a, b)`
 
 Solves for `x` in the equation `ax = b` where `a`, `x`, and `b` are all matrices.
 
 ---
 
-## `leftPad(x, biggest=None)`
+## `left_pad(x, biggest=None)`
 
-Adds zeros to the left of a number or array of numbers where `biggest` is the maximum possible value. For example, `leftPad(23, 1000)` would return "0023". The `biggest` argument is optional when passing in an tensor of values as `x` since the function will automatically set `biggest` to the largest value in the tensor.
+Adds zeros to the left of a number or array of numbers where `biggest` is the maximum possible value. For example, `left_pad(23, 1000)` would return "0023". The `biggest` argument is optional when passing in an tensor of values as `x` since the function will automatically set `biggest` to the largest value in the tensor.
 
 ---
 
-## `loadJSON(path)`
+## `load_json(path)`
 
 Loads a JSON file from disk.
 
@@ -326,7 +326,7 @@ Computes the Euclidean norm (i.e., two-norm) of a tensor.
 
 ---
 
-## `makeKey(n)`
+## `make_key(n)`
 
 Generates a random alphanumeric string of arbitrary length.
 
@@ -350,11 +350,11 @@ Returns an orthonormalized copy of a matrix in which each column is orthogonal t
 
 ---
 
-## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, maxScore=5, shouldShowWarnings=True)`
+## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, max_score=5, shouldShowWarnings=True)`
 
-This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `maxScore * MAD`.
+This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `max_score * MAD`.
 
-The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `maxScore` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
+The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `max_score` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
 
 ### Instance methods
 
@@ -364,7 +364,7 @@ Determines whether or not outliers exist in the given data set and thus whether 
 
 #### `.transform(a, b, c, ...)`
 
-Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - maxScore * MAD(x), median(x) + maxScore * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
+Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - max_score * MAD(x), median(x) + max_score * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
 
 Do note that if you pass a data set into `transform` that has a minimum value lower than `min(x)`, a warning will be shown since the mitigator will end up trying to take the log of negative numbers.
 
@@ -382,7 +382,7 @@ print(x)
 
 ---
 
-## `pValue(a, b)`
+## `p_value(a, b)`
 
 Returns the _p_-value of two tensors. Obviously, this is an oversimplification, since p-values can be computed in a variety of ways. This function is just short-hand for using scipy's [`ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) function this way:
 
@@ -404,13 +404,13 @@ Reverses a number, string, or array.
 
 ---
 
-## `replaceNaN(x, newValue=numpy.nan)`
+## `replace_nan(x, newValue=numpy.nan)`
 
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
 ---
 
-## `replaceUndefined(x, newValue=numpy.nan, strings=[])`
+## `replace_undefined(x, newValue=numpy.nan, strings=[])`
 
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
@@ -420,11 +420,11 @@ By default, values that are considered to be undefined are `None`, `numpy.nan`, 
 
 ## `round(x)`
 
-Same as `roundStandard(x)`.
+Same as `round_standard(x)`.
 
 ---
 
-## `roundStandard(x)`
+## `round_standard(x)`
 
 Rounds a number to the nearest integer. Note that this does _not_ have the same functionality as the built-in Python [`round`](https://docs.python.org/3/library/functions.html#round) function _or_ the numpy [`round`](https://numpy.org/doc/stable/reference/generated/numpy.round.html) function! Both of those use "banker's rounding", which rounds numbers that are half-way between two integers (e.g., 2.5) to _the nearest even integer_ (e.g., 1.5 rounds to 2, but 2.5 also rounds to 2)! Instead, this implementation rounds in the "usual" way that we all learned in grade school: numbers exactly half-way between two integers (e.g. 2.5) are always rounded _up_.
 
@@ -432,7 +432,7 @@ Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas
 
 ---
 
-## `rScore(true, pred, baseline=None)`
+## `r_score(true, pred, baseline=None)`
 
 Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`. See the `rSquared` function for more information about the `baseline` parameter.
 
@@ -440,18 +440,18 @@ Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. 
 
 ## `RScoreManager(shouldDropNaNValues=False)`
 
-The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `rScore` function above. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
+The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `r_score` function above. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
 
 Internally, the pseudo-code for the R-score calculation is:
 
 ```
-if isBinaryData(baseline):
+if is_binaryData(baseline):
   helper = mode
 else:
   helper = mean
 
 rSquared = 1 - sum((true - pred) ** 2) / sum((true - helper(baseline)) ** 2)
-rScore = sign(rSquared) * sqrt(abs(rSquared))
+r_score = sign(rSquared) * sqrt(abs(rSquared))
 ```
 
 ### Instance methods
@@ -484,7 +484,7 @@ rSquared(y_true_test, y_pred_test, baseline=y_true_train)
 
 ---
 
-## `saveJSON(path, x)`
+## `save_json(path, x)`
 
 Saves some data to disk as a JSON file. If `x` isn't already a string, then the function will do its best to serialize it and will raise an exception if it's not successful.
 
@@ -528,7 +528,7 @@ Unlike most of the other functions in this library, this function does _not_ ret
 
 ---
 
-## `truncatedSVD(x, rank=1)`
+## `truncated_svd(x, rank=1)`
 
 Performs singular value decomposition on a matrix and returns U, Σ, and V matrices that have been truncated to a rank of `rank`.
 
@@ -536,7 +536,7 @@ Performs singular value decomposition on a matrix and returns U, Σ, and V matri
 
 # To do
 
-- Add more tests for the `ciBounds` function.
+- Add more tests for the `ci_bounds` function.
 - Add tests for the `rSquared` function.
 - Make sure that all functions that accept various tensor formats return tensors in those same formats (if possible).
 - Make sure that all functions that iterate over arrays (e.g., `find`, `map`, etc.) receive arguments in the same order: function, then array. For example, the signature of `sort` should be `sort(fn, x)` rather than `sort(x, fn)`.

@@ -1,20 +1,20 @@
 import json
 
 from .is_a_function import is_a_function
-from .is_a_number import isANumber
+from .is_a_number import is_a_number
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
-from .is_a_string import isAString
+from .is_a_string import is_a_string
 from .is_a_tensor import is_a_tensor
 from .is_undefined import is_undefined
 
 
-def isPrimitive(x):
-    if isANumber(x):
+def is_primitive(x):
+    if is_a_number(x):
         return True
 
-    if isAString(x):
+    if is_a_string(x):
         return True
 
     if isinstance(x, bool):
@@ -26,7 +26,7 @@ def isPrimitive(x):
     return False
 
 
-def toSerializableObject(x, used=[]):
+def to_serializable_object(x, used=[]):
     # cases to handle:
     # primitives:
     #   - numbers
@@ -41,7 +41,7 @@ def toSerializableObject(x, used=[]):
     # dictionaries
     # class instances
     # circular references
-    if isPrimitive(x):
+    if is_primitive(x):
         return x
 
     elif is_a_function(x):
@@ -49,36 +49,36 @@ def toSerializableObject(x, used=[]):
 
     elif is_a_tensor(x):
         if is_a_numpy_array(x):
-            return toSerializableObject(x.tolist(), used=used)
+            return to_serializable_object(x.tolist(), used=used)
 
         elif is_a_pandas_series(x):
             return {
                 "name": x.name,
-                "values": toSerializableObject(x.values.tolist(), used=used),
-                "index": toSerializableObject(x.index.tolist(), used=used),
+                "values": to_serializable_object(x.values.tolist(), used=used),
+                "index": to_serializable_object(x.index.tolist(), used=used),
             }
 
         elif is_a_pandas_dataframe(x):
             return {
-                "values": toSerializableObject(x.values.tolist(), used=used),
-                "columns": toSerializableObject(x.columns.tolist(), used=used),
-                "index": toSerializableObject(x.index.tolist(), used=used),
+                "values": to_serializable_object(x.values.tolist(), used=used),
+                "columns": to_serializable_object(x.columns.tolist(), used=used),
+                "index": to_serializable_object(x.index.tolist(), used=used),
             }
 
         else:
             out = []
 
             for item in x:
-                hexId = hex(id(item))
+                hex_id = hex(id(item))
 
-                if not hexId in used:
-                    if not isPrimitive(item):
-                        used.append(hexId)
+                if hex_id not in used:
+                    if not is_primitive(item):
+                        used.append(hex_id)
 
-                    out.append(toSerializableObject(item, used=used))
+                    out.append(to_serializable_object(item, used=used))
 
                 else:
-                    out.append("<cyclic reference to: " + hexId + ">")
+                    out.append("<cyclic reference to: " + hex_id + ">")
 
             return out
 
@@ -88,41 +88,41 @@ def toSerializableObject(x, used=[]):
 
             for key in x.keys():
                 value = x[key]
-                hexId = hex(id(value))
+                hex_id = hex(id(value))
 
-                if not hexId in used:
-                    if not isPrimitive(value):
-                        used.append(hexId)
+                if hex_id not in used:
+                    if not is_primitive(value):
+                        used.append(hex_id)
 
-                    out[key] = toSerializableObject(value, used=used)
+                    out[key] = to_serializable_object(value, used=used)
 
                 else:
-                    out[key] = "<cyclic reference to: " + hexId + ">"
+                    out[key] = "<cyclic reference to: " + hex_id + ">"
 
             return out
 
-        except:
+        except Exception:
             pass
 
         try:
-            return toSerializableObject(x.__dict__, used=used)
+            return to_serializable_object(x.__dict__, used=used)
 
-        except:
+        except Exception:
             pass
 
         return x
 
 
-def saveJSON(path, data, indentation=2):
-    assert isAString(path), "`path` must be a string!"
+def save_json(path, data, indentation=2):
+    assert is_a_string(path), "`path` must be a string!"
 
-    if not isAString(data):
+    if not is_a_string(data):
         try:
-            data = toSerializableObject(data)
+            data = to_serializable_object(data)
 
-        except:
+        except Exception:
             raise Exception(
-                "The data passed into the `saveJSON` function could not be serialized!"
+                "The data passed into the `save_json` function could not be serialized!"
             )
 
     data = json.dumps(data, sort_keys=True, indent=indentation)

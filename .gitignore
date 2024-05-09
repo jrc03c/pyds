@@ -1,4 +1,6 @@
-*.pyc
 __pycache__
+.py_test_cache
 .pytest_cache
+*.pyc
 temp*
+venv
