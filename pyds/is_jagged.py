@@ -9,22 +9,22 @@ def is_jagged(x):
     if len(x) == 0:
         return False
 
-    childrenAreArrays = [is_a_tensor(item) for item in x]
+    children_are_arrays = [is_a_tensor(item) for item in x]
 
-    if len(set(childrenAreArrays)) > 1:
+    if len(set(children_are_arrays)) > 1:
         return True
 
-    if childrenAreArrays[0] == False:
+    if not children_are_arrays[0]:
         return False
 
-    childLengths = [len(item) for item in x]
+    child_lengths = [len(item) for item in x]
 
-    if len(set(childLengths)) > 1:
+    if len(set(child_lengths)) > 1:
         return True
 
-    childrenAreJagged = [is_jagged(item) for item in x]
+    children_are_jagged = [is_jagged(item) for item in x]
 
-    if True in childrenAreJagged:
+    if True in children_are_jagged:
         return True
 
     return False
