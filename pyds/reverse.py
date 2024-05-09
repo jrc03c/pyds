@@ -1,15 +1,15 @@
 from numpy import array
 
-from .is_a_number import isANumber
-from .is_a_string import isAString
+from .is_a_number import is_a_number
+from .is_a_string import is_a_string
 from .is_a_tensor import is_a_tensor
 
 
 def reverse(x):
-    if isANumber(x):
+    if is_a_number(x):
         return float(reverse(str(x)))
 
-    if isAString(x):
+    if is_a_string(x):
         out = ""
 
         for i in range(0, len(x)):
