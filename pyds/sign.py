@@ -1,6 +1,6 @@
 from numpy import array
 
-from .is_a_number import isANumber
+from .is_a_number import is_a_number
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
@@ -19,12 +19,14 @@ def sign(x):
             return [helper(v) for v in x]
 
         else:
-            assert isANumber(x), "`x` must be a number!"
+            assert is_a_number(x), "`x` must be a number!"
 
             if x > 0:
                 return 1
+
             if x < 0:
                 return -1
+
             return 0
 
     if is_a_tensor(x):
