@@ -52,7 +52,7 @@ def sort(a, b=None):
     if fn is None:
         fn = alphasort
 
-    assert isinstance(fn, type(sort), "`fn` must be a function!")
+    assert isinstance(fn, type(sort)), "`fn` must be a function!"
 
     def helper(x, fn):
         if len(x) <= 1:
