@@ -7,7 +7,7 @@ from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .range import range
 
 
-def getAverageCorrelation(a, b):
+def get_average_correlation(a, b):
     assert is_a_matrix(a), "`a` must be a matrix!"
     assert is_a_matrix(b), "`b` must be a matrix!"
     assert contains_only_numbers(a), "`a` must contain only numbers!"
