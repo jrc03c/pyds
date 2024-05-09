@@ -2,6 +2,7 @@ import os
 import shutil
 
 import pandas as pd
+import pytest
 from numpy.random import random
 
 from .is_equal import is_equal
@@ -10,8 +11,8 @@ from .make_key import make_key
 from .save_json import save_json
 
 
-# note: figure out how to turn the `setUp` and `tearDown` functions into py_test fixtures!
-def setUp(self):
+@pytest.fixture
+def set_up_and_tear_down():
     obj = {}
     temp = obj
 
@@ -25,24 +26,24 @@ def setUp(self):
         else:
             temp[key] = random()
 
-    self.filename = make_key(8)
+    filename = make_key(8)
 
     try:
         os.mkdir("temp")
     except Exception:
         pass
 
-    save_json("temp/" + self.filename, obj)
-    self.obj = obj
+    save_json("temp/" + filename, obj)
+    obj = obj
 
+    yield {"filename": filename, "obj": obj}
 
-def tearDown(self):
     shutil.rmtree("temp")
 
 
-def test():
-    pred = load_json("temp/" + self.filename)
-    assert is_equal(self.obj, pred)
+def test(set_up_and_tear_down):
+    pred = load_json("temp/" + set_up_and_tear_down["filename"])
+    assert is_equal(set_up_and_tear_down["obj"], pred)
 
     # test cyclic objects
     x = {}
