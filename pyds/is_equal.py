@@ -1,29 +1,29 @@
-from math import nan as mathNan
+from math import nan as math_nan
 
-from numpy import nan as numpyNan
+from numpy import nan as numpy_nan
 
 from .is_a_function import is_a_function
-from .is_a_number import isANumber
+from .is_a_number import is_a_number
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
 from .is_a_tensor import is_a_tensor
 
 
-def isEqual(a, b):
-    if a is numpyNan and b is numpyNan:
+def is_equal(a, b):
+    if a is numpy_nan and b is numpy_nan:
         return True
 
-    if a is mathNan and b is mathNan:
+    if a is math_nan and b is math_nan:
         return True
 
-    if a is numpyNan and b is mathNan:
+    if a is numpy_nan and b is math_nan:
         return True
 
-    if a is mathNan and b is numpyNan:
+    if a is math_nan and b is numpy_nan:
         return True
 
-    if isANumber(a) and isANumber(b):
+    if is_a_number(a) and is_a_number(b):
         return float(a) == float(b)
 
     if type(a) != type(b):
@@ -46,25 +46,25 @@ def isEqual(a, b):
             return False
 
         for i in range(0, len(a)):
-            if not isEqual(a[i], b[i]):
+            if not is_equal(a[i], b[i]):
                 return False
 
         return True
 
-    if isinstance(a, dict and type(b) == dict):
-        aKeys = list(sorted(a.keys()))
-        bKeys = list(sorted(b.keys()))
+    if isinstance(a, dict) and isinstance(b, dict):
+        a_keys = list(sorted(a.keys()))
+        b_keys = list(sorted(b.keys()))
 
-        if not isEqual(aKeys, bKeys):
+        if not is_equal(a_keys, b_keys):
             return False
 
-        for i in range(0, len(aKeys)):
-            aKey = aKeys[i]
-            bKey = bKeys[i]
-            aChild = a[aKey]
-            bChild = b[bKey]
+        for i in range(0, len(a_keys)):
+            a_key = a_keys[i]
+            b_key = b_keys[i]
+            a_child = a[a_key]
+            b_child = b[b_key]
 
-            if not isEqual(aChild, bChild):
+            if not is_equal(a_child, b_child):
                 return False
 
         return True
@@ -73,8 +73,8 @@ def isEqual(a, b):
         return a is b
 
     try:
-        return isEqual(a.__dict__, b.__dict__)
-    except:
+        return is_equal(a.__dict__, b.__dict__)
+    except Exception:
         pass
 
     return a == b
