@@ -1,11 +1,11 @@
-from math import isnan as mathIsNaN
+from math import isnan as math_is_nan
 
-from numpy import isnan as numpyIsNaN
+from numpy import isnan as numpy_is_nan
 
 from .is_a_tensor import is_a_tensor
 
 
-def isANumber(x):
+def is_a_number(x):
     if x is None:
         return False
 
@@ -13,17 +13,17 @@ def isANumber(x):
         return False
 
     try:
-        if mathIsNaN(x):
+        if math_is_nan(x):
             return False
 
-    except:
+    except Exception:
         pass
 
     try:
-        if numpyIsNaN(x):
+        if numpy_is_nan(x):
             return False
 
-    except:
+    except Exception:
         pass
 
     if isinstance(x, bool):
@@ -36,14 +36,14 @@ def isANumber(x):
         float(x)
         return True
 
-    except:
+    except Exception:
         pass
 
     try:
         int(x)
         return True
 
-    except:
+    except Exception:
         pass
 
     return False
