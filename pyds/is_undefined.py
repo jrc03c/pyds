@@ -1,6 +1,6 @@
-from math import isnan as mathIsNaN
+from math import isnan as math_is_nan
 
-from numpy import isnan as numpyIsNaN
+from numpy import isnan as numpy_is_nan
 
 from .is_a_tensor import is_a_tensor
 
@@ -13,15 +13,15 @@ def is_undefined(x):
         return False
 
     try:
-        if mathIsNaN(x):
+        if math_is_nan(x):
             return True
 
-    except:
+    except Exception:
         try:
-            if numpyIsNaN(x):
+            if numpy_is_nan(x):
                 return True
 
-        except:
+        except Exception:
             pass
 
     return False
