@@ -6,14 +6,14 @@ from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
 from .is_a_tensor import is_a_tensor
-from .is_binary import isBinary
+from .is_binary import is_binary
 
 
 def mode(x):
     return scipy.stats.mode(x)[0]
 
 
-def rSquared(true, pred, baseline=None):
+def r_squared(true, pred, baseline=None):
     if baseline is None:
         baseline = true
 
@@ -42,7 +42,7 @@ def rSquared(true, pred, baseline=None):
     if not is_a_numpy_array(baseline):
         baseline = array(baseline)
 
-    if isBinary(baseline):
+    if is_binary(baseline):
         helper = mode
 
     else:
