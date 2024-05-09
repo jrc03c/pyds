@@ -3,10 +3,8 @@ class Foo:
         pass
 
 
-foo = Foo()
-eye = lambda x: x
-fnTypes = [type(eye), type(foo.bar)]
+fn_types = [type(lambda x: x), type(Foo().bar)]
 
 
 def is_a_function(x):
-    return type(x) in fnTypes
+    return type(x) in fn_types
