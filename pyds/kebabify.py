@@ -2,7 +2,7 @@ from .__helpers__ import clean
 
 
 def kebabify(text):
-    assert isinstance(text, str, "`text` must be a string!")
+    assert isinstance(text, str), "`text` must be a string!"
 
     words = clean(text).split(" ")
 
