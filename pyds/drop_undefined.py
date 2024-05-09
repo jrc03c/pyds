@@ -52,7 +52,7 @@ def drop_undefined(x, strings=[]):
         try:
             return drop_undefined(x.__dict__, strings=strings)
 
-        except:
+        except Exception:
             pass
 
         return x
