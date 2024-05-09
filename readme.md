@@ -126,16 +126,16 @@ For example:
 ```py
 from pyds import find_index
 
-greaterThanSix = lambda v: v > 6
+greater_than_six = lambda v: v > 6
 
 x = [2, 3, 4, 5, 6, 7]
-find_index(greaterThanSix, x)
+find_index(greater_than_six, x)
 # 5
 
 y = [[2, 3, 4], [5, 6, 7]]
-find_index(greaterThanSix, y)
+find_index(greater_than_six, y)
 # [1, 2]
-# in other words, the value at y[1][2] satisfies the `greaterThanSix` function
+# in other words, the value at y[1][2] satisfies the `greater_than_six` function
 ```
 
 ---
@@ -158,9 +158,9 @@ Computes the correlation matrix between two matrices by comparing each column in
 
 ---
 
-## `Indexer(isVerbose=True)`
+## `Indexer(is_verbose=True)`
 
-This is a class that makes it easy to get rows of data that only exist in certain Series or DataFrames. If `isVerbose` is `True`, the `Indexer` will warn in the console if it fails to remove all missing or NaN values from a transformed data set.
+This is a class that makes it easy to get rows of data that only exist in certain Series or DataFrames. If `is_verbose` is `True`, the `Indexer` will warn in the console if it fails to remove all missing or NaN values from a transformed data set.
 
 For example, imagine you ran two surveys on the same group of people. In the first survey, most people answered most questions, but a few people either never started the survey or didn't answer all of the questions. The same is true of the second survey, although the people that failed to start or to answer all of the questions in the second survey aren't necessarily the same people as in the first survey. When analyzing the results of the two surveys, we want to line up Person A's responses in the first survey with their responses in the second survey; same for Person B, Person C, and so on. We also want to drop rows that contain missing or NaN values from both data sets. The `Indexer` class is designed to help with those problems.
 
@@ -350,11 +350,11 @@ Returns an orthonormalized copy of a matrix in which each column is orthogonal t
 
 ---
 
-## `OutlierMitigator(isAllowedToClip=True, isAllowedToTakeTheLog=True, max_score=5, shouldShowWarnings=True)`
+## `OutlierMitigator(is_allowed_to_clip=True, is_allowed_to_take_the_log=True, max_score=5, should_show_warnings=True)`
 
 This is a class that optionally clips and takes the log of outliers in a vector, matrix, or tensor. The constructor arguments indicate whether or not the mitigator is allowed to clip or take the log of the data if the MAD score of any value exceeds `max_score * MAD`.
 
-The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `max_score` MADs of the mean and/or takes `log(value - min(allValues) + 1)`.
+The `OutlierMitigator` computes the [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation) of the data, determines the MAD score of each value (i.e., how many MADs that value is away from the mean), and optionally clips the value to within `max_score` MADs of the mean and/or takes `log(value - min(all_values) + 1)`.
 
 ### Instance methods
 
@@ -364,7 +364,7 @@ Determines whether or not outliers exist in the given data set and thus whether 
 
 #### `.transform(a, b, c, ...)`
 
-Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `isAllowedToClip == True`, then the data sets are all clipped to the range `[median(x) - max_score * MAD(x), median(x) + max_score * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `isAllowedToTakeTheLog == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
+Modifies given data sets if the `fit` method determined that outliers were present in the data set passed into it. If `is_allowed_to_clip == True`, then the data sets are all clipped to the range `[median(x) - max_score * MAD(x), median(x) + max_score * MAD(x)]` (where `x` is the data set that was passed into the `fit` method). If `is_allowed_to_take_the_log == True`, then the natural log of the data set is taken in this way: `log(data - min(x) + 1)`.
 
 Do note that if you pass a data set into `transform` that has a minimum value lower than `min(x)`, a warning will be shown since the mitigator will end up trying to take the log of negative numbers.
 
@@ -404,13 +404,13 @@ Reverses a number, string, or array.
 
 ---
 
-## `replace_nan(x, newValue=numpy.nan)`
+## `replace_nan(x, new_value=numpy.nan)`
 
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
 ---
 
-## `replace_undefined(x, newValue=numpy.nan, strings=[])`
+## `replace_undefined(x, new_value=numpy.nan, strings=[])`
 
 Replaces any NaN values in `x` with the specified new value, which by default is numpy's `nan`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
 
@@ -434,13 +434,13 @@ Works on numbers, arbitrarily nested arrays of numbers, numpy arrays, and pandas
 
 ## `r_score(true, pred, baseline=None)`
 
-Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`. See the `rSquared` function for more information about the `baseline` parameter.
+Computes an R^2 value for two tensors and returns `sign(R^2) * sqrt(abs(R^2))`. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`. See the `r_squared` function for more information about the `baseline` parameter.
 
 ---
 
-## `RScoreManager(shouldDropNaNValues=False)`
+## `RScoreManager(should_drop_nan_values=False)`
 
-The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `r_score` function above. If `shouldDropNaNValues` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
+The `RScoreManager` class is useful for computing aggregate R-scores across cross-validation folds. Technically, you could use this class in cases without cross-validation, but it's overkill there; it'd probably be easier just to use the `r_score` function above. If `should_drop_nan_values` is set to `True`, then `NaN` values will be dropped pair-wise from the `true` and `pred` data sets; and since the `baseline` data set (if used) doesn't need to be paired with anything else, its `NaN` values are just dropped in the usual way.
 
 Internally, the pseudo-code for the R-score calculation is:
 
@@ -450,8 +450,8 @@ if is_binaryData(baseline):
 else:
   helper = mean
 
-rSquared = 1 - sum((true - pred) ** 2) / sum((true - helper(baseline)) ** 2)
-r_score = sign(rSquared) * sqrt(abs(rSquared))
+r_squared = 1 - sum((true - pred) ** 2) / sum((true - helper(baseline)) ** 2)
+r_score = sign(r_squared) * sqrt(abs(r_squared))
 ```
 
 ### Instance methods
@@ -466,7 +466,7 @@ Returns the final R-score. Call this after running through all cross-validation 
 
 ---
 
-## `rSquared(true, pred, baseline=None)`
+## `r_squared(true, pred, baseline=None)`
 
 Computes an R^2 value for two tensors. If the tensors are binary, R^2 is computed using the _mode_ of `true`; otherwise, it's computed using the _mean_ of `true`.
 
@@ -479,7 +479,7 @@ R^2 = 1 - sum((true - pred)**2) / sum((true - mean(true))**2)
 However, the mean value computed in the denominator can use a different data set, which I've here called `baseline`. By default, `baseline` is the same as `true`. But the `baseline` variable might be useful if computing scores using data that's been split into training and testing sets. For example:
 
 ```py
-rSquared(y_true_test, y_pred_test, baseline=y_true_train)
+r_squared(y_true_test, y_pred_test, baseline=y_true_train)
 ```
 
 ---
@@ -537,7 +537,7 @@ Performs singular value decomposition on a matrix and returns U, Σ, and V matri
 # To do
 
 - Add more tests for the `ci_bounds` function.
-- Add tests for the `rSquared` function.
+- Add tests for the `r_squared` function.
 - Make sure that all functions that accept various tensor formats return tensors in those same formats (if possible).
 - Make sure that all functions that iterate over arrays (e.g., `find`, `map`, etc.) receive arguments in the same order: function, then array. For example, the signature of `sort` should be `sort(fn, x)` rather than `sort(x, fn)`.
 
