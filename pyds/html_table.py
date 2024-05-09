@@ -6,7 +6,7 @@ from pandas import DataFrame
 
 from .is_a_matrix import is_a_matrix
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
-from .make_key import makeKey
+from .make_key import make_key
 
 
 class HTMLTable:
@@ -21,7 +21,7 @@ class HTMLTable:
 
     def show(self, open_command='firefox --private "$FILE"'):
         if self.path is None:
-            self.path = os.path.realpath(makeKey(8) + ".html")
+            self.path = os.path.realpath(make_key(8) + ".html")
             self.save(self.path)
             print("Saved HTML file to: " + self.path)
 
@@ -45,7 +45,7 @@ class HTMLTable:
 
             rows += "</tr>"
 
-        out = regularTemplate.replace("{{ columns }}", columns)
+        out = regular_template.replace("{{ columns }}", columns)
         out = out.replace("{{ rows }}", rows)
         soup = BeautifulSoup(out, "html5lib")
         return soup.prettify()
@@ -57,18 +57,18 @@ class HTMLTable:
     def save(
         self,
         filename,
-        shouldUseFancyTemplate=True,
+        should_use_fancy_template=True,
     ):
         path = os.path.realpath(filename)
 
-        if shouldUseFancyTemplate:
+        if should_use_fancy_template:
             df = {
                 "columns": self.data.columns.tolist(),
                 "index": self.data.index.tolist(),
                 "values": self.data.values.tolist(),
             }
 
-            out = fancyTemplate.replace(
+            out = fancy_template.replace(
                 "dataframe: null", "dataframe: " + json.dumps(df)
             )
 
@@ -88,7 +88,7 @@ fancy_template_path = os.path.join(self_path, "html_table_fancy_template.html")
 regular_template_path = os.path.join(self_path, "html_table_template.html")
 
 with open(fancy_template_path, "r") as file:
-    fancyTemplate = file.read()
+    fancy_template = file.read()
 
 with open(regular_template_path, "r") as file:
-    regularTemplate = file.read()
+    regular_template = file.read()
