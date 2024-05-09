@@ -34,7 +34,7 @@ def find_all(a, b):
             if fn(item):
                 out.append(item)
 
-        except:
+        except Exception:
             pass
 
     for item in x:
@@ -45,7 +45,7 @@ def find_all(a, b):
                 for result in results:
                     out.append(result)
 
-        except:
+        except Exception:
             pass
 
     if len(out) > 0:
