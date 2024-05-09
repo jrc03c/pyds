@@ -33,7 +33,7 @@ def find(a, b):
             if fn(item):
                 return item
 
-        except:
+        except Exception:
             pass
 
     for item in x:
@@ -43,7 +43,7 @@ def find(a, b):
             if result is not None:
                 return result
 
-        except:
+        except Exception:
             pass
 
     return None
