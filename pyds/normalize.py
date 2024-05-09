@@ -8,6 +8,7 @@ from .is_a_tensor import is_a_tensor
 
 def normalize(x):
     assert is_a_tensor(x), "The `normalize` function only works on tensors!"
+
     assert contains_only_numbers(
         x
     ), "The `normalize` function only works on tensors of numbers!"
