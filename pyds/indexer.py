@@ -5,9 +5,9 @@ from .is_a_pandas_series import is_a_pandas_series
 
 
 class Indexer:
-    def __init__(self, isVerbose=True):
-        assert isinstance(isVerbose, bool, "`isVerbose` must be a boolean!")
-        self.isVerbose = isVerbose
+    def __init__(self, is_verbose=True):
+        assert isinstance(is_verbose, bool), "`is_verbose` must be a boolean!"
+        self.is_verbose = is_verbose
 
     def fit(self, *args):
         for item in args:
@@ -31,7 +31,7 @@ class Indexer:
             len(args) > 0
         ), "You must pass at least one pandas DataFrame or Series into the `transform` method!"
 
-        reallyOut = []
+        really_out = []
 
         for item in args:
             assert (
@@ -40,12 +40,12 @@ class Indexer:
 
             out = item.loc[self.index]
 
-            if self.isVerbose and out.shape[0] != out.dropna().shape[0]:
+            if self.is_verbose and out.shape[0] != out.dropna().shape[0]:
                 print("WARNING: Indexer transformation has not removed all NaN values!")
 
-            reallyOut.append(out)
+            really_out.append(out)
 
-        if len(reallyOut) == 1:
-            return reallyOut[0]
+        if len(really_out) == 1:
+            return really_out[0]
 
-        return tuple(reallyOut)
+        return tuple(really_out)
