@@ -130,6 +130,7 @@ pyds/some.py
 pyds/some_test.py
 pyds/sort.py
 pyds/sort_test.py
+pyds/standardize.py
 pyds/truncated_svd.py
 pyds/truncated_svd_test.py
 pyds.egg-info/PKG-INFO
