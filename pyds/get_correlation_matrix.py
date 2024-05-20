@@ -1,10 +1,17 @@
-from numpy import array
+from numpy import clip, dot, mean, std
 
 from .contains_only_numbers import contains_only_numbers
-from .correl import correl
 from .is_a_matrix import is_a_matrix
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
-from .range import range
+
+
+def standardize(x):
+    x = x.T
+
+    for i in range(0, x.shape[0]):
+        x[i] = (x[i] - mean(x[i])) / std(x[i])
+
+    return x.T
 
 
 def get_correlation_matrix(a, b=None):
@@ -22,14 +29,4 @@ def get_correlation_matrix(a, b=None):
     if is_a_pandas_dataframe(b):
         b = b.values
 
-    out = []
-
-    for i in range(0, a.shape[1]):
-        row = []
-
-        for j in range(0, b.shape[1]):
-            row.append(correl(a[:, i], b[:, j]))
-
-        out.append(row)
-
-    return array(out)
+    return clip(dot(standardize(a).T, standardize(b)) / a.shape[0], -1, 1)

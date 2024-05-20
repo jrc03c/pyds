@@ -338,9 +338,9 @@ Returns an array in which `fn` has been applied to each top-level item in the ar
 
 ---
 
-## `normalize(x)`
+## `normalize(x, axis=0)`
 
-Returns `(x - mean(x)) / std(x)`. Works on arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
+Returns `(x - mean(x)) / std(x)` for vectors, matrices when `axis == None`, and tensors with more than 2 dimensions. For matrices, if `axis == 0`, then `x` is normalized column-wise; or if `axis == 1`, then `x` is normalized row-wise. Works on arbitrarily nested arrays of numbers, numpy arrays, and pandas `DataFrame` and `Series` instances.
 
 ---
 

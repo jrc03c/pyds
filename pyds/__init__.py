@@ -60,4 +60,5 @@ from .sign import sign
 from .snakeify import snakeify
 from .some import some
 from .sort import sort
+from .standardize import standardize
 from .truncated_svd import truncated_svd
