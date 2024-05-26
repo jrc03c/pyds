@@ -44,6 +44,12 @@ Returns the upper and lower confidence interval bounds given two tensors, a perc
 
 ---
 
+## `cohens_d(a, b)`
+
+Computes Cohen's _d_ for two vectors.
+
+---
+
 ## `contains_only_numbers(x)`
 
 Determines whether or not a tensor contains only numbers.
