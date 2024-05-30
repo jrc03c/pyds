@@ -48,6 +48,7 @@ from .outlier_mitigator import OutlierMitigator
 from .p_value import p_value
 from .r_score import r_score
 from .r_score_manager import RScoreManager
+from .r_squared import r_squared
 from .range import range
 from .replace_nan import replace_nan
 from .replace_undefined import replace_undefined
