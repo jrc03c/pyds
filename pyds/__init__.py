@@ -5,6 +5,7 @@ from .ci_bounds import ci_bounds
 from .contains_only_numbers import contains_only_numbers
 from .correl import correl
 from .count import count
+from .diff import diff, diff_both
 from .distance import distance
 from .draw_correlation_matrix import draw_correlation_matrix
 from .drop_nan import drop_nan
@@ -21,6 +22,7 @@ from .get_average_correlation import get_average_correlation
 from .get_correlation_matrix import get_correlation_matrix
 from .html_table import HTMLTable
 from .indexer import Indexer
+from .intersect import intersect
 from .is_a_function import is_a_function
 from .is_a_matrix import is_a_matrix
 from .is_a_number import is_a_number
@@ -63,3 +65,4 @@ from .some import some
 from .sort import sort
 from .standardize import standardize
 from .truncated_svd import truncated_svd
+from .union import union
