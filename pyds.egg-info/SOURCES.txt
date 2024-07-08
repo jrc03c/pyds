@@ -22,6 +22,8 @@ pyds/correl.py
 pyds/correl_test.py
 pyds/count.py
 pyds/count_test.py
+pyds/diff.py
+pyds/diff_test.py
 pyds/distance.py
 pyds/distance_test.py
 pyds/draw_correlation_matrix.py
@@ -53,6 +55,8 @@ pyds/html_table_fancy_template.html
 pyds/html_table_template.html
 pyds/indexer.py
 pyds/indexer_test.py
+pyds/intersect.py
+pyds/intersect_test.py
 pyds/is_a_function.py
 pyds/is_a_function_test.py
 pyds/is_a_matrix.py
@@ -135,6 +139,8 @@ pyds/sort_test.py
 pyds/standardize.py
 pyds/truncated_svd.py
 pyds/truncated_svd_test.py
+pyds/union.py
+pyds/union_test.py
 pyds.egg-info/PKG-INFO
 pyds.egg-info/SOURCES.txt
 pyds.egg-info/dependency_links.txt
