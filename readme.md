@@ -62,6 +62,18 @@ Computes the correlation between two vectors.
 
 ---
 
+## `diff(a, b)`
+
+Returns the set of elements in `a` that are not in `b`.
+
+---
+
+## `diff_both(a, b)`
+
+Returns the set of elements in `a` that are not in `b` or that are in `b` but not in `a`; i.e., the concatenation of `diff(a, b)` and `diff(b, a)`.
+
+---
+
 ## `distance(a, b)`
 
 Computes the Euclidean distance between two tensors of the same shape.
@@ -227,6 +239,12 @@ print(survey2)
 ```
 
 This process works even if the row orders are shuffled! The way it works, though, is by comparing the `index` of each Series or DataFrame, so it's important to make sure that each DataFrame has the correct `index`! It's probably ideal, for example, to assign some unique identifier (like an email address) as the `index` in each data set so that they can be compared correctly.
+
+---
+
+## `intersect(a, b)`
+
+Returns the set of elements that are present in both `a` and `b` (but not the elements that are only present in one or the other).
 
 ---
 
@@ -537,6 +555,12 @@ Unlike most of the other functions in this library, this function does _not_ ret
 ## `truncated_svd(x, rank=1)`
 
 Performs singular value decomposition on a matrix and returns U, Σ, and V matrices that have been truncated to a rank of `rank`.
+
+---
+
+## `union(a, b)`
+
+Returns the set of all elements in `a` and `b`.
 
 ---
 
