@@ -62,6 +62,12 @@ Computes the correlation between two vectors.
 
 ---
 
+## `count(x)`
+
+Returns a dictionary whose keys are the set of values in `x` (a tensor) and whose values are the numbers of times those values appear in `x`.
+
+---
+
 ## `diff(a, b)`
 
 Returns the set of elements in `a` that are not in `b`.
