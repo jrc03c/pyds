@@ -9,6 +9,7 @@ from .diff import diff, diff_both
 from .distance import distance
 from .draw_correlation_matrix import draw_correlation_matrix
 from .drop_nan import drop_nan
+from .drop_nan_parallel import drop_nan_parallel
 from .drop_undefined import drop_undefined
 from .every import every
 from .filter import filter
