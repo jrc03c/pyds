@@ -28,6 +28,8 @@ pyds/distance.py
 pyds/distance_test.py
 pyds/draw_correlation_matrix.py
 pyds/drop_nan.py
+pyds/drop_nan_parallel.py
+pyds/drop_nan_parallel_test.py
 pyds/drop_nan_test.py
 pyds/drop_undefined.py
 pyds/drop_undefined_test.py

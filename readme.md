@@ -98,6 +98,12 @@ Drops NaN values from `x`. Works on pretty much any kind of value, I think. If a
 
 ---
 
+## `drop_nan_parallel(*args)`
+
+Drops NaN values from all vectors passed as arguments and returns plain Python `list`s.
+
+---
+
 ## `drop_undefined(x, strings=[])`
 
 Drops undefined values from `x`. Works on pretty much any kind of value, I think. If a vector, matrix, or tensor is passed into the function, then the return value will be a plain Python `list` since the output can potentially be jagged.
