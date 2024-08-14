@@ -16,6 +16,8 @@ pyds/ci_bounds.py
 pyds/ci_bounds_test.py
 pyds/cohens_d.py
 pyds/cohens_d_test.py
+pyds/combinations.py
+pyds/combinations_test.py
 pyds/contains_only_numbers.py
 pyds/contains_only_numbers_test.py
 pyds/correl.py
@@ -109,6 +111,8 @@ pyds/outlier_mitigator.py
 pyds/outlier_mitigator_test.py
 pyds/p_value.py
 pyds/p_value_test.py
+pyds/permutations.py
+pyds/permutations_test.py
 pyds/r_score.py
 pyds/r_score_manager.py
 pyds/r_score_manager_test.py
