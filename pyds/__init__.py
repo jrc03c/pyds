@@ -2,6 +2,7 @@ from .apply import apply
 from .camelify import camelify
 from .chop import chop
 from .ci_bounds import ci_bounds
+from .combinations import combinations
 from .contains_only_numbers import contains_only_numbers
 from .correl import correl
 from .count import count
@@ -49,6 +50,7 @@ from .normalize import normalize
 from .orthonormalize import orthonormalize
 from .outlier_mitigator import OutlierMitigator
 from .p_value import p_value
+from .permutations import permutations
 from .r_score import r_score
 from .r_score_manager import RScoreManager
 from .r_squared import r_squared

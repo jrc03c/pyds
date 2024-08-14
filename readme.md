@@ -50,6 +50,12 @@ Computes Cohen's _d_ for two vectors.
 
 ---
 
+## `combinations(arr, r)`
+
+Lists all `r`-item combinations of items from `arr` (where `r` is a positive integer).
+
+---
+
 ## `contains_only_numbers(x)`
 
 Determines whether or not a tensor contains only numbers.
@@ -425,6 +431,12 @@ Returns the _p_-value of two tensors. Obviously, this is an oversimplification, 
 ```python
 ttest_ind(a, b, equal_var=False, nan_policy="omit")[1]
 ```
+
+---
+
+## `permutations(arr, r)`
+
+Lists all `r`-item permutations of items from `arr` (where `r` is a positive integer).
 
 ---
 
