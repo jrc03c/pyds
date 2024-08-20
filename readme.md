@@ -206,6 +206,10 @@ For example, imagine you ran two surveys on the same group of people. In the fir
 
 Finds and records the intersection of all data set indexes.
 
+#### `.fit_transform(x, y, z, ...)`
+
+Equivalent to calling `fit` and `transform` in succession.
+
 #### `.transform(x, y, z, ...)`
 
 Returns subsets of the given data sets using the index from the `fit` method.
@@ -353,12 +357,6 @@ Solves for `x` in the equation `ax = b` where `a`, `x`, and `b` are all matrices
 ## `left_pad(x, biggest=None)`
 
 Adds zeros to the left of a number or array of numbers where `biggest` is the maximum possible value. For example, `left_pad(23, 1000)` would return "0023". The `biggest` argument is optional when passing in an tensor of values as `x` since the function will automatically set `biggest` to the largest value in the tensor.
-
----
-
-## `load_json(path)`
-
-Loads a JSON file from disk.
 
 ---
 
@@ -529,12 +527,6 @@ However, the mean value computed in the denominator can use a different data set
 ```py
 r_squared(y_true_test, y_pred_test, baseline=y_true_train)
 ```
-
----
-
-## `save_json(path, x)`
-
-Saves some data to disk as a JSON file. If `x` isn't already a string, then the function will do its best to serialize it and will raise an exception if it's not successful.
 
 ---
 

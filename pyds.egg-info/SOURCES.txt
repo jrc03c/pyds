@@ -95,8 +95,6 @@ pyds/least_squares.py
 pyds/least_squares_test.py
 pyds/left_pad.py
 pyds/left_pad_test.py
-pyds/load_json.py
-pyds/load_json_test.py
 pyds/magnitude.py
 pyds/magnitude_test.py
 pyds/make_key.py
@@ -128,8 +126,6 @@ pyds/reverse.py
 pyds/reverse_test.py
 pyds/round_standard.py
 pyds/round_standard_test.py
-pyds/save_json.py
-pyds/save_json_test.py
 pyds/set.py
 pyds/set_test.py
 pyds/shuffle.py

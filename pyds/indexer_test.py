@@ -47,6 +47,11 @@ def test():
     assert distance(c, [10, 20, 40, 50]) == 0
     assert distance(d, [1, 2, 4, 5]) == 0
 
+    # check that the Indexer `fit_transform` method is equivalent to calling `fit` and `transform` in succession
+    e, f = Indexer().fit_transform(a, b)
+    assert is_equal(c, e)
+    assert is_equal(d, f)
+
 
 def test_errors():
     wrongs = [

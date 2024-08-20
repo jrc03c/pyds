@@ -26,6 +26,9 @@ class Indexer:
         self.index = list(index)
         return self
 
+    def fit_transform(self, *args):
+        return self.fit(*args).transform(*args)
+
     def transform(self, *args):
         assert (
             len(args) > 0
