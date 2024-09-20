@@ -13,6 +13,7 @@ params to test:
   - pandas `Series`
   - messy arrays that contain missing and/or non-numerical values
   - pandas `DataFrame`
+  - sets
 - functions
 - objects (instances of classes)
 - None / NaN

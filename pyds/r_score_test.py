@@ -26,11 +26,13 @@ def test():
     pred = normal(size=1000)
     assert isnan(r_score(true, pred))
 
-
-def test_errors():
+    # confirm that nan is returned when any of the inputs contain nans
     missing = normal(size=[100, 100])
     missing[0][0] = None
+    assert isnan(r_score(missing, missing))
 
+
+def test_errors():
     wrongs = [
         [234, 567],
         ["foo", "bar"],
@@ -38,7 +40,6 @@ def test_errors():
         [None, None],
         [{"hello": "world"}, {"goodbye", "world"}],
         [lambda x: x * 2, lambda x: x * 3],
-        [missing, missing],
     ]
 
     for pair in wrongs:
