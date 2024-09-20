@@ -26,7 +26,7 @@ def is_equal(a, b):
     if is_a_number(a) and is_a_number(b):
         return float(a) == float(b)
 
-    if type(a) != type(b):
+    if type(a) is not type(b):
         return False
 
     if is_a_tensor(a) and is_a_tensor(b):
@@ -44,6 +44,10 @@ def is_equal(a, b):
 
         if len(a) != len(b):
             return False
+
+        if isinstance(a, set) and isinstance(b, set):
+            a = list(a)
+            b = list(b)
 
         for i in range(0, len(a)):
             if not is_equal(a[i], b[i]):

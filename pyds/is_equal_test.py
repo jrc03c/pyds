@@ -47,6 +47,8 @@ def test():
         [math_nan, math_nan],
         [numpy_nan, math_nan],
         [math_nan, numpy_nan],
+        [set([2, 3, 4]), set([2, 3, 4])],
+        [{"x": set([2, 3, 4])}, {"x": set([2, 3, 4])}],
     ]
 
     for pair in rights:
