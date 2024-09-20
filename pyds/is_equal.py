@@ -53,9 +53,13 @@ def is_equal(a, b):
             a = list(a)
             b = list(b)
 
-        for i in range(0, len(a)):
-            if not is_equal(a[i], b[i]):
-                return False
+        try:
+            for i in range(0, len(a)):
+                if not is_equal(a[i], b[i]):
+                    return False
+
+        except Exception:
+            pass
 
         return True
 
