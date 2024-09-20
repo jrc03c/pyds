@@ -42,8 +42,12 @@ def is_equal(a, b):
         if is_a_numpy_array(b):
             b = b.tolist()
 
-        if len(a) != len(b):
-            return False
+        try:
+            if len(a) != len(b):
+                return False
+
+        except Exception:
+            pass
 
         if isinstance(a, set) and isinstance(b, set):
             a = list(a)
