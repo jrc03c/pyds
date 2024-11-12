@@ -2,6 +2,7 @@ import scipy
 from numpy import array, mean, nan, shape, sum
 
 from .flatten import flatten
+from .is_a_number import is_a_number
 from .is_a_numpy_array import is_a_numpy_array
 from .is_a_pandas_dataframe import is_a_pandas_dataframe
 from .is_a_pandas_series import is_a_pandas_series
@@ -20,7 +21,10 @@ def r_squared(true, pred, baseline=None):
 
     assert is_a_tensor(true), "`true` must be a vector, matrix, or tensor!"
     assert is_a_tensor(pred), "`pred` must be a vector, matrix, or tensor!"
-    assert is_a_tensor(baseline), "`baseline` must be a vector, matrix, or tensor!"
+
+    assert is_a_number(baseline) or is_a_tensor(
+        baseline
+    ), "`baseline` must be a number, vector, matrix, or tensor!"
 
     if is_a_pandas_series(true) or is_a_pandas_dataframe(true):
         true = true.values
@@ -42,11 +46,7 @@ def r_squared(true, pred, baseline=None):
 
     assert is_equal(
         shape(true), shape(pred)
-    ), "The vectors, matrices, or tensors passed into the `r_squared` function must all have the same shape!"
-
-    assert is_equal(
-        shape(true), shape(baseline)
-    ), "The vectors, matrices, or tensors passed into the `r_squared` function must all have the same shape!"
+    ), "The `true` and `pred` values passed into the `r_squared` function must have the same shape!"
 
     if is_binary(baseline):
         helper = mode
